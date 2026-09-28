@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "trailingSlash": true,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -33,6 +32,48 @@
           "value": "strict-origin-when-cross-origin"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "^/assets/([^/]+)$",
+      "destination": "/$1"
+    },
+    {
+      "source": "^/media/og/([^/]+)$",
+      "destination": "/og-$1"
+    },
+    {
+      "source": "^/media/([^/]+)$",
+      "destination": "/$1"
+    },
+    {
+      "source": "^/ar/?$",
+      "destination": "/ar.html"
+    },
+    {
+      "source": "^/lessons/?$",
+      "destination": "/lessons.html"
+    },
+    {
+      "source": "^/ar/lessons/?$",
+      "destination": "/ar-lessons.html"
+    },
+    {
+      "source": "^/glossary/?$",
+      "destination": "/glossary.html"
+    },
+    {
+      "source": "^/ar/glossary/?$",
+      "destination": "/ar-glossary.html"
+    },
+    {
+      "source": "^/lessons/(check-facts-and-numbers|emails-in-english-and-arabic|excel-formulas-and-cleanup|fix-a-weak-answer|summarize-documents-and-meetings|use-ai-safely)/?$",
+      "destination": "/lesson-$1.html"
+    },
+    {
+      "source": "^/ar/lessons/(check-facts-and-numbers|emails-in-english-and-arabic|excel-formulas-and-cleanup|fix-a-weak-answer|summarize-documents-and-meetings|use-ai-safely)/?$",
+      "destination": "/ar-lesson-$1.html"
     }
   ]
 }
