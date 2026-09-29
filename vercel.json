@@ -48,14 +48,6 @@
       "destination": "/:file"
     },
     {
-      "source": "/ar",
-      "destination": "/ar.html"
-    },
-    {
-      "source": "/ar/",
-      "destination": "/ar.html"
-    },
-    {
       "source": "/lessons",
       "destination": "/lessons.html"
     },
@@ -64,12 +56,108 @@
       "destination": "/lessons.html"
     },
     {
-      "source": "/ar/lessons",
-      "destination": "/ar-lessons.html"
+      "source": "/lessons/fix-a-weak-answer",
+      "destination": "/lesson-fix-a-weak-answer.html"
     },
     {
-      "source": "/ar/lessons/",
-      "destination": "/ar-lessons.html"
+      "source": "/lessons/fix-a-weak-answer/",
+      "destination": "/lesson-fix-a-weak-answer.html"
+    },
+    {
+      "source": "/lessons/emails-in-english-and-arabic",
+      "destination": "/lesson-emails-in-english-and-arabic.html"
+    },
+    {
+      "source": "/lessons/emails-in-english-and-arabic/",
+      "destination": "/lesson-emails-in-english-and-arabic.html"
+    },
+    {
+      "source": "/lessons/excel-formulas-and-cleanup",
+      "destination": "/lesson-excel-formulas-and-cleanup.html"
+    },
+    {
+      "source": "/lessons/excel-formulas-and-cleanup/",
+      "destination": "/lesson-excel-formulas-and-cleanup.html"
+    },
+    {
+      "source": "/lessons/summarize-documents-and-meetings",
+      "destination": "/lesson-summarize-documents-and-meetings.html"
+    },
+    {
+      "source": "/lessons/summarize-documents-and-meetings/",
+      "destination": "/lesson-summarize-documents-and-meetings.html"
+    },
+    {
+      "source": "/lessons/use-ai-safely",
+      "destination": "/lesson-use-ai-safely.html"
+    },
+    {
+      "source": "/lessons/use-ai-safely/",
+      "destination": "/lesson-use-ai-safely.html"
+    },
+    {
+      "source": "/lessons/check-facts-and-numbers",
+      "destination": "/lesson-check-facts-and-numbers.html"
+    },
+    {
+      "source": "/lessons/check-facts-and-numbers/",
+      "destination": "/lesson-check-facts-and-numbers.html"
+    },
+    {
+      "source": "/lessons/set-up-chatgpt-for-work",
+      "destination": "/lesson-set-up-chatgpt-for-work.html"
+    },
+    {
+      "source": "/lessons/set-up-chatgpt-for-work/",
+      "destination": "/lesson-set-up-chatgpt-for-work.html"
+    },
+    {
+      "source": "/lessons/claude-projects",
+      "destination": "/lesson-claude-projects.html"
+    },
+    {
+      "source": "/lessons/claude-projects/",
+      "destination": "/lesson-claude-projects.html"
+    },
+    {
+      "source": "/lessons/prompt-patterns",
+      "destination": "/lesson-prompt-patterns.html"
+    },
+    {
+      "source": "/lessons/prompt-patterns/",
+      "destination": "/lesson-prompt-patterns.html"
+    },
+    {
+      "source": "/lessons/proposals-and-reports",
+      "destination": "/lesson-proposals-and-reports.html"
+    },
+    {
+      "source": "/lessons/proposals-and-reports/",
+      "destination": "/lesson-proposals-and-reports.html"
+    },
+    {
+      "source": "/lessons/first-ai-automation",
+      "destination": "/lesson-first-ai-automation.html"
+    },
+    {
+      "source": "/lessons/first-ai-automation/",
+      "destination": "/lesson-first-ai-automation.html"
+    },
+    {
+      "source": "/lessons/ai-agents-at-work",
+      "destination": "/lesson-ai-agents-at-work.html"
+    },
+    {
+      "source": "/lessons/ai-agents-at-work/",
+      "destination": "/lesson-ai-agents-at-work.html"
+    },
+    {
+      "source": "/tools",
+      "destination": "/tools.html"
+    },
+    {
+      "source": "/tools/",
+      "destination": "/tools.html"
     },
     {
       "source": "/glossary",
@@ -80,28 +168,132 @@
       "destination": "/glossary.html"
     },
     {
+      "source": "/ar",
+      "destination": "/ar.html"
+    },
+    {
+      "source": "/ar/",
+      "destination": "/ar.html"
+    },
+    {
+      "source": "/ar/lessons",
+      "destination": "/ar-lessons.html"
+    },
+    {
+      "source": "/ar/lessons/",
+      "destination": "/ar-lessons.html"
+    },
+    {
+      "source": "/ar/lessons/fix-a-weak-answer",
+      "destination": "/ar-lesson-fix-a-weak-answer.html"
+    },
+    {
+      "source": "/ar/lessons/fix-a-weak-answer/",
+      "destination": "/ar-lesson-fix-a-weak-answer.html"
+    },
+    {
+      "source": "/ar/lessons/emails-in-english-and-arabic",
+      "destination": "/ar-lesson-emails-in-english-and-arabic.html"
+    },
+    {
+      "source": "/ar/lessons/emails-in-english-and-arabic/",
+      "destination": "/ar-lesson-emails-in-english-and-arabic.html"
+    },
+    {
+      "source": "/ar/lessons/excel-formulas-and-cleanup",
+      "destination": "/ar-lesson-excel-formulas-and-cleanup.html"
+    },
+    {
+      "source": "/ar/lessons/excel-formulas-and-cleanup/",
+      "destination": "/ar-lesson-excel-formulas-and-cleanup.html"
+    },
+    {
+      "source": "/ar/lessons/summarize-documents-and-meetings",
+      "destination": "/ar-lesson-summarize-documents-and-meetings.html"
+    },
+    {
+      "source": "/ar/lessons/summarize-documents-and-meetings/",
+      "destination": "/ar-lesson-summarize-documents-and-meetings.html"
+    },
+    {
+      "source": "/ar/lessons/use-ai-safely",
+      "destination": "/ar-lesson-use-ai-safely.html"
+    },
+    {
+      "source": "/ar/lessons/use-ai-safely/",
+      "destination": "/ar-lesson-use-ai-safely.html"
+    },
+    {
+      "source": "/ar/lessons/check-facts-and-numbers",
+      "destination": "/ar-lesson-check-facts-and-numbers.html"
+    },
+    {
+      "source": "/ar/lessons/check-facts-and-numbers/",
+      "destination": "/ar-lesson-check-facts-and-numbers.html"
+    },
+    {
+      "source": "/ar/lessons/set-up-chatgpt-for-work",
+      "destination": "/ar-lesson-set-up-chatgpt-for-work.html"
+    },
+    {
+      "source": "/ar/lessons/set-up-chatgpt-for-work/",
+      "destination": "/ar-lesson-set-up-chatgpt-for-work.html"
+    },
+    {
+      "source": "/ar/lessons/claude-projects",
+      "destination": "/ar-lesson-claude-projects.html"
+    },
+    {
+      "source": "/ar/lessons/claude-projects/",
+      "destination": "/ar-lesson-claude-projects.html"
+    },
+    {
+      "source": "/ar/lessons/prompt-patterns",
+      "destination": "/ar-lesson-prompt-patterns.html"
+    },
+    {
+      "source": "/ar/lessons/prompt-patterns/",
+      "destination": "/ar-lesson-prompt-patterns.html"
+    },
+    {
+      "source": "/ar/lessons/proposals-and-reports",
+      "destination": "/ar-lesson-proposals-and-reports.html"
+    },
+    {
+      "source": "/ar/lessons/proposals-and-reports/",
+      "destination": "/ar-lesson-proposals-and-reports.html"
+    },
+    {
+      "source": "/ar/lessons/first-ai-automation",
+      "destination": "/ar-lesson-first-ai-automation.html"
+    },
+    {
+      "source": "/ar/lessons/first-ai-automation/",
+      "destination": "/ar-lesson-first-ai-automation.html"
+    },
+    {
+      "source": "/ar/lessons/ai-agents-at-work",
+      "destination": "/ar-lesson-ai-agents-at-work.html"
+    },
+    {
+      "source": "/ar/lessons/ai-agents-at-work/",
+      "destination": "/ar-lesson-ai-agents-at-work.html"
+    },
+    {
+      "source": "/ar/tools",
+      "destination": "/ar-tools.html"
+    },
+    {
+      "source": "/ar/tools/",
+      "destination": "/ar-tools.html"
+    },
+    {
       "source": "/ar/glossary",
       "destination": "/ar-glossary.html"
     },
     {
       "source": "/ar/glossary/",
       "destination": "/ar-glossary.html"
-    },
-    {
-      "source": "/lessons/:slug(check-facts-and-numbers|emails-in-english-and-arabic|excel-formulas-and-cleanup|fix-a-weak-answer|summarize-documents-and-meetings|use-ai-safely)",
-      "destination": "/lesson-:slug.html"
-    },
-    {
-      "source": "/lessons/:slug(check-facts-and-numbers|emails-in-english-and-arabic|excel-formulas-and-cleanup|fix-a-weak-answer|summarize-documents-and-meetings|use-ai-safely)/",
-      "destination": "/lesson-:slug.html"
-    },
-    {
-      "source": "/ar/lessons/:slug(check-facts-and-numbers|emails-in-english-and-arabic|excel-formulas-and-cleanup|fix-a-weak-answer|summarize-documents-and-meetings|use-ai-safely)",
-      "destination": "/ar-lesson-:slug.html"
-    },
-    {
-      "source": "/ar/lessons/:slug(check-facts-and-numbers|emails-in-english-and-arabic|excel-formulas-and-cleanup|fix-a-weak-answer|summarize-documents-and-meetings|use-ai-safely)/",
-      "destination": "/ar-lesson-:slug.html"
     }
   ]
 }
