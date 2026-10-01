@@ -152,6 +152,62 @@
       "destination": "/lesson-ai-agents-at-work.html"
     },
     {
+      "source": "/lessons/month-end-close-with-ai",
+      "destination": "/lesson-month-end-close-with-ai.html"
+    },
+    {
+      "source": "/lessons/month-end-close-with-ai/",
+      "destination": "/lesson-month-end-close-with-ai.html"
+    },
+    {
+      "source": "/lessons/study-cma-with-ai",
+      "destination": "/lesson-study-cma-with-ai.html"
+    },
+    {
+      "source": "/lessons/study-cma-with-ai/",
+      "destination": "/lesson-study-cma-with-ai.html"
+    },
+    {
+      "source": "/lessons/excel-pivot-tables",
+      "destination": "/lesson-excel-pivot-tables.html"
+    },
+    {
+      "source": "/lessons/excel-pivot-tables/",
+      "destination": "/lesson-excel-pivot-tables.html"
+    },
+    {
+      "source": "/lessons/first-power-bi-report",
+      "destination": "/lesson-first-power-bi-report.html"
+    },
+    {
+      "source": "/lessons/first-power-bi-report/",
+      "destination": "/lesson-first-power-bi-report.html"
+    },
+    {
+      "source": "/lessons/word-long-reports",
+      "destination": "/lesson-word-long-reports.html"
+    },
+    {
+      "source": "/lessons/word-long-reports/",
+      "destination": "/lesson-word-long-reports.html"
+    },
+    {
+      "source": "/lessons/outlook-inbox-control",
+      "destination": "/lesson-outlook-inbox-control.html"
+    },
+    {
+      "source": "/lessons/outlook-inbox-control/",
+      "destination": "/lesson-outlook-inbox-control.html"
+    },
+    {
+      "source": "/lessons/teams-better-meetings",
+      "destination": "/lesson-teams-better-meetings.html"
+    },
+    {
+      "source": "/lessons/teams-better-meetings/",
+      "destination": "/lesson-teams-better-meetings.html"
+    },
+    {
       "source": "/tools",
       "destination": "/tools.html"
     },
@@ -166,6 +222,22 @@
     {
       "source": "/glossary/",
       "destination": "/glossary.html"
+    },
+    {
+      "source": "/finance",
+      "destination": "/finance.html"
+    },
+    {
+      "source": "/finance/",
+      "destination": "/finance.html"
+    },
+    {
+      "source": "/microsoft-365",
+      "destination": "/microsoft-365.html"
+    },
+    {
+      "source": "/microsoft-365/",
+      "destination": "/microsoft-365.html"
     },
     {
       "source": "/ar",
@@ -280,6 +352,62 @@
       "destination": "/ar-lesson-ai-agents-at-work.html"
     },
     {
+      "source": "/ar/lessons/month-end-close-with-ai",
+      "destination": "/ar-lesson-month-end-close-with-ai.html"
+    },
+    {
+      "source": "/ar/lessons/month-end-close-with-ai/",
+      "destination": "/ar-lesson-month-end-close-with-ai.html"
+    },
+    {
+      "source": "/ar/lessons/study-cma-with-ai",
+      "destination": "/ar-lesson-study-cma-with-ai.html"
+    },
+    {
+      "source": "/ar/lessons/study-cma-with-ai/",
+      "destination": "/ar-lesson-study-cma-with-ai.html"
+    },
+    {
+      "source": "/ar/lessons/excel-pivot-tables",
+      "destination": "/ar-lesson-excel-pivot-tables.html"
+    },
+    {
+      "source": "/ar/lessons/excel-pivot-tables/",
+      "destination": "/ar-lesson-excel-pivot-tables.html"
+    },
+    {
+      "source": "/ar/lessons/first-power-bi-report",
+      "destination": "/ar-lesson-first-power-bi-report.html"
+    },
+    {
+      "source": "/ar/lessons/first-power-bi-report/",
+      "destination": "/ar-lesson-first-power-bi-report.html"
+    },
+    {
+      "source": "/ar/lessons/word-long-reports",
+      "destination": "/ar-lesson-word-long-reports.html"
+    },
+    {
+      "source": "/ar/lessons/word-long-reports/",
+      "destination": "/ar-lesson-word-long-reports.html"
+    },
+    {
+      "source": "/ar/lessons/outlook-inbox-control",
+      "destination": "/ar-lesson-outlook-inbox-control.html"
+    },
+    {
+      "source": "/ar/lessons/outlook-inbox-control/",
+      "destination": "/ar-lesson-outlook-inbox-control.html"
+    },
+    {
+      "source": "/ar/lessons/teams-better-meetings",
+      "destination": "/ar-lesson-teams-better-meetings.html"
+    },
+    {
+      "source": "/ar/lessons/teams-better-meetings/",
+      "destination": "/ar-lesson-teams-better-meetings.html"
+    },
+    {
       "source": "/ar/tools",
       "destination": "/ar-tools.html"
     },
@@ -294,6 +422,22 @@
     {
       "source": "/ar/glossary/",
       "destination": "/ar-glossary.html"
+    },
+    {
+      "source": "/ar/finance",
+      "destination": "/ar-finance.html"
+    },
+    {
+      "source": "/ar/finance/",
+      "destination": "/ar-finance.html"
+    },
+    {
+      "source": "/ar/microsoft-365",
+      "destination": "/ar-microsoft-365.html"
+    },
+    {
+      "source": "/ar/microsoft-365/",
+      "destination": "/ar-microsoft-365.html"
     }
   ]
 }
