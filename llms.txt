@@ -40,7 +40,7 @@ Audience: office workers, finance and accounting teams, CMA students and beginne
 - [Prompt Grader](https://ahmed-ai-lessons-website.vercel.app/prompt-grader): Free prompt grader: paste a prompt for ChatGPT, Claude or Copilot and get a score out of 100, the missing parts, and an upgraded version. Works in English and Arabic. Your prompt never leaves your browser.
 - [Which AI tool should I use?](https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz): Answer 6 quick questions and get the AI tool that fits your work: ChatGPT, Claude, Copilot, Gemini, Perplexity and more. Free, in English and Arabic.
 - [How much time could AI save you?](https://ahmed-ai-lessons-website.vercel.app/time-saved): Pick the office tasks you do and see how many hours AI could save you each month, with conservative estimates that include time to check the AI's work. English and Arabic.
-- [Prompt Library](https://ahmed-ai-lessons-website.vercel.app/prompt-library.html): Free, ready-to-copy AI prompts for accountants and office work, in English and Arabic. Search, filter and copy in one tap.
+- [Prompt Library](https://ahmed-ai-lessons-website.vercel.app/prompt-library): Free, ready-to-copy AI prompts for accountants and office work, in English and Arabic. Search, filter and copy in one tap.
 - [AI Tool Library: what to use and when](https://ahmed-ai-lessons-website.vercel.app/tools/): A curated library of AI tools for work: what each one does, what it is best for, how hard it is to learn and whether it has a free plan.
 - [AI words in plain language](https://ahmed-ai-lessons-website.vercel.app/glossary/): Plain-language definitions of 22 AI words, from prompt and model to hallucination and context window, with the Arabic term for each.
 

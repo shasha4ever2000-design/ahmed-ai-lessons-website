@@ -5,10 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prompt Library | Ahmed Hussein · AI Lessons</title>
 <meta name="description" content="Free, ready-to-copy AI prompts for accountants and office work, in English and Arabic. Search, filter and copy in one tap.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="/favicon.svg">
+<link rel="canonical" href="https://ahmed-ai-lessons-website.vercel.app/prompt-library">
+<link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/prompt-library">
+<link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/prompt-library">
+<link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/prompt-library">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ahmed Hussein · AI Lessons">
+<meta property="og:title" content="Prompt Library: 30 free AI prompts for finance and office work">
+<meta property="og:description" content="Ready-to-copy prompts for month-end close, reconciliations, Excel, emails and audit. English and Arabic. Free.">
+<meta property="og:url" content="https://ahmed-ai-lessons-website.vercel.app/prompt-library">
+<meta property="og:image" content="https://ahmed-ai-lessons-website.vercel.app/media/og/en-finance.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Prompt Library","description":"Free, ready-to-copy AI prompts for accountants and office work, in English and Arabic.","url":"https://ahmed-ai-lessons-website.vercel.app/prompt-library","inLanguage":["en","ar"],"isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"Ahmed Hussein · AI Lessons","url":"https://ahmed-ai-lessons-website.vercel.app/"}}</script>
+<link rel="preload" href="/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'?'light':'dark'})()</script>
 <style>
+/* Same self-hosted fonts as the rest of the site (no Google Fonts request). */
+@font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url(/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2) format("woff2-variations")}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-400-normal-DqElNKgb.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:600;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-600-normal-DIa3GCJg.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
 :root, :root[data-theme="dark"] {
   --bg:#07080c; --surface:#11141c; --surface-2:#171b25; --line:#1c2130; --line-2:#2a3142;
   --text:#eceef4; --text-2:#c3c8d4; --muted:#8f97a8;
@@ -31,7 +48,7 @@ a { color:var(--accent-text); }
 :focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:6px; }
 
 /* top bar */
-.bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 0; border-bottom:1px solid var(--line); }
+.bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:16px; border-bottom:1px solid var(--line); }
 .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; }
 .brand__mark { width:34px; height:34px; border-radius:9px; background:var(--accent); color:var(--accent-ink); display:grid; place-items:center; font-weight:800; font-size:14px; }
 .brand small { display:block; font-weight:500; color:var(--muted); font-size:12px; letter-spacing:.04em; }
@@ -40,7 +57,7 @@ a { color:var(--accent-text); }
 .icon-btn:hover, .lang:hover { border-color:var(--accent); }
 
 /* hero */
-.hero { padding:48px 0 24px; }
+.hero { padding-block:48px 24px; }
 .kicker { color:var(--accent-text); font-size:13px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
 [dir="rtl"] .kicker { letter-spacing:0; }
 h1 { font-size:clamp(32px,6vw,52px); line-height:1.08; letter-spacing:-.02em; font-weight:800; margin-top:10px; }
@@ -87,7 +104,7 @@ h1 { font-size:clamp(32px,6vw,52px); line-height:1.08; letter-spacing:-.02em; fo
 .cta { background:var(--accent-soft); border:1px solid var(--line-2); border-radius:20px; padding:28px; margin:8px 0 48px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; }
 .cta h2 { font-size:22px; }
 .cta p { color:var(--text-2); margin-top:4px; }
-footer { border-top:1px solid var(--line); padding:20px 0 40px; color:var(--muted); font-size:13px; }
+footer { border-top:1px solid var(--line); padding-block:20px 40px; color:var(--muted); font-size:13px; }
 .toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--text); color:var(--bg); padding:10px 18px; border-radius:10px; font-size:14px; opacity:0; transition:.2s; pointer-events:none; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 @media (prefers-reduced-motion: reduce) { .toast { transition:none; } }
@@ -96,43 +113,393 @@ footer { border-top:1px solid var(--line); padding:20px 0 40px; color:var(--mute
 </head>
 <body>
 <header class="container bar">
-  <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">AH</span><span><span data-t="brand"></span><small data-t="brandTag"></small></span></a>
+  <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">AH</span><span><span data-t="brand">Ahmed Hussein</span><small data-t="brandTag">AI LESSONS</small></span></a>
   <div class="bar__end">
-    <button class="lang" id="lang" type="button"></button>
-    <button class="icon-btn" id="theme" type="button" aria-pressed="true"></button>
+    <button class="lang" id="lang" type="button" lang="ar">العربية</button>
+    <button class="icon-btn" id="theme" type="button" aria-pressed="true" aria-label="Light mode">☀</button>
   </div>
 </header>
 
 <main id="main">
   <section class="container hero">
-    <div class="kicker" data-t="kicker"></div>
-    <h1 data-t="title"></h1>
-    <p data-t="lead"></p>
-    <div class="stats"><span class="stat" id="statCount"></span><span class="stat" data-t="statLang"></span><span class="stat" data-t="statFree"></span></div>
+    <div class="kicker" data-t="kicker">Prompt library</div>
+    <h1 data-t="title">Copy a prompt. Get the job done.</h1>
+    <p data-t="lead">Ready-to-use prompts for finance and office work. Fill in the [brackets], paste into ChatGPT, Claude or Copilot, then check the answer.</p>
+    <div class="stats"><span class="stat" id="statCount">30 prompts</span><span class="stat" data-t="statLang">English &amp; العربية</span><span class="stat" data-t="statFree">Free</span></div>
   </section>
 
   <div class="controls">
     <div class="container">
       <div class="search">
-        <label class="visually-hidden" for="q" data-t="searchLabel"></label>
+        <label class="visually-hidden" for="q" data-t="searchLabel">Search prompts</label>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" autocomplete="off">
+        <input id="q" type="search" autocomplete="off" placeholder="Try “reconciliation”, “email” or “Excel”">
         <button class="clear" id="clear" type="button" hidden>×</button>
       </div>
-      <div class="chips" id="chips" role="group"></div>
+      <div class="chips" id="chips" role="group" aria-label="Categories"><button type="button" class="chip" data-cat="all" aria-pressed="true">All</button><button type="button" class="chip" data-cat="close" aria-pressed="false">Month-end close</button><button type="button" class="chip" data-cat="recon" aria-pressed="false">Reconciliations</button><button type="button" class="chip" data-cat="variance" aria-pressed="false">Variance &amp; commentary</button><button type="button" class="chip" data-cat="excel" aria-pressed="false">Excel &amp; data</button><button type="button" class="chip" data-cat="email" aria-pressed="false">Emails &amp; communication</button><button type="button" class="chip" data-cat="audit" aria-pressed="false">Audit, controls &amp; study</button></div>
     </div>
   </div>
 
   <section class="container">
-    <p class="count" id="count" aria-live="polite"></p>
-    <div class="grid" id="grid"></div>
+    <p class="count" id="count" aria-live="polite">30 prompts</p>
+    <!-- Pre-rendered English copy of the cards, so search engines and link previews see the prompts.
+         The script below redraws them from DATA on load. If you change DATA, refresh this copy too. -->
+    <div class="grid" id="grid">
+    <article class="card" id="p1">
+      <div class="card__top"><span class="tag">Month-end close</span><span class="num">#01</span></div>
+      <h2>Build a reusable close checklist</h2>
+      <p class="use">When your close lives in your head or in old emails.</p>
+      <div class="prompt">You are a finance manager. Create a month-end close checklist for a small company with <mark>[number]</mark> entities. Group tasks by day (Day -2 to Day +5). For each task give: task, owner role, due day, and what "done" looks like. Use a table. Ask me 3 questions first if anything is unclear.</div>
+      <p class="check"><b>Your check:</b> Add your own company-specific steps; AI won't know them.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="1">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="1">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p2">
+      <div class="card__top"><span class="tag">Month-end close</span><span class="num">#02</span></div>
+      <h2>List accruals you might be missing</h2>
+      <p class="use">Before you lock the period.</p>
+      <div class="prompt">Here is a list of our usual monthly expenses (made-up example): rent, electricity, internet, cleaning, consultant fees, staff bonus, software subscriptions. Which of these often need an accrual at month-end and why? For each one, tell me what document I should look for to support the amount. Do not invent amounts.</div>
+      <p class="check"><b>Your check:</b> Confirm every accrual against a real invoice, contract or email.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="2">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="2">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p3">
+      <div class="card__top"><span class="tag">Month-end close</span><span class="num">#03</span></div>
+      <h2>Explain a journal entry in plain words</h2>
+      <p class="use">When a manager or auditor asks "what is this entry?"</p>
+      <div class="prompt">Explain this journal entry in 3 short sentences for a non-finance manager. Say what happened, why we booked it, and what it does to profit.
+
+Debit: <mark>[account]</mark> <mark>[amount]</mark>
+Credit: <mark>[account]</mark> <mark>[amount]</mark>
+Description: <mark>[short description]</mark></div>
+      <p class="check"><b>Your check:</b> Make sure the explanation matches the real reason for the entry.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="3">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="3">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p4">
+      <div class="card__top"><span class="tag">Month-end close</span><span class="num">#04</span></div>
+      <h2>Write the month-end close email</h2>
+      <p class="use">When the close is done and you need to tell everyone.</p>
+      <div class="prompt">Write a short close-completed email to the finance team and managers. Facts: period <mark>[month]</mark>, closed on <mark>[date]</mark>, <mark>[number]</mark> open items still being worked on: <mark>[list]</mark>. Tone: clear and calm. Use bullet points. Under 120 words.</div>
+      <p class="check"><b>Your check:</b> Double-check the dates and the open items list before sending.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="4">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="4">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p5">
+      <div class="card__top"><span class="tag">Month-end close</span><span class="num">#05</span></div>
+      <h2>Run a close retrospective</h2>
+      <p class="use">After a close that felt too slow.</p>
+      <div class="prompt">Our close took <mark>[number]</mark> days. These were the delays: <mark>[list delays]</mark>. Group them into causes (people, data, systems, approvals). For each cause, suggest one small change we can try next month. Keep it practical, no big system projects.</div>
+      <p class="check"><b>Your check:</b> Pick one or two ideas only; don't change everything at once.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="5">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="5">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p6">
+      <div class="card__top"><span class="tag">Reconciliations</span><span class="num">#06</span></div>
+      <h2>Find why two balances don't match</h2>
+      <p class="use">When the bank, ledger or sub-ledger is off by an amount.</p>
+      <div class="prompt">My ledger balance is <mark>[amount]</mark> and the bank statement shows <mark>[amount]</mark>. The difference is <mark>[amount]</mark>. List the most common reasons for a difference like this, in order of how likely they are. For each reason, tell me exactly what to look for in the statement or ledger.</div>
+      <p class="check"><b>Your check:</b> AI gives you places to look; only the documents give the answer.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="6">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="6">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p7">
+      <div class="card__top"><span class="tag">Reconciliations</span><span class="num">#07</span></div>
+      <h2>Spot a transposition error</h2>
+      <p class="use">When the difference looks like a typing mistake.</p>
+      <div class="prompt">The difference in my reconciliation is <mark>[amount]</mark>. Could this be a transposition (two digits swapped) or a slide (decimal in the wrong place)? Explain the quick test in simple steps, then show me which original amounts could produce this difference.</div>
+      <p class="check"><b>Your check:</b> Recalculate any suggestion yourself; AI can slip on arithmetic.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="7">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="7">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p8">
+      <div class="card__top"><span class="tag">Reconciliations</span><span class="num">#08</span></div>
+      <h2>Write a clear reconciliation note</h2>
+      <p class="use">When reviewers ask for the story behind the recon.</p>
+      <div class="prompt">Write a reconciliation note for <mark>[account name]</mark> at <mark>[date]</mark>. Ledger: <mark>[amount]</mark>. Supporting balance: <mark>[amount]</mark>. Reconciling items: <mark>[list with amounts]</mark>. Unexplained: <mark>[amount]</mark>. Format: one-line summary, a small table of items, and next steps with owners. Use only these numbers.</div>
+      <p class="check"><b>Your check:</b> Make sure the items add up to the difference before you file it.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="8">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="8">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p9">
+      <div class="card__top"><span class="tag">Reconciliations</span><span class="num">#09</span></div>
+      <h2>Plan an intercompany match-up</h2>
+      <p class="use">When two related companies show different balances with each other.</p>
+      <div class="prompt">Company A shows <mark>[amount]</mark> due from Company B. Company B shows <mark>[amount]</mark> due to Company A. Give me a step-by-step plan to match the two sides: what reports to pull, how to line them up, the usual causes (timing, FX, missing invoices), and a simple table layout to track open items.</div>
+      <p class="check"><b>Your check:</b> Agree the final position with the other side in writing.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="9">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="9">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p10">
+      <div class="card__top"><span class="tag">Reconciliations</span><span class="num">#10</span></div>
+      <h2>Turn an aging report into actions</h2>
+      <p class="use">When receivables or payables are piling up.</p>
+      <div class="prompt">Here is a summary of our receivables aging (made-up): 0-30 days <mark>[amount]</mark>, 31-60 <mark>[amount]</mark>, 61-90 <mark>[amount]</mark>, 90+ <mark>[amount]</mark>, top 3 late customers: <mark>[Customer A]</mark>, <mark>[Customer B]</mark>, <mark>[Customer C]</mark>. Suggest a follow-up plan by bucket, who should act, and a short polite reminder for the 90+ customers.</div>
+      <p class="check"><b>Your check:</b> Check each customer's real history before sending any reminder.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="10">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="10">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p11">
+      <div class="card__top"><span class="tag">Variance &amp; commentary</span><span class="num">#11</span></div>
+      <h2>Explain the three biggest changes</h2>
+      <p class="use">When management wants the month in a few lines.</p>
+      <div class="prompt">Here are this month's and last month's totals (made-up):
+
+Line | Last month | This month
+Revenue | 500,000 | 460,000
+Salaries | 180,000 | 182,000
+Marketing | 40,000 | 65,000
+
+Write three short paragraphs on the biggest changes for managers. Use only these numbers. Give possible reasons as questions for me to confirm, not as facts.</div>
+      <p class="check"><b>Your check:</b> Every number must match your sheet; keep only reasons you can confirm.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="11">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="11">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p12">
+      <div class="card__top"><span class="tag">Variance &amp; commentary</span><span class="num">#12</span></div>
+      <h2>Budget vs actual in plain words</h2>
+      <p class="use">When a department head asks "are we over budget?"</p>
+      <div class="prompt">Department: <mark>[name]</mark>. Budget for the year so far: <mark>[amount]</mark>. Actual so far: <mark>[amount]</mark>. Biggest lines over budget: <mark>[list]</mark>. Write a 5-line summary for the department head: are they over or under, by how much and what %, the main drivers, and one question they should answer. Show your % calculation.</div>
+      <p class="check"><b>Your check:</b> Recheck the % yourself; it's the line people quote back to you.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="12">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="12">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p13">
+      <div class="card__top"><span class="tag">Variance &amp; commentary</span><span class="num">#13</span></div>
+      <h2>Turn numbers into a one-page summary</h2>
+      <p class="use">Before a monthly management meeting.</p>
+      <div class="prompt">Using only the figures below, write a one-page management summary with these headings: Headline, What went well, What needs attention, Cash, Next month. Short sentences. No jargon.
+
+<mark>[paste a small table of key figures]</mark></div>
+      <p class="check"><b>Your check:</b> Remove company names and real figures if your policy requires it.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="13">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="13">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p14">
+      <div class="card__top"><span class="tag">Variance &amp; commentary</span><span class="num">#14</span></div>
+      <h2>Find the story in a trend</h2>
+      <p class="use">When you have 12 months of data and no time.</p>
+      <div class="prompt">Here are 12 months of <mark>[metric]</mark> (made-up): <mark>[Jan value, Feb value, ...]</mark>. Describe the trend in 3 bullet points: overall direction, any unusual month, and any pattern (like a seasonal peak). Then suggest the best chart type to show it and why.</div>
+      <p class="check"><b>Your check:</b> Look at the chart yourself; AI can miss what your eye catches.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="14">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="14">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p15">
+      <div class="card__top"><span class="tag">Variance &amp; commentary</span><span class="num">#15</span></div>
+      <h2>Prepare for tough questions</h2>
+      <p class="use">Before you present results to your manager or the board.</p>
+      <div class="prompt">I'm presenting these results: <mark>[short summary]</mark>. Act as a sharp CFO. Ask me the 7 hardest questions you would ask, from most to least likely. After I answer each one, tell me if my answer is clear enough.</div>
+      <p class="check"><b>Your check:</b> Practise out loud; reading answers is not the same as saying them.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="15">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="15">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p16">
+      <div class="card__top"><span class="tag">Excel &amp; data</span><span class="num">#16</span></div>
+      <h2>Get the right formula</h2>
+      <p class="use">When you know what you want but not the formula.</p>
+      <div class="prompt">In Excel, column A has invoice numbers, column B has amounts, column C has customer names. On another sheet I have a list of customer names in column A. Give me a formula for column B that totals each customer's invoices. Explain it in one line, and give a version for older Excel without new functions.</div>
+      <p class="check"><b>Your check:</b> Test the formula on 3 rows you can check by hand.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="16">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="16">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p17">
+      <div class="card__top"><span class="tag">Excel &amp; data</span><span class="num">#17</span></div>
+      <h2>Fix a formula that shows an error</h2>
+      <p class="use">When you see #N/A, #VALUE! or #REF!.</p>
+      <div class="prompt">This Excel formula returns <mark>[error]</mark>: <mark>[paste formula]</mark>. The data looks like this: <mark>[describe columns and 2 sample rows]</mark>. Tell me the 3 most likely causes, how to check each one, and the corrected formula.</div>
+      <p class="check"><b>Your check:</b> Hidden spaces and numbers stored as text cause most errors; check those first.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="17">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="17">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p18">
+      <div class="card__top"><span class="tag">Excel &amp; data</span><span class="num">#18</span></div>
+      <h2>Clean a messy export</h2>
+      <p class="use">When a system export has merged cells, blank rows and odd dates.</p>
+      <div class="prompt">I exported a report from our accounting system into Excel. Problems: blank rows between groups, headers repeated on every page, dates as text like "03.04.2026", and amounts with "CR" at the end for credits. Give me step-by-step instructions (Power Query or formulas) to turn it into a clean flat table.</div>
+      <p class="check"><b>Your check:</b> Work on a copy and compare totals before and after cleaning.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="18">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="18">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p19">
+      <div class="card__top"><span class="tag">Excel &amp; data</span><span class="num">#19</span></div>
+      <h2>Design a pivot table</h2>
+      <p class="use">When you have a long list and need a summary.</p>
+      <div class="prompt">My data has these columns: Date, Branch, Expense type, Supplier, Amount. I need to see monthly spend by branch and expense type, and the top 5 suppliers. Tell me exactly what to put in Rows, Columns, Values and Filters, and how to group dates by month.</div>
+      <p class="check"><b>Your check:</b> Check the pivot grand total equals the total of your source data.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="19">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="19">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p20">
+      <div class="card__top"><span class="tag">Excel &amp; data</span><span class="num">#20</span></div>
+      <h2>Build a simple check sheet</h2>
+      <p class="use">When you want your workbook to catch its own mistakes.</p>
+      <div class="prompt">I have a workbook with a trial balance sheet and a summary report sheet. Suggest 5 simple check formulas I can put on a "Checks" tab (for example: debits equal credits, report total equals TB total). For each, give the formula and how to make it show "OK" or "CHECK".</div>
+      <p class="check"><b>Your check:</b> Break one number on purpose to confirm each check actually works.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="20">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="20">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p21">
+      <div class="card__top"><span class="tag">Emails &amp; communication</span><span class="num">#21</span></div>
+      <h2>Chase a late document politely</h2>
+      <p class="use">When you need something from another team before the deadline.</p>
+      <div class="prompt">Write a short, polite but firm email to <mark>[team/role]</mark> asking for <mark>[document]</mark> by <mark>[date]</mark> so we can finish the close. This is the second reminder. Offer to help if something is blocking them. Under 90 words. Then give me the same email in Arabic that sounds natural, not translated.</div>
+      <p class="check"><b>Your check:</b> Read it as the receiver; would you feel respected or pushed?</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="21">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="21">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p22">
+      <div class="card__top"><span class="tag">Emails &amp; communication</span><span class="num">#22</span></div>
+      <h2>Say no to a request (nicely)</h2>
+      <p class="use">When someone asks for a payment or change you can't approve.</p>
+      <div class="prompt">Write a polite email declining a request to <mark>[describe request]</mark>. Reason: <mark>[reason, e.g. missing approval / outside policy]</mark>. Explain what they need to do to get it approved. Warm tone, no blame, under 100 words.</div>
+      <p class="check"><b>Your check:</b> Make sure the policy you mention is the real one.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="22">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="22">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p23">
+      <div class="card__top"><span class="tag">Emails &amp; communication</span><span class="num">#23</span></div>
+      <h2>Explain a number to a non-finance colleague</h2>
+      <p class="use">When sales or HR asks why their number looks different.</p>
+      <div class="prompt">A sales manager asks why the revenue in the finance report (<mark>[amount]</mark>) is lower than their sales report (<mark>[amount]</mark>). Possible reasons: returns, discounts, and orders not yet invoiced. Write a friendly reply that explains this in simple words, with a tiny example, and offers a quick call.</div>
+      <p class="check"><b>Your check:</b> Only include the reasons that actually apply to your numbers.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="23">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="23">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p24">
+      <div class="card__top"><span class="tag">Emails &amp; communication</span><span class="num">#24</span></div>
+      <h2>Turn meeting notes into actions</h2>
+      <p class="use">Right after a finance or project meeting.</p>
+      <div class="prompt">Here are my notes from today's meeting. Pull out: 1) decisions, 2) actions as a table with Action, Owner and Due date, 3) open questions. Use only what is in the notes. If an owner or date is missing, write "not agreed". Then draft a short follow-up email.
+
+Notes:
+<mark>[paste notes]</mark></div>
+      <p class="check"><b>Your check:</b> Check owners and dates; make sure nothing was added.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="24">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="24">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p25">
+      <div class="card__top"><span class="tag">Emails &amp; communication</span><span class="num">#25</span></div>
+      <h2>Rewrite a message to sound professional</h2>
+      <p class="use">When your draft feels too blunt or too long.</p>
+      <div class="prompt">Rewrite this message so it sounds professional and friendly. Keep my meaning and all facts exactly the same. Make it shorter if you can. Show me the new version, then list what you changed in 3 bullets.
+
+<mark>[paste your draft]</mark></div>
+      <p class="check"><b>Your check:</b> Read it once more; make sure it still sounds like you.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="25">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="25">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p26">
+      <div class="card__top"><span class="tag">Audit, controls &amp; study</span><span class="num">#26</span></div>
+      <h2>Prepare for an audit request</h2>
+      <p class="use">When auditors send a long list of requests.</p>
+      <div class="prompt">Our auditors sent this request list: <mark>[paste list]</mark>. Turn it into a tracker table with: request, document needed, likely source/team, owner, due date, status. Group similar requests together and flag any that look unclear so I can ask the auditors.</div>
+      <p class="check"><b>Your check:</b> Agree the deadlines with the auditors; don't rely on AI's guesses.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="26">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="26">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p27">
+      <div class="card__top"><span class="tag">Audit, controls &amp; study</span><span class="num">#27</span></div>
+      <h2>Find control gaps in a process</h2>
+      <p class="use">When you want to tighten a process like payments or purchasing.</p>
+      <div class="prompt">Here is how our <mark>[process, e.g. supplier payment]</mark> works today: <mark>[describe steps and who does each]</mark>. Act as an internal auditor. List the risks you see (fraud, error, delay), the control that would reduce each one, and rate each risk High / Medium / Low with one line of reasoning.</div>
+      <p class="check"><b>Your check:</b> Discuss changes with the process owner before adding new steps.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="27">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="27">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p28">
+      <div class="card__top"><span class="tag">Audit, controls &amp; study</span><span class="num">#28</span></div>
+      <h2>Write a simple policy or procedure</h2>
+      <p class="use">When a process has no written steps.</p>
+      <div class="prompt">Write a one-page procedure for <mark>[process]</mark> at a small company. Sections: Purpose, Who it applies to, Steps (numbered, with the role responsible), Approvals, Records to keep. Plain language. Ask me 3 questions first about how we work today.</div>
+      <p class="check"><b>Your check:</b> Have the people who do the work read it before it's approved.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="28">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="28">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p29">
+      <div class="card__top"><span class="tag">Audit, controls &amp; study</span><span class="num">#29</span></div>
+      <h2>Make a CMA study plan</h2>
+      <p class="use">When you're starting a CMA part and feel lost.</p>
+      <div class="prompt">I'm studying for CMA Part <mark>[1 or 2]</mark>. My exam is on <mark>[date]</mark>. I can study <mark>[hours]</mark> hours on weekdays and <mark>[hours]</mark> on weekends. Make a week-by-week plan that covers each section, leaves the last 3 weeks for practice questions and mock exams, and includes one rest day a week. Use a table.</div>
+      <p class="check"><b>Your check:</b> Check section names and weights against the official exam outline.</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="29">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="29">Share</button>
+      </div>
+    </article>
+    <article class="card" id="p30">
+      <div class="card__top"><span class="tag">Audit, controls &amp; study</span><span class="num">#30</span></div>
+      <h2>Get quizzed on your notes</h2>
+      <p class="use">When you want to check what you really remember.</p>
+      <div class="prompt">Here are my notes on <mark>[topic]</mark>: <mark>[paste notes]</mark>. Quiz me with 10 questions, one at a time. Mix multiple choice and short calculations. Wait for my answer before the next question. At the end, tell me my score and the 2 areas I should review.</div>
+      <p class="check"><b>Your check:</b> Use questions from your notes; verify any answer AI marks as "correct".</p>
+      <div class="actions">
+        <button type="button" class="btn btn--primary" data-copy="30">Copy prompt</button>
+        <button type="button" class="btn btn--quiet" data-share="30">Share</button>
+      </div>
+    </article></div>
     <div class="cta">
-      <div><h2 data-t="ctaTitle"></h2><p data-t="ctaText"></p></div>
-      <a class="btn btn--primary" href="/AI-Prompt-Pack-for-Accountants.pdf" download data-t="ctaBtn"></a>
+      <div><h2 data-t="ctaTitle">Get all 30 prompts as a PDF</h2><p data-t="ctaText">Print it, keep it on your desk, share it with your team.</p></div>
+      <a class="btn btn--primary" href="/AI-Prompt-Pack-for-Accountants.pdf" download data-t="ctaBtn">Download free PDF</a>
     </div>
   </section>
 </main>
-<footer class="container"><p data-t="foot"></p></footer>
+<footer class="container"><p data-t="foot">Independent site. Not affiliated with any AI company mentioned here. Examples use made-up data. Always follow your company's AI policy.</p></footer>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -174,19 +541,22 @@ function highlight(text) {
   return esc(text).replace(/\[([^\]]+)\]/g, '<mark>[$1]</mark>');
 }
 
+// Clean addresses, like the other tools: /prompt-library and /ar/prompt-library.
+const libPath = () => state.lang === 'ar' ? '/ar/prompt-library' : '/prompt-library';
+
 function syncUrl() {
   const u = new URLSearchParams();
-  if (state.lang === 'ar') u.set('lang', 'ar');
   if (state.cat !== 'all') u.set('cat', state.cat);
   if (state.q) u.set('q', state.q);
   const qs = u.toString();
-  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  history.replaceState(null, '', libPath() + (qs ? '?' + qs : '') + location.hash);
 }
 
 function renderStatic() {
   const t = T[state.lang];
   document.documentElement.lang = state.lang;
   document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.title = state.lang === 'ar' ? 'مكتبة الطلبات | أحمد حسين · دروس الذكاء الاصطناعي' : 'Prompt Library | Ahmed Hussein · AI Lessons';
   document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
   $('#q').placeholder = t.search;
   $('#lang').textContent = t.other;
@@ -196,6 +566,7 @@ function renderStatic() {
   const dark = state.theme === 'dark';
   $('#theme').textContent = dark ? '☀' : '☾';
   $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
+  $('#theme').setAttribute('aria-pressed', dark);
   $('#chips').innerHTML = [{id:'all', en:T.en.all, ar:T.ar.all}, ...DATA.categories]
     .map(c => `<button type="button" class="chip" data-cat="${c.id}" aria-pressed="${state.cat === c.id}">${esc(c[state.lang])}</button>`).join('');
 }
@@ -253,7 +624,7 @@ document.addEventListener('click', async e => {
   const s = e.target.closest('[data-share]');
   if (s) {
     const p = DATA.prompts.find(x => x.id == s.dataset.share);
-    const url = location.origin + location.pathname + (state.lang === 'ar' ? '?lang=ar' : '') + '#p' + p.id;
+    const url = location.origin + libPath() + '#p' + p.id;
     if (navigator.share) { try { await navigator.share({ title: field(p, 'title'), url }); } catch (_) {} }
     else if (await copyText(url)) toast(T[state.lang].linkCopied);
   }
@@ -265,12 +636,14 @@ $('#lang').addEventListener('click', () => { state.lang = state.lang === 'en' ? 
 $('#theme').addEventListener('click', () => {
   state.theme = state.theme === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = state.theme;
-  $('#theme').setAttribute('aria-pressed', state.theme === 'dark');
+  try { localStorage.setItem('ahl:theme', state.theme); } catch (_) {}
   renderStatic();
 });
 
 $('#q').value = state.q;
 renderStatic(); renderCards();
+// Old links used ?lang=ar on /prompt-library.html; move them to the clean address without reloading.
+if (params.has('lang') || /\.html$/.test(location.pathname)) syncUrl();
 if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 </script>
 <script defer src="/ahl-links.js"></script>
