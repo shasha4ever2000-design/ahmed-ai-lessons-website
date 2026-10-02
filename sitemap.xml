@@ -406,4 +406,20 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/certificate" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/certificate" />
   </url>
+  <url>
+    <loc>https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/prompt-of-the-day" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day" />
+  </url>
+  <url>
+    <loc>https://ahmed-ai-lessons-website.vercel.app/ar/prompt-of-the-day</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/prompt-of-the-day" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day" />
+  </url>
 </urlset>

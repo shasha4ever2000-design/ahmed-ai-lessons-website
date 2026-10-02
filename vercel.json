@@ -44,6 +44,38 @@
       "destination": "/links.html"
     },
     {
+      "source": "/prompt-of-the-day",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/prompt-of-the-day/",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/today",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/today/",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/ar/prompt-of-the-day",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/ar/prompt-of-the-day/",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/ar/today",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/ar/today/",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
       "source": "/time-saved",
       "destination": "/time-saved.html"
     },

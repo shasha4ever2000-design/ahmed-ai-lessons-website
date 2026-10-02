@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prompt of the day | Ahmed Hussein · AI Lessons</title>
+<meta name="description" content="One ready-to-use AI prompt for finance and office work, every day. Copy it into ChatGPT, Claude or Copilot, or share it as an image. English and Arabic.">
+<meta name="theme-color" content="#0f1a16">
+<link rel="icon" href="/favicon.svg">
+<link rel="canonical" href="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day">
+<link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day">
+<link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/prompt-of-the-day">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Today's AI prompt for work">
+<meta property="og:description" content="A new copy-paste prompt every day, for finance and office work.">
+<meta property="og:url" content="https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day">
+<meta property="og:image" content="https://ahmed-ai-lessons-website.vercel.app/media/og/en-home.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'?'light':'dark'})()</script>
+<style>
+@font-face{font-family:"Inter Tight Variable";font-weight:100 900;font-display:swap;src:url(/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2) format("woff2-variations")}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-400-normal-DqElNKgb.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:600;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-600-normal-DIa3GCJg.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Inter Tight Variable","IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.55;font-size:16px}
+[dir=rtl] body{font-family:"IBM Plex Sans Arabic","Inter Tight Variable",system-ui,sans-serif}
+.container{width:100%;max-width:820px;margin:0 auto;padding:0 16px}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);max-width:1120px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700}
+.brand__mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+.brand small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.bar__end{display:flex;gap:8px}
+.icon-btn,.lang{background:var(--surface);border:1px solid var(--line-2);color:var(--text);border-radius:8px;height:38px;min-width:38px;padding:0 12px;font:inherit;font-size:14px;cursor:pointer}
+.hero{padding:36px 0 18px}
+.kicker{color:var(--accent-text);font-weight:600}
+.date{color:var(--muted);font-size:15px;margin-top:2px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:22px}
+.tag{display:inline-block;font-size:13px;font-weight:600;color:var(--accent-text);background:var(--accent-soft);padding:3px 10px;border-radius:999px}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.06;margin:12px 0 6px}
+.use{color:var(--text-2);font-size:17px}
+.prompt{margin-top:18px;background:var(--surface-2);border-inline-start:3px solid var(--accent);border-radius:8px;padding:16px 18px;font-size:17px;line-height:1.65;white-space:pre-wrap;color:var(--text)}
+.prompt mark{background:var(--accent-soft);color:var(--accent-text);border-radius:4px;padding:0 3px}
+.check{margin-top:14px;color:var(--text-2);font-size:15px}
+.check b{color:var(--text)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.btn{height:42px;padding:0 16px;border-radius:8px;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn--primary{background:var(--accent);color:var(--accent-ink)}
+.btn--primary:hover{background:var(--accent-hover)}
+.btn--quiet{background:transparent;color:var(--text-2);border-color:var(--line-2)}
+.btn--quiet:hover{border-color:var(--accent);color:var(--text)}
+.btn.is-done{background:var(--ok,#4ade80);color:#07080c}
+.next{color:var(--muted);font-size:14px;margin-top:14px}
+.week h2{font-size:20px;font-weight:700;margin-bottom:10px}
+.week ol{list-style:none;border-top:1px solid var(--line-2)}
+.week a{display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:4px 16px;padding:12px 2px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--text)}
+.week a[aria-current=page]{color:var(--accent-text)}
+.week .d{color:var(--muted);font-size:14px}
+.week a:hover .t{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:520px){.week a{grid-template-columns:1fr}}
+.more{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;background:var(--accent-soft);border:1px solid var(--line-2);border-radius:12px;padding:20px;margin:6px 0 40px}
+.more h2{font-size:20px}
+.more p{color:var(--text-2);font-size:15px}
+.loading{color:var(--muted);padding:40px 0}
+footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);font-size:13px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:.2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+<link rel="stylesheet" href="/ahl-theme.css">
+</head>
+<body>
+<header class="container"><div class="bar">
+  <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">AH</span><span><span data-t="brand"></span><small data-t="brandTag"></small></span></a>
+  <div class="bar__end"><button class="lang" id="lang" type="button"></button><button class="icon-btn" id="theme" type="button"></button></div>
+</div></header>
+<main class="container" id="app"><p class="loading">…</p></main>
+<footer class="container"><p data-t="foot"></p></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const T = {
+  en:{brand:"Ahmed Hussein",brandTag:"AI Lessons",kicker:"Prompt of the day",use:"Use it when:",check:"Your check:",
+    copy:"Copy prompt",copied:"Copied",copiedToast:"Copied. Fill in the [brackets] before you send.",
+    image:"Share as image",imageDone:"Image saved",shareLink:"Share link",linkCopied:"Link copied",
+    shareText:t=>`Today's AI prompt for work: ${t}`,
+    next:"A new prompt every day at midnight, Riyadh time.",
+    week:"This week’s prompts",today:"Today",
+    moreTitle:"Want all 30 prompts now?",moreText:"Browse the full library, or get one lesson a week by email.",
+    library:"Open the Prompt Library",newsletter:"Weekly lesson by email",
+    error:"Couldn’t load today’s prompt. Check your connection and refresh the page.",
+    other:"العربية",theme:["Light mode","Dark mode"],
+    foot:"Independent site. Not affiliated with any AI company mentioned here. Examples use made-up data. Follow your company’s AI policy.",
+    img:{head:"Prompt of the day",foot:"Ahmed Hussein · AI Lessons",url:"ahmed-ai-lessons-website.vercel.app/today"}},
+  ar:{brand:"أحمد حسين",brandTag:"دروس الذكاء الاصطناعي",kicker:"طلب اليوم",use:"استخدمه عندما:",check:"مراجعتك:",
+    copy:"انسخ الطلب",copied:"تم النسخ",copiedToast:"تم النسخ. املأ الأقواس [ ] قبل الإرسال.",
+    image:"شاركه كصورة",imageDone:"تم حفظ الصورة",shareLink:"شارك الرابط",linkCopied:"تم نسخ الرابط",
+    shareText:t=>`طلب اليوم للعمل بالذكاء الاصطناعي: ${t}`,
+    next:"طلب جديد كل يوم عند منتصف الليل بتوقيت الرياض.",
+    week:"طلبات هذا الأسبوع",today:"اليوم",
+    moreTitle:"تريد الطلبات الثلاثين الآن؟",moreText:"تصفّح المكتبة كاملة، أو احصل على درس أسبوعي بالإيميل.",
+    library:"افتح مكتبة الطلبات",newsletter:"الدرس الأسبوعي بالإيميل",
+    error:"تعذّر تحميل طلب اليوم. تحقق من اتصالك وأعد تحميل الصفحة.",
+    other:"English",theme:["الوضع الفاتح","الوضع الداكن"],
+    foot:"موقع مستقل غير تابع لأي شركة ذكاء اصطناعي مذكورة فيه. الأمثلة ببيانات مختلَقة. اتبع سياسة شركتك.",
+    img:{head:"طلب اليوم",foot:"أحمد حسين · دروس الذكاء الاصطناعي",url:"ahmed-ai-lessons-website.vercel.app/today"}}
+};
+const DAY = 86400000, RIYADH = 3 * 3600000;   // Riyadh is UTC+3 all year (no daylight saving)
+
+const params = new URLSearchParams(location.search);
+const state = { lang: params.get('lang') === 'ar' || location.pathname.startsWith('/ar/') ? 'ar' : 'en', theme: document.documentElement.dataset.theme || 'dark', data: null, order: [], day: 0 };
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const todayNum = () => Math.floor((Date.now() + RIYADH) / DAY);
+const dayFromParam = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? Math.floor(Date.UTC(+m[1], m[2] - 1, +m[3]) / DAY) : null; };
+const dayToParam = d => new Date(d * DAY).toISOString().slice(0, 10);
+const fmtDay = (d, opts) => new Date(d * DAY).toLocaleDateString(state.lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', Object.assign({ timeZone: 'UTC' }, opts));
+
+// Round-robin across categories so consecutive days come from different topics.
+function buildOrder(data) {
+  const byCat = data.categories.map(c => data.prompts.filter(p => p.cat === c.id));
+  const out = [];
+  for (let i = 0; out.length < data.prompts.length; i++) for (const list of byCat) if (list[i]) out.push(list[i]);
+  return out;
+}
+const promptFor = d => state.order[((d % state.order.length) + state.order.length) % state.order.length];
+const field = (p, k) => p[`${k}_${state.lang}`];
+const catName = id => state.data.categories.find(c => c.id === id)[state.lang];
+const highlight = s => esc(s).replace(/\[([^\]]+)\]/g, '<mark>[$1]</mark>');
+
+function render() {
+  const t = T[state.lang];
+  renderStatic();
+  if (!state.data) return;
+  const today = todayNum(), d = state.day, p = promptFor(d);
+  const week = []; for (let i = 0; i < 7; i++) week.push(today - i);
+  $('#app').innerHTML = `
+    <section class="hero"><p class="kicker">${t.kicker}</p><p class="date">${fmtDay(d, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p></section>
+    <article class="sheet" aria-labelledby="p-title">
+      <span class="tag">${esc(catName(p.cat))}</span>
+      <h1 id="p-title">${esc(field(p, 'title'))}</h1>
+      <p class="use"><b>${t.use}</b> ${esc(field(p, 'use'))}</p>
+      <div class="prompt" dir="auto">${highlight(field(p, 'prompt'))}</div>
+      <p class="check"><b>${t.check}</b> ${esc(field(p, 'check'))}</p>
+      <div class="row">
+        <button class="btn btn--primary" type="button" id="copy">${t.copy}</button>
+        <button class="btn btn--quiet" type="button" id="image">${t.image}</button>
+        <button class="btn btn--quiet" type="button" id="link">${t.shareLink}</button>
+      </div>
+      <p class="next">${t.next}</p>
+    </article>
+    <section class="week" aria-labelledby="w-title">
+      <h2 id="w-title">${t.week}</h2>
+      <ol role="list">${week.map(w => { const q = promptFor(w); return `<li><a href="?${state.lang === 'ar' ? 'lang=ar&' : ''}d=${dayToParam(w)}"${w === d ? ' aria-current="page"' : ''}>
+        <span class="d">${w === today ? t.today : fmtDay(w, { weekday: 'short', day: 'numeric', month: 'short' })}</span><span class="t">${esc(field(q, 'title'))}</span></a></li>`; }).join('')}</ol>
+    </section>
+    <section class="more" style="margin-top:26px"><div><h2>${t.moreTitle}</h2><p>${t.moreText}</p></div>
+      <div class="row" style="margin:0"><a class="btn btn--primary" href="/prompt-library.html${state.lang === 'ar' ? '?lang=ar' : ''}#p${p.id}">${t.library}</a>
+      <a class="btn btn--quiet" href="${state.lang === 'ar' ? '/ar/' : '/'}#newsletter">${t.newsletter}</a></div></section>`;
+}
+
+function renderStatic() {
+  const t = T[state.lang];
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
+  $('#lang').textContent = t.other; $('#lang').lang = state.lang === 'ar' ? 'en' : 'ar';
+  const dark = state.theme === 'dark';
+  $('#theme').textContent = dark ? '☀' : '☾'; $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
+  if (state.data) document.title = (state.lang === 'ar' ? 'طلب اليوم: ' : 'Prompt of the day: ') + field(promptFor(state.day), 'title');
+}
+
+/* ---------- Share image: 1080×1350, the ledger page ---------- */
+const fontsReady = (async () => {
+  const faces = [
+    new FontFace('Card Serif', 'url(/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2)'),
+    new FontFace('Card Arabic', 'url(/assets/amiri-arabic-700-normal-D7VDNf4C.woff2)', { weight: '700' })
+  ];
+  await Promise.all(faces.map(f => f.load().then(ff => document.fonts.add(ff)).catch(() => {})));
+  await document.fonts.ready;
+})();
+
+// Lays out words in lines; returns [{words:[{w, hi}], ...}] where hi marks text inside [brackets].
+// Line breaks in the prompt (e.g. a small table) are kept: each paragraph starts a new line.
+function layout(ctx, text, maxW) {
+  const lines = [], space = ctx.measureText(' ').width;
+  let inB = false;
+  for (const para of text.split('\n').filter(s => s.trim())) {
+    const r = layoutPara(ctx, para, maxW, space, inB);
+    lines.push(...r.lines); inB = r.inB;
+  }
+  return { lines, space };
+}
+function layoutPara(ctx, text, maxW, space, inB) {
+  const lines = []; let line = [], width = 0;
+  for (const raw of text.trim().split(/\s+/)) {
+    const hi = inB || raw.includes('[');
+    if (raw.includes('[')) inB = !raw.includes(']') || raw.lastIndexOf('[') > raw.lastIndexOf(']');
+    else if (raw.includes(']')) inB = false;
+    const w = ctx.measureText(raw).width;
+    if (line.length && width + space + w > maxW) { lines.push(line); line = []; width = 0; }
+    width += (line.length ? space : 0) + w; line.push({ w: raw, hi: hi || raw.includes(']'), width: w });
+  }
+  if (line.length) lines.push(line);
+  return { lines, inB };
+}
+
+async function makeImage() {
+  await fontsReady;
+  const t = T[state.lang], ar = state.lang === 'ar', p = promptFor(state.day);
+  const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  const serif = ar ? '"Card Arabic", serif' : '"Card Serif", Georgia, serif';
+  const sans = ar ? '"IBM Plex Sans Arabic", sans-serif' : '"Inter Tight Variable", system-ui, sans-serif';
+  const ink = '#13221c', muted = '#56695f', red = '#c2412f', hi = '#f2cc3a';
+  ctx.direction = ar ? 'rtl' : 'ltr';
+  ctx.fillStyle = '#eef3ea'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#d9e4d5'; for (let y = 120; y < H; y += 44) ctx.fillRect(0, y, W, 2);
+  const mx = ar ? W - 82 : 72;
+  ctx.fillStyle = red; ctx.fillRect(mx, 0, 3, H); ctx.fillRect(mx + (ar ? -9 : 9), 0, 3, H);
+  const left = 130, right = W - 90, x0 = ar ? W - left : left, maxW = right - left;
+  ctx.textAlign = ar ? 'right' : 'left';
+  // Header
+  ctx.fillStyle = muted; ctx.font = `600 30px ${sans}`;
+  ctx.fillText(t.img.head + ' · ' + fmtDay(state.day, { day: 'numeric', month: 'long' }), x0, 108);
+  ctx.fillStyle = '#1d6a50'; ctx.font = `600 28px ${sans}`; ctx.fillText(catName(p.cat), x0, 158);
+  // Title, wrapped, shrinking if long.
+  let ts = ar ? 70 : 84; ctx.font = `${ar ? 700 : 400} ${ts}px ${serif}`;
+  let tl = layout(ctx, field(p, 'title'), maxW).lines;
+  while (tl.length > 2 && ts > 48) { ts -= 4; ctx.font = `${ar ? 700 : 400} ${ts}px ${serif}`; tl = layout(ctx, field(p, 'title'), maxW).lines; }
+  ctx.fillStyle = ink; let y = 250;
+  for (const l of tl) { ctx.fillText(l.map(w => w.w).join(' '), x0, y); y += ts * 1.12; }
+  // Prompt text with [brackets] on a highlighter, shrinking to fit above the footer.
+  let fs = 46, lay, lh;
+  const top = y + 30, bottom = H - 170;
+  do { ctx.font = `400 ${fs}px ${sans}`; lay = layout(ctx, field(p, 'prompt'), maxW); lh = fs * 1.5; fs -= 2; } while (top + lay.lines.length * lh > bottom && fs > 22);
+  ctx.fillStyle = ink; ctx.fillRect(ar ? x0 + 24 : x0 - 30, top - 6, 6, lay.lines.length * lh - 4);   // accent rule beside the prompt
+  y = top + lh * .72;
+  for (const line of lay.lines) {
+    let x = x0;
+    for (const word of line) {
+      const bx = ar ? x - word.width : x;
+      if (word.hi) { ctx.fillStyle = hi; ctx.fillRect(bx - 4, y - lh * .62, word.width + 8 + lay.space, lh * .8); }
+      ctx.fillStyle = ink; ctx.fillText(word.w, x, y);
+      x += (ar ? -1 : 1) * (word.width + lay.space);
+    }
+    y += lh;
+  }
+  // Footer
+  ctx.fillStyle = ink; ctx.fillRect(ar ? x0 - maxW : x0, H - 130, maxW, 2);
+  ctx.font = `600 30px ${sans}`; ctx.fillText(t.img.foot, x0, H - 82);
+  ctx.fillStyle = muted; ctx.font = `400 24px ${sans}`; ctx.direction = 'ltr';
+  ctx.fillText(t.img.url, x0, H - 44);
+  return new Promise(r => cv.toBlob(r, 'image/png'));
+}
+
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); return true; }
+  catch (_) { const ta = document.createElement('textarea'); ta.value = s; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok; }
+}
+let toastTimer;
+function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2200); }
+const pageUrl = () => location.origin + (state.lang === 'ar' ? '/ar/prompt-of-the-day' : '/prompt-of-the-day') + (state.day !== todayNum() ? '?d=' + dayToParam(state.day) : '');
+
+$('#app').addEventListener('click', async e => {
+  const t = T[state.lang], p = state.data && promptFor(state.day);
+  const b = e.target.closest('button'); if (!b || !p) return;
+  if (b.id === 'copy' && await copyText(field(p, 'prompt'))) {
+    b.textContent = t.copied; b.classList.add('is-done'); toast(t.copiedToast);
+    setTimeout(() => { b.textContent = t.copy; b.classList.remove('is-done'); }, 1600);
+  }
+  if (b.id === 'image') {
+    const blob = await makeImage(); if (!blob) return;
+    const file = new File([blob], `prompt-of-the-day-${dayToParam(state.day)}${state.lang === 'ar' ? '-ar' : ''}.png`, { type: 'image/png' });
+    // Phones: open the share sheet with the image (Instagram, WhatsApp…). Elsewhere: download it.
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], text: t.shareText(field(p, 'title')) + ' ' + pageUrl() }); } catch (_) {} return; }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file.name; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000); toast(t.imageDone);
+  }
+  if (b.id === 'link') {
+    const text = t.shareText(field(p, 'title'));
+    if (navigator.share) { try { await navigator.share({ title: document.title, text, url: pageUrl() }); } catch (_) {} }
+    else if (await copyText(text + ' ' + pageUrl())) toast(t.linkCopied);
+  }
+});
+$('#lang').addEventListener('click', () => {
+  state.lang = state.lang === 'en' ? 'ar' : 'en';
+  const q = state.day !== todayNum() ? '?d=' + dayToParam(state.day) : '';
+  history.replaceState(null, '', (state.lang === 'ar' ? '/ar/prompt-of-the-day' : '/prompt-of-the-day') + q); render();
+});
+$('#theme').addEventListener('click', () => {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = state.theme;
+  try { localStorage.setItem('ahl:theme', state.theme); } catch (_) {}
+  renderStatic();
+});
+
+(async () => {
+  renderStatic();
+  // Past days only: a future date shows today's prompt instead.
+  const asked = dayFromParam(params.get('d')), today = todayNum();
+  state.day = asked !== null && asked <= today && asked > today - 366 ? asked : today;
+  try {
+    state.data = await (await fetch('/prompts.json')).json();
+    state.order = buildOrder(state.data);
+    render();
+  } catch (_) { $('#app').innerHTML = `<p class="loading">${T[state.lang].error}</p>`; }
+})();
+</script>
+<script defer src="/ahl-links.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

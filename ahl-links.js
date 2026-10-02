@@ -82,11 +82,13 @@ window.AHL_SOCIALS = [
     if (!featured || !document.querySelector('.hero--stage') || document.querySelector('.ahl-tools')) return;
     var ar = document.documentElement.lang === 'ar', p = ar ? '/ar' : '';
     var items = ar ? [
+      ['طلب اليوم', 'طلب جديد جاهز للنسخ كل يوم.', p + '/prompt-of-the-day', 'افتح طلب اليوم'],
       ['قيّم طلبك', 'الصق طلبًا واحصل على درجة من 100 ونسخة محسّنة.', p + '/prompt-grader', 'جرّبها'],
       ['أي أداة تناسبني؟', 'ستة أسئلة سريعة، وأداة واحدة مناسبة لعملك.', p + '/ai-tool-quiz', 'ابدأ الاختبار'],
       ['كم يوفّر لك من الوقت؟', 'اختر مهامك واحصل على تقدير واقعي بالساعات.', p + '/time-saved', 'احسب وقتك'],
       ['مكتبة الطلبات', '30 طلبًا جاهزًا لأعمال المالية والمكتب.', '/prompt-library.html?lang=ar', 'تصفّح']
     ] : [
+      ['Prompt of the day', 'A new copy-paste prompt for work, every day.', '/prompt-of-the-day', 'See today’s prompt'],
       ['Prompt Grader', 'Paste a prompt, get a score out of 100 and an upgraded version.', '/prompt-grader', 'Grade a prompt'],
       ['Which AI tool should I use?', 'Six quick questions, one tool that fits your work.', '/ai-tool-quiz', 'Take the quiz'],
       ['How much time could AI save you?', 'Pick your tasks and get a realistic estimate in hours.', '/time-saved', 'Work it out'],

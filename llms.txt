@@ -36,6 +36,7 @@ Audience: office workers, finance and accounting teams, CMA students and beginne
 - [All lessons](https://ahmed-ai-lessons-website.vercel.app/lessons/): Free, short lessons on using AI at work: better prompts, ChatGPT and Claude set-up, emails, Excel, summaries, reports, automation, agents, privacy and fact-checking. In English and Arabic.
 
 ## Free tools
+- [Prompt of the day](https://ahmed-ai-lessons-website.vercel.app/prompt-of-the-day): One ready-to-use AI prompt for finance and office work, every day. Copy it into ChatGPT, Claude or Copilot, or share it as an image. English and Arabic.
 - [Prompt Grader](https://ahmed-ai-lessons-website.vercel.app/prompt-grader): Free prompt grader: paste a prompt for ChatGPT, Claude or Copilot and get a score out of 100, the missing parts, and an upgraded version. Works in English and Arabic. Your prompt never leaves your browser.
 - [Which AI tool should I use?](https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz): Answer 6 quick questions and get the AI tool that fits your work: ChatGPT, Claude, Copilot, Gemini, Perplexity and more. Free, in English and Arabic.
 - [How much time could AI save you?](https://ahmed-ai-lessons-website.vercel.app/time-saved): Pick the office tasks you do and see how many hours AI could save you each month, with conservative estimates that include time to check the AI's work. English and Arabic.
