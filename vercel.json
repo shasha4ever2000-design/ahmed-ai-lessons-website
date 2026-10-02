@@ -36,6 +36,14 @@
   ],
   "rewrites": [
     {
+      "source": "/links",
+      "destination": "/links.html"
+    },
+    {
+      "source": "/links/",
+      "destination": "/links.html"
+    },
+    {
       "source": "/assets/:file",
       "destination": "/:file"
     },
