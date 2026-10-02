@@ -63,8 +63,9 @@ window.AHL_SOCIALS = [
     sec.setAttribute('aria-label', ar ? 'تابعني' : 'Follow Ahmed');
     sec.innerHTML = '<div class="ahl-follow__in"><p class="ahl-follow__txt">' +
       (ar ? '<b>تابعني</b> لنصيحة عملية جديدة في الذكاء الاصطناعي كل أسبوع.' : '<b>Follow along</b> for a new practical AI tip every week.') +
-      '<br><a class="ahl-follow__new" href="' + (ar ? '/ar/prompt-grader' : '/prompt-grader') + '">' +
-      (ar ? 'جديد: قيّم طلبك مجانًا ←' : 'New: grade your prompt for free →') + '</a>' +
+      '<br>' + (ar ? 'أدوات مجانية جديدة: ' : 'New free tools: ') +
+      '<a class="ahl-follow__new" href="' + (ar ? '/ar/prompt-grader' : '/prompt-grader') + '">' + (ar ? 'قيّم طلبك' : 'Prompt Grader') + '</a> · ' +
+      '<a class="ahl-follow__new" href="' + (ar ? '/ar/ai-tool-quiz' : '/ai-tool-quiz') + '">' + (ar ? 'أي أداة تناسبني؟' : 'Which AI tool should I use?') + '</a>' +
       '</p><div class="ahl-follow__list"></div></div>';
     root.parentNode.insertBefore(sec, root.nextSibling);
     window.AHL_renderSocials(sec.querySelector('.ahl-follow__list'));

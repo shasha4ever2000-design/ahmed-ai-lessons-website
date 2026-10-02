@@ -60,6 +60,22 @@
       "destination": "/prompt-grader.html"
     },
     {
+      "source": "/ai-tool-quiz",
+      "destination": "/ai-tool-quiz.html"
+    },
+    {
+      "source": "/ai-tool-quiz/",
+      "destination": "/ai-tool-quiz.html"
+    },
+    {
+      "source": "/ar/ai-tool-quiz",
+      "destination": "/ai-tool-quiz.html"
+    },
+    {
+      "source": "/ar/ai-tool-quiz/",
+      "destination": "/ai-tool-quiz.html"
+    },
+    {
       "source": "/assets/:file",
       "destination": "/:file"
     },

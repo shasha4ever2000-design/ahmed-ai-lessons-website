@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Which AI tool should I use? | Ahmed Hussein · AI Lessons</title>
+<meta name="description" content="Answer 6 quick questions and get the AI tool that fits your work: ChatGPT, Claude, Copilot, Gemini, Perplexity and more. Free, in English and Arabic.">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="/favicon.svg">
+<link rel="canonical" href="https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz">
+<link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz">
+<link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/ai-tool-quiz">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ahmed Hussein · AI Lessons">
+<meta property="og:title" content="Which AI tool should you use? Take the 1-minute quiz">
+<meta property="og:description" content="6 quick questions. Get the AI tool that fits your work, with a prompt to start.">
+<meta property="og:url" content="https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz">
+<meta property="og:image" content="https://ahmed-ai-lessons-website.vercel.app/media/og/en-tools.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'?'light':'dark'})()</script>
+<style>
+@font-face{font-family:"Inter Tight Variable";font-weight:100 900;font-display:swap;src:url(/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2) format("woff2-variations")}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-400-normal-DqElNKgb.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:600;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-600-normal-DIa3GCJg.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+:root,[data-theme=dark]{color-scheme:dark;--bg:#07080c;--surface:#11141c;--surface-2:#171b25;--line:#1c2130;--line-2:#2a3142;--text:#eceef4;--text-2:#c3c8d4;--muted:#8f97a8;
+  --accent:#8b93ff;--accent-hover:#a5abff;--accent-soft:#1a1d33;--accent-text:#a5abff;--accent-ink:#07080c;--ok:#4ade80;--warm:#f5b971;--dot:#eceef412}
+[data-theme=light]{color-scheme:light;--bg:#fafaf9;--surface:#fff;--surface-2:#f3f4f6;--line:#e6e8ec;--line-2:#d3d7de;--text:#0e1116;--text-2:#2b313b;--muted:#5b6472;
+  --accent:#4f46e5;--accent-hover:#4338ca;--accent-soft:#eef0ff;--accent-text:#4338ca;--accent-ink:#fff;--ok:#15803d;--warm:#b45309;--dot:#0e111617}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:"Inter Tight Variable","IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;font-size:16px;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+[dir=rtl] body{font-family:"IBM Plex Sans Arabic","Inter Tight Variable",system-ui,sans-serif}
+.container{width:100%;max-width:760px;margin:0 auto;padding:0 16px}
+.bar-wrap{max-width:1120px}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700}
+.brand__mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+.brand small{display:block;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.bar__end{display:flex;gap:8px}
+.icon-btn,.lang{background:var(--surface);border:1px solid var(--line-2);color:var(--text);border-radius:10px;height:38px;min-width:38px;padding:0 12px;font:inherit;font-size:14px;cursor:pointer}
+.icon-btn:hover,.lang:hover{border-color:var(--accent)}
+
+.hero{padding:40px 0 18px}
+.kicker{color:var(--accent-text);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+[dir=rtl] .kicker{letter-spacing:0}
+h1{font-size:clamp(30px,6vw,48px);line-height:1.08;letter-spacing:-.02em;font-weight:800;margin-top:10px}
+[dir=rtl] h1{letter-spacing:0;line-height:1.3}
+.hero p{color:var(--text-2);margin-top:12px;font-size:17px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:24px}
+.progress{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.progress__track{flex:1;height:6px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.progress__fill{height:100%;background:var(--accent);border-radius:99px;transition:width .3s cubic-bezier(.2,.7,.2,1)}
+.q{font-size:22px;font-weight:800;line-height:1.3;margin:18px 0 14px}
+.opts{list-style:none;display:grid;gap:10px}
+.opt{width:100%;display:flex;align-items:center;gap:12px;text-align:start;padding:14px 16px;border-radius:14px;border:1px solid var(--line-2);background:var(--surface-2);color:var(--text);font:inherit;font-size:16px;cursor:pointer;transition:border-color .15s,transform .15s,background .15s}
+.opt:hover{border-color:var(--accent);transform:translateY(-1px)}
+.opt[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+.opt__ic{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--bg);font-size:18px}
+.opt small{display:block;color:var(--muted);font-size:13.5px}
+.nav{display:flex;justify-content:space-between;margin-top:16px}
+.btn{height:42px;padding:0 16px;border-radius:10px;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn--primary{background:var(--accent);color:var(--accent-ink)}
+.btn--primary:hover{background:var(--accent-hover)}
+.btn--quiet{background:transparent;color:var(--text-2);border-color:var(--line-2)}
+.btn--quiet:hover{border-color:var(--accent);color:var(--text)}
+.btn[disabled]{opacity:.4;cursor:default}
+.btn.is-done{background:var(--ok);color:#07080c}
+
+.label{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+[dir=rtl] .label{letter-spacing:0}
+.best{border:1px solid var(--accent);box-shadow:0 0 0 6px var(--accent-soft)}
+.tool{display:flex;gap:14px;align-items:center;margin-top:10px}
+.logo{flex:none;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:18px;background:var(--accent);color:var(--accent-ink)}
+.tool h2{font-size:28px;line-height:1.15}
+.tool .maker{color:var(--muted);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:12.5px;padding:3px 10px;border-radius:99px;border:1px solid var(--line-2);color:var(--text-2)}
+.why{color:var(--text-2);margin-top:14px;font-size:16px}
+.because{color:var(--muted);font-size:14px;margin-top:8px}
+.starter{margin-top:16px}
+.starter p.label{margin-bottom:8px}
+.prompt{background:var(--surface-2);border-inline-start:3px solid var(--accent);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--text-2);white-space:pre-wrap}
+.prompt mark{background:var(--accent-soft);color:var(--accent-text);border-radius:4px;padding:0 2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.also{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-bottom:24px}
+.also .card{margin:0}
+.also .logo{width:42px;height:42px;font-size:15px;border-radius:11px;background:var(--accent-soft);color:var(--accent-text)}
+.also h3{font-size:19px}
+.also .why{font-size:14.5px;margin-top:10px}
+.cta{background:var(--accent-soft);border:1px solid var(--line-2);border-radius:20px;padding:24px;margin:0 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}
+.cta h2{font-size:21px}
+.cta p{color:var(--text-2);margin-top:4px}
+.note{color:var(--muted);font-size:13px;margin:-10px 0 24px}
+footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);font-size:13px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:.2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast,.progress__fill,.opt{transition:none}}
+</style>
+</head>
+<body>
+<header class="container bar-wrap"><div class="bar">
+  <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">AH</span><span><span data-t="brand"></span><small data-t="brandTag"></small></span></a>
+  <div class="bar__end">
+    <button class="lang" id="lang" type="button"></button>
+    <button class="icon-btn" id="theme" type="button"></button>
+  </div>
+</div></header>
+
+<main id="main" class="container">
+  <section class="hero" id="hero">
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="title"></h1>
+    <p data-t="lead"></p>
+  </section>
+  <div id="app" aria-live="polite"></div>
+</main>
+<footer class="container"><p data-t="foot"></p></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const T = {
+  en: { brand:"Ahmed Hussein", brandTag:"AI LESSONS", kicker:"1-minute quiz", title:"Which AI tool should I use?",
+    lead:"Six quick questions about how you work. Get the tool that fits best, two to try next, and a prompt to start with.",
+    of:(a,b)=>`${a} of ${b}`, back:"Back", next:"See my result", restart:"Take the quiz again",
+    best:"Your best match", also:"Also worth trying", because:"Based on your answers:",
+    starter:"Copy this to get started", copy:"Copy prompt", copied:"Copied", open:"Open", lesson:"Read the lesson",
+    share:"Share my result", shareText:n=>`My AI tool match is ${n}. Find yours in 1 minute:`, linkCopied:"Link copied",
+    copiedToast:"Copied. Fill in the [brackets] before you send.",
+    price:{free:"Free",fp:"Free + paid",paid:"Paid"}, level:{b:"Beginner",i:"Intermediate"},
+    note:"Prices change often. Labels were checked in September 2026, so check the tool’s site before you pay.",
+    ctaTitle:"Get one practical AI lesson a week", ctaText:"One idea, one prompt to copy, one thing to try. Free.",
+    ctaBtn:"Join the weekly lesson", ctaTools:"See all 14 tools",
+    other:"العربية", theme:["Light mode","Dark mode"],
+    foot:"Independent site. Not affiliated with any AI company mentioned here. Product names are trademarks of their owners. The quiz runs in your browser and doesn’t save your answers." },
+  ar: { brand:"أحمد حسين", brandTag:"دروس الذكاء الاصطناعي", kicker:"اختبار في دقيقة", title:"أي أداة ذكاء اصطناعي تناسبني؟",
+    lead:"ستة أسئلة سريعة عن طريقة عملك. احصل على الأداة الأنسب لك، وأداتين تجربهما بعدها، وطلبًا تبدأ به.",
+    of:(a,b)=>`${a} من ${b}`, back:"رجوع", next:"اعرض نتيجتي", restart:"أعد الاختبار",
+    best:"الأنسب لك", also:"تستحق التجربة أيضًا", because:"بناءً على إجاباتك:",
+    starter:"انسخ هذا لتبدأ", copy:"انسخ الطلب", copied:"تم النسخ", open:"افتح", lesson:"اقرأ الدرس",
+    share:"شارك نتيجتي", shareText:n=>`الأداة الأنسب لي هي ${n}. اعرف أداتك في دقيقة:`, linkCopied:"تم نسخ الرابط",
+    copiedToast:"تم النسخ. املأ الأقواس [ ] قبل الإرسال.",
+    price:{free:"مجاني",fp:"مجاني + مدفوع",paid:"مدفوع"}, level:{b:"مبتدئ",i:"متوسط"},
+    note:"الأسعار تتغير كثيرًا. راجعنا التصنيفات في سبتمبر 2026، فتحقق من موقع الأداة قبل الدفع.",
+    ctaTitle:"احصل على درس عملي واحد كل أسبوع", ctaText:"فكرة واحدة، وطلب تنسخه، وشيء تجربه. مجانًا.",
+    ctaBtn:"اشترك في الدرس الأسبوعي", ctaTools:"شاهد الأدوات الأربع عشرة",
+    other:"English", theme:["الوضع الفاتح","الوضع الداكن"],
+    foot:"موقع مستقل غير تابع لأي شركة ذكاء اصطناعي مذكورة فيه. أسماء المنتجات علامات تجارية لأصحابها. يعمل الاختبار داخل متصفحك ولا يحفظ إجاباتك." }
+};
+
+/* Questions. Each option adds (or removes) points per tool id. */
+const QUESTIONS = [
+  { id:'task', en:"What do you want AI to help with most?", ar:"في ماذا تريد مساعدة الذكاء الاصطناعي أكثر؟", opts:[
+    { ic:"✉", en:"Writing emails and documents", ar:"كتابة الإيميلات والمستندات", w:{claude:3,chatgpt:3,grammarly:2,copilot:1,gemini:1} },
+    { ic:"📄", en:"Reading long files and reports", ar:"قراءة الملفات والتقارير الطويلة", w:{claude:3,notebooklm:3,chatgpt:1,gemini:1} },
+    { ic:"🔎", en:"Research with sources I can check", ar:"البحث بمصادر أستطيع التحقق منها", w:{perplexity:4,notebooklm:2,chatgpt:1,gemini:1} },
+    { ic:"🗓", en:"Meeting notes and action items", ar:"ملاحظات الاجتماعات والمهام", w:{otter:3,fireflies:3,copilot:1,chatgpt:1,claude:1} },
+    { ic:"📊", en:"Excel, numbers and reports", ar:"Excel والأرقام والتقارير", w:{copilot:3,chatgpt:3,claude:2,gemini:1} },
+    { ic:"🎨", en:"Slides, social posts and images", ar:"العروض ومنشورات التواصل والصور", w:{canva:4,midjourney:3,chatgpt:1} },
+    { ic:"⚙", en:"Automating tasks I repeat", ar:"أتمتة المهام التي أكررها", w:{zapier:4,cursor:1,chatgpt:1} },
+    { ic:"⌨", en:"Building small tools or scripts", ar:"بناء أدوات صغيرة أو سكربتات", w:{cursor:4,claude:2,chatgpt:2} } ]},
+  { id:'suite', en:"Where do you spend most of your workday?", ar:"أين تقضي معظم يوم عملك؟", opts:[
+    { ic:"Ⓜ", en:"Microsoft 365", ar:"Microsoft 365", sub:{en:"Outlook, Excel, Word, Teams",ar:"Outlook وExcel وWord وTeams"}, w:{copilot:5,fireflies:1} },
+    { ic:"Ⓖ", en:"Google Workspace", ar:"Google Workspace", sub:{en:"Gmail, Docs, Sheets, Drive",ar:"Gmail وDocs وSheets وDrive"}, w:{gemini:5,notebooklm:1} },
+    { ic:"N", en:"Notion", ar:"Notion", sub:{en:"Notes, wikis and plans",ar:"الملاحظات والخطط"}, w:{notion:5} },
+    { ic:"∞", en:"A mix, or not sure", ar:"مزيج منها، أو لست متأكدًا", w:{chatgpt:1,claude:1} } ]},
+  { id:'level', en:"How comfortable are you with new tech?", ar:"ما مدى ارتياحك مع التقنية الجديدة؟", opts:[
+    { ic:"🌱", en:"I’m just starting", ar:"أنا في البداية", sub:{en:"Keep it simple",ar:"أريد شيئًا بسيطًا"}, w:{chatgpt:1,cursor:-4,zapier:-2,midjourney:-3} },
+    { ic:"👍", en:"Comfortable", ar:"مرتاح معها", sub:{en:"I learn new apps quickly",ar:"أتعلم التطبيقات الجديدة بسرعة"}, w:{} },
+    { ic:"🛠", en:"I like building things", ar:"أحب بناء الأشياء", sub:{en:"Settings and setup don’t scare me",ar:"الإعدادات لا تخيفني"}, w:{cursor:2,zapier:2,midjourney:1} } ]},
+  { id:'lang', en:"Which language do you work in most?", ar:"بأي لغة تعمل أكثر؟", opts:[
+    { ic:"A", en:"English", ar:"الإنجليزية", w:{grammarly:1} },
+    { ic:"ع", en:"Arabic", ar:"العربية", w:{grammarly:-5,otter:-2,chatgpt:1,claude:1,gemini:1} },
+    { ic:"⇄", en:"Both", ar:"الاثنتان", w:{grammarly:-1,chatgpt:1,claude:1} } ]},
+  { id:'budget', en:"What’s your budget?", ar:"ما ميزانيتك؟", opts:[
+    { ic:"0", en:"Free only", ar:"مجاني فقط", w:{midjourney:-6} },
+    { ic:"$", en:"I can pay a little", ar:"أستطيع دفع مبلغ بسيط", w:{} },
+    { ic:"🏢", en:"My company pays", ar:"شركتي تدفع", w:{copilot:1,fireflies:1,notion:1} } ]},
+  { id:'value', en:"What matters most to you?", ar:"ما الأهم بالنسبة لك؟", opts:[
+    { ic:"✓", en:"Answers I can check", ar:"إجابات أستطيع التحقق منها", sub:{en:"Links and sources",ar:"روابط ومصادر"}, w:{perplexity:3,notebooklm:3} },
+    { ic:"✍", en:"Polished, careful writing", ar:"كتابة متقنة ودقيقة", w:{claude:3,grammarly:1} },
+    { ic:"⚡", en:"One tool that does a bit of everything", ar:"أداة واحدة تفعل كل شيء", w:{chatgpt:3,gemini:1} },
+    { ic:"📁", en:"Working with my own files", ar:"العمل على ملفاتي الخاصة", w:{notebooklm:2,claude:2,copilot:1,gemini:1} } ]}
+];
+
+/* Tools: the same 14 as the AI Tool Library page, with the same price and level labels. */
+const TOOLS = {
+  chatgpt:{name:"ChatGPT",maker:"OpenAI",url:"https://chatgpt.com/",price:"fp",level:"b",lesson:"/lessons/set-up-chatgpt-for-work/",
+    en:"An all-round assistant for drafting, explaining, brainstorming, files and images. The easiest place to start.",
+    ar:"مساعد شامل للكتابة والشرح والعصف الذهني والملفات والصور. أسهل نقطة بداية.",
+    p_en:"You are my work assistant. I work as [your job]. Suggest 5 tasks from my week that you could help with, and for each one give me a prompt I can reuse.",
+    p_ar:"أنت مساعدي في العمل. أعمل [وظيفتك]. اقترح 5 مهام من أسبوعي تستطيع مساعدتي فيها، ولكل مهمة أعطني طلبًا أعيد استخدامه."},
+  claude:{name:"Claude",maker:"Anthropic",url:"https://claude.ai/",price:"fp",level:"b",lesson:"/lessons/claude-projects/",
+    en:"Strong with long documents and careful writing. Great for reports, policies and thoughtful rewrites.",
+    ar:"قوي مع المستندات الطويلة والكتابة الدقيقة. ممتاز للتقارير والسياسات وإعادة الصياغة المتأنية.",
+    p_en:"You are an experienced editor. I’ll paste a [report / email]. Rewrite it so it’s clearer and shorter, keep every number unchanged, and list what you changed.",
+    p_ar:"أنت محرر خبير. سألصق [تقريرًا / إيميلًا]. أعد كتابته ليكون أوضح وأقصر، واترك كل الأرقام كما هي، واذكر ما غيّرته."},
+  gemini:{name:"Gemini",maker:"Google",url:"https://gemini.google.com/",price:"fp",level:"b",lesson:null,
+    en:"Google’s assistant. When you allow it, it works with your Gmail, Docs and Drive.",
+    ar:"مساعد Google. عندما تسمح له، يعمل مع Gmail وDocs وDrive.",
+    p_en:"Find the emails from [person or company] in the last [2 weeks], summarise what they asked for, and draft a short reply that answers each point.",
+    p_ar:"ابحث عن رسائل [الشخص أو الشركة] خلال [آخر أسبوعين]، ولخّص ما طلبوه، واكتب ردًا قصيرًا يجيب عن كل نقطة."},
+  copilot:{name:"Microsoft Copilot",maker:"Microsoft",url:"https://copilot.microsoft.com/",price:"fp",level:"b",lesson:"/microsoft-365/",
+    en:"Built into Word, Excel, Outlook and Teams, so the help is right where you already work.",
+    ar:"مدمج في Word وExcel وOutlook وTeams، فتجد المساعدة حيث تعمل أصلًا.",
+    p_en:"In this Excel table, columns are [Date, Account, Amount]. Write a formula that totals Amount by month, and explain it in one sentence.",
+    p_ar:"في جدول Excel هذا، الأعمدة هي [التاريخ، الحساب، المبلغ]. اكتب صيغة تجمع المبلغ حسب الشهر، واشرحها في جملة واحدة."},
+  perplexity:{name:"Perplexity",maker:"Perplexity AI",url:"https://www.perplexity.ai/",price:"fp",level:"b",lesson:"/lessons/check-facts-and-numbers/",
+    en:"An AI search engine that answers with links to its sources, so you can check every claim.",
+    ar:"محرك بحث بالذكاء الاصطناعي يجيب مع روابط مصادره، فتستطيع التحقق من كل معلومة.",
+    p_en:"What changed in [topic, e.g. VAT rules in Saudi Arabia] in the last 12 months? Use official sources only and give the link for each point.",
+    p_ar:"ما الذي تغيّر في [الموضوع، مثل: أنظمة ضريبة القيمة المضافة في السعودية] خلال آخر 12 شهرًا؟ استخدم المصادر الرسمية فقط وأعطني رابط كل نقطة."},
+  notebooklm:{name:"Gemini Notebook (NotebookLM)",maker:"Google",url:"https://notebook.google/",price:"fp",level:"b",lesson:"/lessons/summarize-documents-and-meetings/",
+    en:"Answers using only the files and links you upload. Ideal for studying policies, reports and course material.",
+    ar:"يجيب باستخدام الملفات والروابط التي ترفعها فقط. مثالي لدراسة السياسات والتقارير والمواد الدراسية.",
+    p_en:"Using only my uploaded files, list the 10 most important points about [topic], with the page or section for each one.",
+    p_ar:"باستخدام ملفاتي المرفوعة فقط، اذكر أهم 10 نقاط عن [الموضوع]، مع الصفحة أو القسم لكل نقطة."},
+  grammarly:{name:"Grammarly",maker:"Grammarly",url:"https://www.grammarly.com/",price:"fp",level:"b",lesson:"/lessons/emails-in-english-and-arabic/",
+    en:"Checks and improves your English as you type, in email, documents and the browser.",
+    ar:"يدقق كتابتك بالإنجليزية ويحسّنها أثناء الكتابة في الإيميل والمستندات والمتصفح.",
+    p_en:"Make this email sound confident and polite, keep it under [100] words, and don’t change the facts: [paste email].",
+    p_ar:"اجعل هذا الإيميل واثقًا ومهذبًا، وأقل من [100] كلمة، دون تغيير الحقائق: [الصق الإيميل]."},
+  canva:{name:"Canva",maker:"Canva",url:"https://www.canva.com/",price:"fp",level:"b",lesson:null,
+    en:"Design with AI help for slides, social posts and images, no design skills needed.",
+    ar:"تصميم بمساعدة الذكاء الاصطناعي للعروض ومنشورات التواصل والصور، دون خبرة في التصميم.",
+    p_en:"Create a 5-slide presentation about [topic] for [audience]. Clean, professional style, one key message per slide.",
+    p_ar:"أنشئ عرضًا من 5 شرائح عن [الموضوع] لـ[الجمهور]. أسلوب نظيف ومهني، ورسالة رئيسية واحدة في كل شريحة."},
+  midjourney:{name:"Midjourney",maker:"Midjourney",url:"https://www.midjourney.com/",price:"paid",level:"i",lesson:null,
+    en:"Creates high-quality images from a description. Best for illustrations and concept images.",
+    ar:"ينشئ صورًا عالية الجودة من وصف نصي. الأفضل للرسوم التوضيحية وصور الأفكار.",
+    p_en:"A clean, modern illustration of [subject], soft lighting, [brand colours], plenty of empty space for text, wide format.",
+    p_ar:"رسم توضيحي حديث ونظيف لـ[الموضوع]، إضاءة ناعمة، [ألوان العلامة]، مساحة فارغة للنص، بصيغة عريضة."},
+  notion:{name:"Notion AI",maker:"Notion",url:"https://www.notion.com/product/ai",price:"fp",level:"b",lesson:null,
+    en:"AI inside your Notion pages: summarise, draft and search your team’s notes.",
+    ar:"ذكاء اصطناعي داخل صفحات Notion: يلخّص ويكتب ويبحث في ملاحظات فريقك.",
+    p_en:"Summarise this page into decisions, open questions and next steps with owners. Keep it under [150] words.",
+    p_ar:"لخّص هذه الصفحة إلى قرارات وأسئلة مفتوحة وخطوات تالية مع المسؤولين. أقل من [150] كلمة."},
+  otter:{name:"Otter.ai",maker:"Otter.ai",url:"https://otter.ai/",price:"fp",level:"b",lesson:"/lessons/teams-better-meetings/",
+    en:"Records and transcribes meetings, then writes a summary with action items.",
+    ar:"يسجّل الاجتماعات وينسخها نصيًا، ثم يكتب ملخصًا مع المهام.",
+    p_en:"From this meeting transcript, list decisions, action items with owner and due date, and anything still unclear.",
+    p_ar:"من نص هذا الاجتماع، اذكر القرارات، والمهام مع المسؤول والموعد، وأي شيء ما زال غير واضح."},
+  fireflies:{name:"Fireflies.ai",maker:"Fireflies.ai",url:"https://fireflies.ai/",price:"fp",level:"b",lesson:"/lessons/teams-better-meetings/",
+    en:"Joins your online meetings to take notes and find key moments. Good for teams with many calls.",
+    ar:"ينضم إلى اجتماعاتك عبر الإنترنت ليدوّن الملاحظات ويجد اللحظات المهمة. مناسب للفرق كثيرة الاجتماعات.",
+    p_en:"From this meeting transcript, list decisions, action items with owner and due date, and anything still unclear.",
+    p_ar:"من نص هذا الاجتماع، اذكر القرارات، والمهام مع المسؤول والموعد، وأي شيء ما زال غير واضح."},
+  cursor:{name:"Cursor",maker:"Anysphere",url:"https://cursor.com/",price:"fp",level:"i",lesson:null,
+    en:"A code editor with AI that writes and fixes code with you. Good for small tools and scripts.",
+    ar:"محرر برمجة بالذكاء الاصطناعي يكتب الكود ويصلحه معك. مناسب للأدوات الصغيرة والسكربتات.",
+    p_en:"Build a small script that reads [file.csv], totals [column] by [category], and saves the result as a new CSV. Explain each step simply.",
+    p_ar:"ابنِ سكربتًا صغيرًا يقرأ [file.csv]، ويجمع [العمود] حسب [التصنيف]، ويحفظ النتيجة في ملف CSV جديد. اشرح كل خطوة ببساطة."},
+  zapier:{name:"Zapier",maker:"Zapier",url:"https://zapier.com/",price:"fp",level:"i",lesson:"/lessons/first-ai-automation/",
+    en:"Connects your apps so repeated tasks run on their own, with AI steps in between.",
+    ar:"يربط تطبيقاتك لتعمل المهام المتكررة تلقائيًا، مع خطوات ذكاء اصطناعي بينها.",
+    p_en:"When a new form reply arrives, summarise it in 2 sentences, label it [urgent / normal], and add a row to my sheet with the summary.",
+    p_ar:"عند وصول رد جديد على النموذج، لخّصه في جملتين، وصنّفه [عاجل / عادي]، وأضف صفًا في جدولي مع الملخص."}
+};
+
+const params = new URLSearchParams(location.search);
+const state = {
+  lang: params.get('lang') === 'ar' || location.pathname.startsWith('/ar/') ? 'ar' : 'en',
+  theme: document.documentElement.dataset.theme || 'dark',
+  step: 0, answers: []
+};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const initials = n => n.replace(/[^A-Za-z ]/g,'').split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('').slice(0,2) || n.slice(0,2);
+const lessonHref = p => (state.lang === 'ar' ? '/ar' : '') + p;
+
+function results() {
+  const score = Object.fromEntries(Object.keys(TOOLS).map(k => [k, 0]));
+  // The main task counts double so a specialist (Canva, Cursor, Fireflies) beats the all-rounders when it fits.
+  state.answers.forEach((a, qi) => { const q = QUESTIONS[qi], w = q.opts[a].w, m = q.id === 'task' ? 2 : 1; for (const k in w) score[k] += w[k] * m; });
+  // Ties keep the Tool Library order, which lists the easiest tools first.
+  return Object.keys(TOOLS).sort((a, b) => score[b] - score[a]).slice(0, 3);
+}
+
+function renderQuestion() {
+  const t = T[state.lang], q = QUESTIONS[state.step], n = QUESTIONS.length;
+  const sel = state.answers[state.step];
+  $('#hero').hidden = false;
+  $('#app').innerHTML = `
+    <section class="card">
+      <div class="progress"><div class="progress__track"><div class="progress__fill" style="width:${(state.step / n) * 100}%"></div></div><span>${t.of(state.step + 1, n)}</span></div>
+      <h2 class="q" id="q">${esc(q[state.lang])}</h2>
+      <ul class="opts" role="list" aria-labelledby="q">${q.opts.map((o, i) => `
+        <li><button type="button" class="opt" data-i="${i}" aria-pressed="${sel === i}">
+          <span class="opt__ic" aria-hidden="true">${o.ic}</span>
+          <span>${esc(o[state.lang])}${o.sub ? `<small>${esc(o.sub[state.lang])}</small>` : ''}</span>
+        </button></li>`).join('')}
+      </ul>
+      <div class="nav"><button type="button" class="btn btn--quiet" id="back" ${state.step === 0 ? 'disabled' : ''}>${state.lang === 'ar' ? '→' : '←'} ${t.back}</button></div>
+    </section>`;
+}
+
+function promptHtml(s) { return esc(s).replace(/\[([^\]]+)\]/g, '<mark>[$1]</mark>'); }
+
+function renderResult() {
+  const t = T[state.lang], [best, ...rest] = results(), b = TOOLS[best];
+  const chosen = state.answers.map((a, qi) => QUESTIONS[qi].opts[a][state.lang]);
+  $('#hero').hidden = true;
+  const tags = x => `<div class="tags"><span class="tag">${t.price[x.price]}</span><span class="tag">${t.level[x.level]}</span></div>`;
+  $('#app').innerHTML = `
+    <section class="card best" style="margin-top:28px">
+      <p class="label">${t.best}</p>
+      <div class="tool"><span class="logo" aria-hidden="true">${esc(initials(b.name))}</span>
+        <div><h2 id="result-title" tabindex="-1">${esc(b.name)}</h2><span class="maker">${esc(b.maker)}</span></div></div>
+      ${tags(b)}
+      <p class="why">${esc(b[state.lang])}</p>
+      <p class="because">${t.because} ${chosen.map(esc).join(' · ')}</p>
+      <div class="starter"><p class="label">${t.starter}</p><div class="prompt" dir="auto">${promptHtml(b['p_' + state.lang])}</div></div>
+      <div class="row">
+        <button type="button" class="btn btn--primary" data-copy="${best}">${t.copy}</button>
+        <a class="btn btn--quiet" href="${b.url}" target="_blank" rel="noopener">${t.open} ${esc(b.name)} ↗</a>
+        ${b.lesson ? `<a class="btn btn--quiet" href="${lessonHref(b.lesson)}">${t.lesson}</a>` : ''}
+      </div>
+    </section>
+    <p class="label" style="margin-bottom:12px">${t.also}</p>
+    <div class="also">${rest.map(k => { const x = TOOLS[k]; return `
+      <section class="card">
+        <div class="tool" style="margin:0"><span class="logo" aria-hidden="true">${esc(initials(x.name))}</span><div><h3>${esc(x.name)}</h3><span class="maker">${esc(x.maker)}</span></div></div>
+        ${tags(x)}
+        <p class="why">${esc(x[state.lang])}</p>
+        <div class="row"><a class="btn btn--quiet" href="${x.url}" target="_blank" rel="noopener">${t.open} ↗</a>
+          ${x.lesson ? `<a class="btn btn--quiet" href="${lessonHref(x.lesson)}">${t.lesson}</a>` : ''}</div>
+      </section>`; }).join('')}
+    </div>
+    <p class="note">${t.note}</p>
+    <div class="row" style="margin:0 0 28px">
+      <button type="button" class="btn btn--quiet" id="share" data-name="${esc(b.name)}">${t.share}</button>
+      <button type="button" class="btn btn--quiet" id="restart">↺ ${t.restart}</button>
+    </div>
+    <div class="cta">
+      <div><h2>${t.ctaTitle}</h2><p>${t.ctaText}</p></div>
+      <div class="row" style="margin:0"><a class="btn btn--primary" href="${state.lang === 'ar' ? '/ar/' : '/'}#newsletter">${t.ctaBtn}</a>
+        <a class="btn btn--quiet" href="${state.lang === 'ar' ? '/ar/tools/' : '/tools/'}">${t.ctaTools}</a></div>
+    </div>`;
+  window.scrollTo(0, 0);
+  $('#result-title').focus({ preventScroll: true });
+}
+
+function render() { state.step < QUESTIONS.length ? renderQuestion() : renderResult(); }
+
+function renderStatic() {
+  const t = T[state.lang];
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
+  $('#lang').textContent = t.other;
+  $('#lang').lang = state.lang === 'ar' ? 'en' : 'ar';
+  const dark = state.theme === 'dark';
+  $('#theme').textContent = dark ? '☀' : '☾';
+  $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
+  document.title = state.lang === 'ar' ? 'أي أداة ذكاء اصطناعي تناسبني؟ | أحمد حسين' : 'Which AI tool should I use? | Ahmed Hussein · AI Lessons';
+}
+
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); return true; }
+  catch (_) {
+    const ta = document.createElement('textarea'); ta.value = s; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok;
+  }
+}
+let toastTimer;
+function toast(msg) {
+  const el = $('#toast'); el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+$('#app').addEventListener('click', async e => {
+  const t = T[state.lang];
+  const opt = e.target.closest('.opt');
+  if (opt) {
+    state.answers[state.step] = +opt.dataset.i;
+    opt.setAttribute('aria-pressed', 'true');
+    // Short pause so the tap feels registered before the next question.
+    setTimeout(() => { state.step++; render(); $('#app .opt, #result-title')?.focus({ preventScroll: true }); }, 180);
+    return;
+  }
+  if (e.target.closest('#back') && state.step > 0) { state.step--; render(); return; }
+  if (e.target.closest('#restart')) { state.step = 0; state.answers = []; render(); window.scrollTo(0, 0); return; }
+  const c = e.target.closest('[data-copy]');
+  if (c && await copyText(TOOLS[c.dataset.copy]['p_' + state.lang])) {
+    c.textContent = t.copied; c.classList.add('is-done'); toast(t.copiedToast);
+    setTimeout(() => { c.textContent = t.copy; c.classList.remove('is-done'); }, 1600);
+    return;
+  }
+  const s = e.target.closest('#share');
+  if (s) {
+    const url = location.origin + (state.lang === 'ar' ? '/ar/ai-tool-quiz' : '/ai-tool-quiz');
+    const text = t.shareText(s.dataset.name);
+    if (navigator.share) { try { await navigator.share({ title: document.title, text, url }); } catch (_) {} }
+    else if (await copyText(text + ' ' + url)) toast(t.linkCopied);
+  }
+});
+$('#lang').addEventListener('click', () => {
+  state.lang = state.lang === 'en' ? 'ar' : 'en';
+  history.replaceState(null, '', state.lang === 'ar' ? '/ar/ai-tool-quiz' : '/ai-tool-quiz');
+  renderStatic(); render();
+});
+$('#theme').addEventListener('click', () => {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = state.theme;
+  try { localStorage.setItem('ahl:theme', state.theme); } catch (_) {}
+  renderStatic();
+});
+
+renderStatic(); render();
+</script>
+<script defer src="/ahl-links.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
