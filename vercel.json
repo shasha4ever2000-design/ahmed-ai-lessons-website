@@ -44,6 +44,38 @@
       "destination": "/links.html"
     },
     {
+      "source": "/time-saved",
+      "destination": "/time-saved.html"
+    },
+    {
+      "source": "/time-saved/",
+      "destination": "/time-saved.html"
+    },
+    {
+      "source": "/ar/time-saved",
+      "destination": "/time-saved.html"
+    },
+    {
+      "source": "/ar/time-saved/",
+      "destination": "/time-saved.html"
+    },
+    {
+      "source": "/certificate",
+      "destination": "/certificate.html"
+    },
+    {
+      "source": "/certificate/",
+      "destination": "/certificate.html"
+    },
+    {
+      "source": "/ar/certificate",
+      "destination": "/certificate.html"
+    },
+    {
+      "source": "/ar/certificate/",
+      "destination": "/certificate.html"
+    },
+    {
       "source": "/prompt-grader",
       "destination": "/prompt-grader.html"
     },

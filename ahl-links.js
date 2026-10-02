@@ -84,10 +84,12 @@ window.AHL_SOCIALS = [
     var items = ar ? [
       ['قيّم طلبك', 'الصق طلبًا واحصل على درجة من 100 ونسخة محسّنة.', p + '/prompt-grader', 'جرّبها'],
       ['أي أداة تناسبني؟', 'ستة أسئلة سريعة، وأداة واحدة مناسبة لعملك.', p + '/ai-tool-quiz', 'ابدأ الاختبار'],
+      ['كم يوفّر لك من الوقت؟', 'اختر مهامك واحصل على تقدير واقعي بالساعات.', p + '/time-saved', 'احسب وقتك'],
       ['مكتبة الطلبات', '30 طلبًا جاهزًا لأعمال المالية والمكتب.', '/prompt-library.html?lang=ar', 'تصفّح']
     ] : [
       ['Prompt Grader', 'Paste a prompt, get a score out of 100 and an upgraded version.', '/prompt-grader', 'Grade a prompt'],
       ['Which AI tool should I use?', 'Six quick questions, one tool that fits your work.', '/ai-tool-quiz', 'Take the quiz'],
+      ['How much time could AI save you?', 'Pick your tasks and get a realistic estimate in hours.', '/time-saved', 'Work it out'],
       ['Prompt Library', '30 ready prompts for finance and office work.', '/prompt-library.html', 'Browse prompts']
     ];
     var sec = document.createElement('section');
@@ -101,6 +103,24 @@ window.AHL_SOCIALS = [
           '</span><span class="ahl-tools__go">' + i[3] + '</span></a></li>';
       }).join('') + '</ul></div>';
     featured.parentNode.insertBefore(sec, featured);
+  }
+
+  // Under the six Start Here steps: progress toward the certificate.
+  var CERT_SLUGS = ['prompt-patterns', 'set-up-chatgpt-for-work', 'claude-projects', 'summarize-documents-and-meetings', 'first-ai-automation'];
+  function addCertLine() {
+    var path = document.querySelector('#start .path');
+    if (!path || document.querySelector('.ahl-cert')) return;
+    var done = [], cert = {};
+    try { done = JSON.parse(localStorage.getItem('ahl:done') || '[]'); cert = JSON.parse(localStorage.getItem('ahl:cert') || '{}'); } catch (e) {}
+    var n = CERT_SLUGS.filter(function (s) { return done.indexOf(s) > -1; }).length + (cert.step1 ? 1 : 0);
+    var ar = document.documentElement.lang === 'ar';
+    var msg = n >= 6 ? (ar ? 'أنجزت الخطوات الست. شهادتك جاهزة.' : 'All six steps done. Your certificate is ready.')
+      : (ar ? 'أكمل الخطوات الست واحصل على شهادة مجانية تضيفها إلى LinkedIn.' : 'Finish all six steps for a free certificate you can add to LinkedIn.');
+    var p = document.createElement('p');
+    p.className = 'ahl-cert';
+    p.innerHTML = '<span>' + msg + '</span> <a href="' + (ar ? '/ar/certificate' : '/certificate') + '">' +
+      (n >= 6 ? (ar ? 'احصل على شهادتك' : 'Get your certificate') : (ar ? 'تابع تقدّمك' : 'See your progress')) + '</a>';
+    path.parentNode.insertBefore(p, path.nextSibling);
   }
 
   // The homepage sections are hydrated lazily, a while after the page loads. Adding a node inside <main>
@@ -117,6 +137,7 @@ window.AHL_SOCIALS = [
       var f = document.getElementById('lessons');
       if (f && hydrated(f)) {
         addToolsBand();
+        addCertLine();
         // If React ever re-renders <main>, put the band back.
         new MutationObserver(function () { if (!document.querySelector('.ahl-tools')) addToolsBand(); })
           .observe(document.getElementById('main'), { childList: true });

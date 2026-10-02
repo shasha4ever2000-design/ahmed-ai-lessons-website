@@ -132,3 +132,7 @@ body:has(.hero--stage) .section--articles{display:none}
 body{background-image:none}
 
 @media (prefers-reduced-motion:reduce){.tile,.btn{transition:none}}
+
+/* ---------- Certificate line under the Start Here steps (added by ahl-links.js) ---------- */
+.ahl-cert{margin-top:22px;padding:14px 18px;border:1px dashed var(--line-2);border-radius:var(--radius-sm);color:var(--text-2);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.ahl-cert a{color:var(--accent-text);font-weight:650}

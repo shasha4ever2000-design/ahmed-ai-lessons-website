@@ -1,0 +1,48 @@
+# Ahmed Hussein · AI Lessons
+
+> Free, practical lessons on using AI at work (ChatGPT, Claude, Copilot, Gemini and more), written in plain English and Arabic by Ahmed Hussein, an accountant in Riyadh with nine years in finance. Every lesson is short, includes prompts to copy, and stresses checking AI output and keeping private data safe.
+
+Audience: office workers, finance and accounting teams, CMA students and beginners, especially in Saudi Arabia and the Gulf. Every page has an Arabic version under /ar/ (for example https://ahmed-ai-lessons-website.vercel.app/ar/lessons/prompt-patterns/). Independent site, not affiliated with OpenAI, Anthropic, Google or Microsoft.
+
+## Start here
+- [Ahmed Hussein — AI lessons in plain words](https://ahmed-ai-lessons-website.vercel.app/): Free, short lessons that show you how to get real work done with Claude and ChatGPT. No tech background needed. In English and Arabic.
+- [The 4-part prompt (free lesson)](https://ahmed-ai-lessons-website.vercel.app/#free-lesson): Role, task, context and format, the structure behind every lesson on the site.
+- [Your Start Here certificate](https://ahmed-ai-lessons-website.vercel.app/certificate): Finish the six Start Here lessons and get a free certificate of completion you can download and add to LinkedIn. English and Arabic.
+
+## Lessons
+- [Fix a weak answer in three follow-ups](https://ahmed-ai-lessons-website.vercel.app/lessons/fix-a-weak-answer/): Got a vague or wrong answer from ChatGPT or Claude? Learn the follow-up messages that fix it in minutes, with examples you can copy.
+- [Write work emails in English and Arabic](https://ahmed-ai-lessons-website.vercel.app/lessons/emails-in-english-and-arabic/): Use ChatGPT or Claude to write clear work emails in English and Arabic: the right tone, the right length, and Arabic that reads naturally.
+- [Excel with AI: formulas and messy data](https://ahmed-ai-lessons-website.vercel.app/lessons/excel-formulas-and-cleanup/): Ask ChatGPT or Claude for Excel formulas that work the first time, understand them, and clean messy data safely. With prompts to copy.
+- [Summarize long documents and meetings](https://ahmed-ai-lessons-website.vercel.app/lessons/summarize-documents-and-meetings/): Summarize PDFs, reports and meeting notes with ChatGPT or Claude: ask for the right structure, pull out the actions, and check the result.
+- [Use AI safely at work: what never to paste](https://ahmed-ai-lessons-website.vercel.app/lessons/use-ai-safely/): What's safe to paste into ChatGPT or Claude at work? A simple traffic-light rule, how to remove private details, and the privacy settings to check.
+- [When AI is wrong: check facts and numbers](https://ahmed-ai-lessons-website.vercel.app/lessons/check-facts-and-numbers/): ChatGPT and Claude can sound confident and still be wrong. Learn five quick checks for facts, numbers and sources before you rely on an answer.
+- [Set up ChatGPT for work](https://ahmed-ai-lessons-website.vercel.app/lessons/set-up-chatgpt-for-work/): Set up ChatGPT for work: write custom instructions, use a Project for each repeated job, manage memory, and check the privacy settings.
+- [Claude Projects: stop repeating yourself](https://ahmed-ai-lessons-website.vercel.app/lessons/claude-projects/): How to use Claude Projects at work: when they help, how to set one up with files and instructions, and how to keep it useful and private.
+- [5 prompt patterns that work in any AI tool](https://ahmed-ai-lessons-website.vercel.app/lessons/prompt-patterns/): Five simple prompt patterns that improve answers in ChatGPT, Claude, Gemini and Copilot, with short versions you can copy and reuse.
+- [Write proposals and reports with AI](https://ahmed-ai-lessons-website.vercel.app/lessons/proposals-and-reports/): Use ChatGPT or Claude to write business proposals and reports: give it your facts, outline first, write in your voice and remove generic AI phrasing.
+- [Your first AI automation, no code](https://ahmed-ai-lessons-website.vercel.app/lessons/first-ai-automation/): Build your first no-code AI automation with Zapier or Power Automate: the trigger, AI step and action pattern, a worked example, a human check and costs.
+- [AI agents at work: what they can do safely](https://ahmed-ai-lessons-website.vercel.app/lessons/ai-agents-at-work/): What AI agents like ChatGPT Work and Claude in Chrome can do at work, where they still fail, and simple rules for using them safely.
+- [Month-end close with AI: checklists, reconciliations and variance notes](https://ahmed-ai-lessons-website.vercel.app/lessons/month-end-close-with-ai/): Use ChatGPT, Claude or Copilot for month-end close: a reusable checklist, reconciliation notes, variance comments and the close email. Prompts included.
+- [Study for the CMA with AI as your tutor](https://ahmed-ai-lessons-website.vercel.app/lessons/study-cma-with-ai/): How CMA candidates can use ChatGPT or Claude as a study partner: a plan built on the exam outline, plain explanations, self-quizzes and essay feedback.
+- [Pivot tables in minutes, with AI to help](https://ahmed-ai-lessons-website.vercel.app/lessons/excel-pivot-tables/): Build an Excel PivotTable step by step: prepare the data, drag fields, group by month, add slicers and refresh. Plus how Copilot or ChatGPT can help.
+- [Your first Power BI report from an Excel file](https://ahmed-ai-lessons-website.vercel.app/lessons/first-power-bi-report/): A beginner guide to Power BI Desktop: load an Excel file, check it in Power Query, build three visuals and a slicer, and use AI to draft simple DAX.
+- [Long reports in Word: styles, a contents page and Copilot](https://ahmed-ai-lessons-website.vercel.app/lessons/word-long-reports/): Build long Word reports with Heading styles, the Navigation Pane, an automatic contents page, captions, page numbers, Arabic with English, and Copilot.
+- [Take control of your Outlook inbox](https://ahmed-ai-lessons-website.vercel.app/lessons/outlook-inbox-control/): Take control of Outlook: Focused Inbox, rules for newsletters, categories, flags, Quick Steps, scheduled send, search, and what Copilot can do.
+- [Better Teams meetings: agendas, notes and recaps](https://ahmed-ai-lessons-website.vercel.app/lessons/teams-better-meetings/): Run shorter, clearer Microsoft Teams meetings: add an agenda, use notes and chat, record with consent, and draft the recap with Copilot or ChatGPT.
+
+## Learning tracks
+- [Finance & CMA: AI for finance work and CMA study](https://ahmed-ai-lessons-website.vercel.app/finance/): Free lessons on using AI for finance work and CMA study: month-end close, variance notes, reconciliations and a smarter CMA study plan.
+- [Microsoft 365: Excel, Power BI, Word, Outlook and Teams, made easy](https://ahmed-ai-lessons-website.vercel.app/microsoft-365/): Free lessons on Excel, Power BI, Word, Outlook and Teams, with Copilot and AI tips. Plain English and Arabic, step by step.
+- [All lessons](https://ahmed-ai-lessons-website.vercel.app/lessons/): Free, short lessons on using AI at work: better prompts, ChatGPT and Claude set-up, emails, Excel, summaries, reports, automation, agents, privacy and fact-checking. In English and Arabic.
+
+## Free tools
+- [Prompt Grader](https://ahmed-ai-lessons-website.vercel.app/prompt-grader): Free prompt grader: paste a prompt for ChatGPT, Claude or Copilot and get a score out of 100, the missing parts, and an upgraded version. Works in English and Arabic. Your prompt never leaves your browser.
+- [Which AI tool should I use?](https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz): Answer 6 quick questions and get the AI tool that fits your work: ChatGPT, Claude, Copilot, Gemini, Perplexity and more. Free, in English and Arabic.
+- [How much time could AI save you?](https://ahmed-ai-lessons-website.vercel.app/time-saved): Pick the office tasks you do and see how many hours AI could save you each month, with conservative estimates that include time to check the AI's work. English and Arabic.
+- [Prompt Library](https://ahmed-ai-lessons-website.vercel.app/prompt-library.html): Free, ready-to-copy AI prompts for accountants and office work, in English and Arabic. Search, filter and copy in one tap.
+- [AI Tool Library: what to use and when](https://ahmed-ai-lessons-website.vercel.app/tools/): A curated library of AI tools for work: what each one does, what it is best for, how hard it is to learn and whether it has a free plan.
+- [AI words in plain language](https://ahmed-ai-lessons-website.vercel.app/glossary/): Plain-language definitions of 22 AI words, from prompt and model to hallucination and context window, with the Arabic term for each.
+
+## Optional
+- [Arabic home page](https://ahmed-ai-lessons-website.vercel.app/ar/): The same lessons and tools in Arabic.
+- [Links](https://ahmed-ai-lessons-website.vercel.app/links): Social profiles and the newest lesson.

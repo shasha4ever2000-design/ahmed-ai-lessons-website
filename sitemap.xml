@@ -378,4 +378,32 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/ai-tool-quiz" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/ai-tool-quiz" />
   </url>
+  <url>
+    <loc>https://ahmed-ai-lessons-website.vercel.app/time-saved</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/time-saved" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/time-saved" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/time-saved" />
+  </url>
+  <url>
+    <loc>https://ahmed-ai-lessons-website.vercel.app/ar/time-saved</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/time-saved" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/time-saved" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/time-saved" />
+  </url>
+  <url>
+    <loc>https://ahmed-ai-lessons-website.vercel.app/certificate</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/certificate" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/certificate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/certificate" />
+  </url>
+  <url>
+    <loc>https://ahmed-ai-lessons-website.vercel.app/ar/certificate</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/certificate" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/certificate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahmed-ai-lessons-website.vercel.app/certificate" />
+  </url>
 </urlset>
