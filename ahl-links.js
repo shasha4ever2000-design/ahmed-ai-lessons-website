@@ -51,6 +51,8 @@ window.AHL_SOCIALS = [
       '.ahl-follow__in{max-width:var(--maxw,1200px);margin:0 auto;padding:22px var(--gutter,16px) 88px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}' +
       '.ahl-follow__txt{margin:0;color:var(--text-2);font-size:15px}' +
       '.ahl-follow__txt b{color:var(--text)}' +
+      '.ahl-follow__new{display:inline-block;margin-top:4px;color:var(--accent-text,var(--accent));font-weight:600;text-decoration:none}' +
+      '.ahl-follow__new:hover{text-decoration:underline}' +
       '.ahl-follow__list{display:flex;flex-wrap:wrap;gap:10px}' +
       '.ahl-social{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface);color:var(--text-2);transition:color .2s,border-color .2s,transform .2s}' +
       '.ahl-social:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}' +
@@ -61,6 +63,8 @@ window.AHL_SOCIALS = [
     sec.setAttribute('aria-label', ar ? 'تابعني' : 'Follow Ahmed');
     sec.innerHTML = '<div class="ahl-follow__in"><p class="ahl-follow__txt">' +
       (ar ? '<b>تابعني</b> لنصيحة عملية جديدة في الذكاء الاصطناعي كل أسبوع.' : '<b>Follow along</b> for a new practical AI tip every week.') +
+      '<br><a class="ahl-follow__new" href="' + (ar ? '/ar/prompt-grader' : '/prompt-grader') + '">' +
+      (ar ? 'جديد: قيّم طلبك مجانًا ←' : 'New: grade your prompt for free →') + '</a>' +
       '</p><div class="ahl-follow__list"></div></div>';
     root.parentNode.insertBefore(sec, root.nextSibling);
     window.AHL_renderSocials(sec.querySelector('.ahl-follow__list'));

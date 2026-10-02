@@ -44,6 +44,22 @@
       "destination": "/links.html"
     },
     {
+      "source": "/prompt-grader",
+      "destination": "/prompt-grader.html"
+    },
+    {
+      "source": "/prompt-grader/",
+      "destination": "/prompt-grader.html"
+    },
+    {
+      "source": "/ar/prompt-grader",
+      "destination": "/prompt-grader.html"
+    },
+    {
+      "source": "/ar/prompt-grader/",
+      "destination": "/prompt-grader.html"
+    },
+    {
       "source": "/assets/:file",
       "destination": "/:file"
     },

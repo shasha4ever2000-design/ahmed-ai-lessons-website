@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prompt Grader | Ahmed Hussein · AI Lessons</title>
+<meta name="description" content="Free prompt grader: paste a prompt for ChatGPT, Claude or Copilot and get a score out of 100, the missing parts, and an upgraded version. Works in English and Arabic. Your prompt never leaves your browser.">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="/favicon.svg">
+<link rel="canonical" href="https://ahmed-ai-lessons-website.vercel.app/prompt-grader">
+<link rel="alternate" hreflang="en" href="https://ahmed-ai-lessons-website.vercel.app/prompt-grader">
+<link rel="alternate" hreflang="ar" href="https://ahmed-ai-lessons-website.vercel.app/ar/prompt-grader">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ahmed Hussein · AI Lessons">
+<meta property="og:title" content="Free Prompt Grader: how good is your AI prompt?">
+<meta property="og:description" content="Paste a prompt, get a score out of 100 and an upgraded version. English and Arabic. Runs in your browser.">
+<meta property="og:url" content="https://ahmed-ai-lessons-website.vercel.app/prompt-grader">
+<meta property="og:image" content="https://ahmed-ai-lessons-website.vercel.app/media/og/en-home.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Prompt Grader","url":"https://ahmed-ai-lessons-website.vercel.app/prompt-grader","applicationCategory":"EducationalApplication","operatingSystem":"Any","inLanguage":["en","ar"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Grade an AI prompt on role, task, context and format, and get an upgraded version.","author":{"@id":"https://ahmed-ai-lessons-website.vercel.app/#person"}}</script>
+<link rel="preload" href="/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'?'light':'dark'})()</script>
+<style>
+@font-face{font-family:"Inter Tight Variable";font-weight:100 900;font-display:swap;src:url(/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2) format("woff2-variations")}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-400-normal-DqElNKgb.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:600;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-600-normal-DIa3GCJg.woff2) format("woff2");unicode-range:U+6??,U+200C-200F}
+:root,[data-theme=dark]{color-scheme:dark;--bg:#07080c;--surface:#11141c;--surface-2:#171b25;--line:#1c2130;--line-2:#2a3142;--text:#eceef4;--text-2:#c3c8d4;--muted:#8f97a8;
+  --accent:#8b93ff;--accent-hover:#a5abff;--accent-soft:#1a1d33;--accent-text:#a5abff;--accent-ink:#07080c;--ok:#4ade80;--warn:#f5b971;--bad:#f87171;
+  --role:#f08a63;--task:#8fcf6c;--context:#7fb0ff;--format:#e08fdc;--dot:#eceef412}
+[data-theme=light]{color-scheme:light;--bg:#fafaf9;--surface:#fff;--surface-2:#f3f4f6;--line:#e6e8ec;--line-2:#d3d7de;--text:#0e1116;--text-2:#2b313b;--muted:#5b6472;
+  --accent:#4f46e5;--accent-hover:#4338ca;--accent-soft:#eef0ff;--accent-text:#4338ca;--accent-ink:#fff;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;
+  --role:#b0431d;--task:#3f6f2a;--context:#2458a6;--format:#8a3a86;--dot:#0e111617}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:"Inter Tight Variable","IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;font-size:16px;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+[dir=rtl] body{font-family:"IBM Plex Sans Arabic","Inter Tight Variable",system-ui,sans-serif}
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 16px}
+a{color:var(--accent-text)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700}
+.brand__mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+.brand small{display:block;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.bar__end{display:flex;gap:8px}
+.icon-btn,.lang{background:var(--surface);border:1px solid var(--line-2);color:var(--text);border-radius:10px;height:38px;min-width:38px;padding:0 12px;font:inherit;font-size:14px;cursor:pointer}
+.icon-btn:hover,.lang:hover{border-color:var(--accent)}
+
+.hero{padding:44px 0 22px}
+.kicker{color:var(--accent-text);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+[dir=rtl] .kicker{letter-spacing:0}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.08;letter-spacing:-.02em;font-weight:800;margin-top:10px}
+[dir=rtl] h1{letter-spacing:0;line-height:1.3}
+.hero p{color:var(--text-2);max-width:660px;margin-top:12px;font-size:17px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.stat{border:1px solid var(--line-2);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--text-2);background:var(--bg)}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start;padding-bottom:28px}
+@media (max-width:860px){.layout{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h2{font-size:18px;font-weight:700}
+.card__head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.input-card{position:sticky;top:16px}
+@media (max-width:860px){.input-card{position:static}}
+textarea{width:100%;min-height:220px;resize:vertical;background:var(--surface-2);border:1px solid var(--line-2);border-radius:12px;color:var(--text);font:inherit;font-size:16px;line-height:1.6;padding:14px}
+textarea::placeholder{color:var(--muted)}
+textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:13px}
+.private{display:inline-flex;align-items:center;gap:6px}
+.examples{display:flex;flex-wrap:wrap;gap:8px}
+.btn{height:40px;padding:0 16px;border-radius:10px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn--sm{height:34px;padding:0 12px;font-size:13px}
+.btn--primary{background:var(--accent);color:var(--accent-ink)}
+.btn--primary:hover{background:var(--accent-hover)}
+.btn--quiet{background:transparent;color:var(--text-2);border-color:var(--line-2)}
+.btn--quiet:hover{border-color:var(--accent);color:var(--text)}
+.btn.is-done{background:var(--ok);color:#07080c}
+
+.empty{text-align:center;padding:40px 12px;color:var(--muted)}
+.empty b{display:block;color:var(--text);font-size:18px;margin-bottom:6px}
+.score{display:flex;align-items:center;gap:18px}
+.ring{position:relative;width:112px;height:112px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:10}
+.ring .track{stroke:var(--line-2)}
+.ring .bar-c{stroke:var(--c,var(--accent));stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.2,.7,.2,1),stroke .3s}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:32px;font-weight:800;font-variant-numeric:tabular-nums}
+.ring b small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:-6px;text-align:center}
+.verdict{font-size:22px;font-weight:800;color:var(--c,var(--text))}
+.verdict-sub{color:var(--text-2);font-size:15px;margin-top:2px}
+
+.parts{list-style:none;display:grid;gap:10px;margin-top:20px}
+.part{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:start;padding:12px 14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
+.part__dot{width:10px;height:10px;border-radius:50%;background:var(--pc);margin-top:7px}
+.part__name{font-weight:700}
+.part__pts{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.part__tip{grid-column:2/4;color:var(--text-2);font-size:14px}
+.pill{display:inline-block;margin-inline-start:8px;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:700;vertical-align:2px}
+.pill--full{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.pill--partial{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.pill--missing{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+
+.sub{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+[dir=rtl] .sub{letter-spacing:0}
+.marked{background:var(--surface-2);border-radius:12px;padding:14px;white-space:pre-wrap;word-wrap:break-word;font-size:15px;color:var(--text-2);border:1px solid var(--line)}
+.marked mark{background:none;color:var(--text);border-bottom:2px solid var(--pc);padding:0 1px;font-weight:600}
+.m-role{--pc:var(--role)}.m-task{--pc:var(--task)}.m-context{--pc:var(--context)}.m-format{--pc:var(--format)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pc);margin-inline-end:6px}
+.notes{list-style:none;display:grid;gap:8px}
+.note{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text-2);padding:10px 12px;border-radius:10px;border:1px solid var(--line)}
+.note i{font-style:normal;flex:none;width:20px;text-align:center}
+.note--warn{border-color:color-mix(in srgb,var(--bad) 45%,transparent);background:color-mix(in srgb,var(--bad) 8%,transparent);color:var(--text)}
+.upgrade{background:var(--surface-2);border-inline-start:3px solid var(--accent);border-radius:10px;padding:14px;white-space:pre-wrap;word-wrap:break-word;font-size:15px;color:var(--text-2)}
+.upgrade mark{background:var(--accent-soft);color:var(--accent-text);border-radius:4px;padding:0 2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin:8px 0 22px}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.how b{display:block;margin-bottom:4px}
+.how p{color:var(--text-2);font-size:14.5px}
+.cta{background:var(--accent-soft);border:1px solid var(--line-2);border-radius:20px;padding:26px;margin:8px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}
+.cta h2{font-size:22px}
+.cta p{color:var(--text-2);margin-top:4px}
+footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);font-size:13px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:.2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast,.ring .bar-c{transition:none}}
+</style>
+</head>
+<body>
+<header class="container bar">
+  <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">AH</span><span><span data-t="brand"></span><small data-t="brandTag"></small></span></a>
+  <div class="bar__end">
+    <button class="lang" id="lang" type="button"></button>
+    <button class="icon-btn" id="theme" type="button"></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="container hero">
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="title"></h1>
+    <p data-t="lead"></p>
+    <div class="stats"><span class="stat" data-t="stat1"></span><span class="stat" data-t="stat2"></span><span class="stat" data-t="stat3"></span></div>
+  </section>
+
+  <div class="container layout">
+    <section class="card input-card" aria-labelledby="in-title">
+      <div class="card__head">
+        <h2 id="in-title" data-t="inTitle"></h2>
+        <div class="examples">
+          <button class="btn btn--quiet btn--sm" type="button" data-example="weak" data-t="exWeak"></button>
+          <button class="btn btn--quiet btn--sm" type="button" data-example="strong" data-t="exStrong"></button>
+        </div>
+      </div>
+      <label class="visually-hidden" for="prompt" data-t="inTitle"></label>
+      <textarea id="prompt" spellcheck="true" dir="auto"></textarea>
+      <div class="meta">
+        <span class="private"><span aria-hidden="true">🔒</span><span data-t="private"></span></span>
+        <span><span id="words">0</span> · <button class="btn btn--quiet btn--sm" id="clear" type="button" data-t="clear"></button></span>
+      </div>
+    </section>
+
+    <section class="card" aria-live="polite" aria-labelledby="out-title">
+      <h2 id="out-title" class="visually-hidden" data-t="outTitle"></h2>
+      <div id="results"></div>
+    </section>
+  </div>
+
+  <section class="container">
+    <div class="how">
+      <div><b data-t="how1t"></b><p data-t="how1"></p></div>
+      <div><b data-t="how2t"></b><p data-t="how2"></p></div>
+      <div><b data-t="how3t"></b><p data-t="how3"></p></div>
+    </div>
+    <div class="cta">
+      <div><h2 data-t="ctaTitle"></h2><p data-t="ctaText"></p></div>
+      <div class="row" style="margin:0">
+        <a class="btn btn--primary" id="ctaLesson" href="/#free-lesson" data-t="ctaBtn"></a>
+        <a class="btn btn--quiet" id="ctaLib" href="/prompt-library.html" data-t="ctaLib"></a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="container"><p data-t="foot"></p></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const T = {
+  en: { brand:"Ahmed Hussein", brandTag:"AI LESSONS", kicker:"Free tool", title:"How good is your prompt?",
+    lead:"Paste a prompt you use with ChatGPT, Claude or Copilot. Get a score out of 100, see which of the four parts are missing, and copy an upgraded version.",
+    stat1:"Runs in your browser", stat2:"English & العربية", stat3:"Free",
+    inTitle:"Your prompt", exWeak:"Try a weak one", exStrong:"Try a strong one", clear:"Clear",
+    placeholder:"Paste or type your prompt here…\n\nExample: write an email about the meeting",
+    private:"Your prompt never leaves this page.", words:n=>`${n} ${n===1?'word':'words'}`, outTitle:"Your score",
+    emptyT:"Your score will appear here", emptyS:"It updates as you type. Try one of the examples to see how it works.",
+    out:"out of 100",
+    verdicts:[["Needs work","The AI will have to guess a lot. Add the missing parts below."],["Getting there","A good start. Fill the gaps to get a much better answer."],["Good prompt","Clear and usable. One or two small additions will make it great."],["Excellent","All four parts are in. The AI has what it needs."]],
+    parts:{role:"Role",task:"Task",context:"Context",format:"Format"},
+    status:{full:"Clear",partial:"Partly",missing:"Missing"},
+    tips:{
+      role:{full:"You told the AI who to be.",missing:"Start with who the AI should be, e.g. “You are an experienced accountant.”",partial:""},
+      task:{full:"The job is clear.",partial:"Say exactly what you want, with a clear verb: write, summarise, compare, list…",missing:"Say what you want it to do: “Write…”, “Summarise…”, “Compare…”."},
+      context:{full:"You gave background it can’t guess.",partial:"Add one more fact: who it’s for, what happened, or the numbers involved.",missing:"Add what the AI can’t guess: who it’s for, the situation, key facts."},
+      format:{full:"You said how the answer should look.",partial:"Be more specific: a length, a layout (bullets or table) and a tone.",missing:"Say how the answer should look: length, bullets or table, tone."}},
+    pts:(n)=>`${n}/25`,
+    seeT:"What the grader found", legend:"Underlined words show where each part was found.",
+    notesT:"Also checked",
+    noteShort:"Very short prompts get generic answers. Aim for at least two or three sentences.",
+    noteExample:"Nice: you included an example. That’s one of the best ways to get the style you want.",
+    noteAsk:"Nice: you asked the AI to ask questions first.",
+    noteBrackets:"There are [brackets] left. Fill them in before you send.",
+    notePrivate:k=>`It looks like your prompt contains ${k}. Replace it with a placeholder like [Client] before you paste it into an AI tool.`,
+    privKinds:{email:"an email address",phone:"a phone number",iban:"a bank account number (IBAN)",card:"a card or account number"},
+    safeLink:"Read: what never to paste",
+    upT:"Upgraded prompt", upS:"We kept your words and added the missing parts. Fill in the [brackets], then paste it into your AI tool.",
+    upFull:"Your prompt already has all four parts. Copy it as it is.",
+    copy:"Copy prompt", copied:"Copied", share:"Share my score",
+    shareText:n=>`I scored ${n}/100 on this free prompt grader. Can you beat it?`, linkCopied:"Link copied",
+    copiedToast:"Copied. Fill in the [brackets] before you send.",
+    how1t:"1. Role", how1:"Who the AI should act as. It sets the expertise and the voice.",
+    how2t:"2. Task and context", how2:"What you want, plus the facts it can’t guess: who it’s for and what happened.",
+    how3t:"3. Format", how3:"How the answer should look: length, bullets or table, and tone.",
+    ctaTitle:"Learn the 4-part prompt in 5 minutes", ctaText:"The free lesson behind this grader, with examples you can copy.",
+    ctaBtn:"Open the free lesson", ctaLib:"Browse 30 ready prompts",
+    other:"العربية", theme:["Light mode","Dark mode"],
+    foot:"Independent site. Not affiliated with any AI company mentioned here. The grader checks the structure of your prompt with simple rules; it doesn’t send your text anywhere." ,
+    up:{role:"You are [the expert you need, e.g. an experienced accountant].",task:"Task: [say exactly what you want, e.g. write / summarise / compare].",context:"Context: [who it’s for, what happened, and the key facts].",format:"Format: [length, e.g. under 120 words], [layout: bullets or a table], [tone: formal or friendly]."}},
+  ar: { brand:"أحمد حسين", brandTag:"دروس الذكاء الاصطناعي", kicker:"أداة مجانية", title:"ما مدى قوة طلبك؟",
+    lead:"الصق طلبًا تستخدمه مع ChatGPT أو Claude أو Copilot. احصل على درجة من 100، واعرف أي الأجزاء الأربعة ناقصة، وانسخ نسخة محسّنة.",
+    stat1:"يعمل داخل متصفحك", stat2:"العربية و English", stat3:"مجاني",
+    inTitle:"طلبك", exWeak:"جرّب طلبًا ضعيفًا", exStrong:"جرّب طلبًا قويًا", clear:"مسح",
+    placeholder:"الصق طلبك أو اكتبه هنا…\n\nمثال: اكتب إيميل عن الاجتماع",
+    private:"طلبك لا يغادر هذه الصفحة.", words:n=>`${n} ${n===1?'كلمة':'كلمات'}`, outTitle:"درجتك",
+    emptyT:"ستظهر درجتك هنا", emptyS:"تتحدّث الدرجة أثناء الكتابة. جرّب أحد الأمثلة لترى كيف تعمل.",
+    out:"من 100",
+    verdicts:[["يحتاج إلى عمل","سيضطر الذكاء الاصطناعي إلى التخمين كثيرًا. أضف الأجزاء الناقصة بالأسفل."],["بداية جيدة","أكمل الفجوات لتحصل على إجابة أفضل بكثير."],["طلب جيد","واضح وقابل للاستخدام. إضافة أو اثنتان ستجعلانه ممتازًا."],["ممتاز","الأجزاء الأربعة موجودة. لدى الذكاء الاصطناعي ما يحتاجه."]],
+    parts:{role:"الدور",task:"المهمة",context:"السياق",format:"الشكل"},
+    status:{full:"واضح",partial:"جزئي",missing:"ناقص"},
+    tips:{
+      role:{full:"أخبرت الذكاء الاصطناعي بالدور الذي يأخذه.",missing:"ابدأ بالدور، مثل: «أنت محاسب خبير».",partial:""},
+      task:{full:"المهمة واضحة.",partial:"قل ما تريده بالضبط بفعل واضح: اكتب، لخّص، قارن، اذكر…",missing:"قل ما تريد أن يفعله: «اكتب…»، «لخّص…»، «قارن…»."},
+      context:{full:"أعطيت معلومات لا يستطيع تخمينها.",partial:"أضف معلومة أخرى: لمن الرد، ماذا حدث، أو الأرقام المهمة.",missing:"أضف ما لا يستطيع تخمينه: لمن الرد، الموقف، الحقائق المهمة."},
+      format:{full:"حدّدت شكل الإجابة.",partial:"كن أدق: الطول، والشكل (نقاط أو جدول)، والأسلوب.",missing:"حدّد شكل الإجابة: الطول، نقاط أو جدول، الأسلوب."}},
+    pts:(n)=>`${n}/25`,
+    seeT:"ما وجده المقيّم", legend:"الكلمات المسطّرة توضح أين وُجد كل جزء.",
+    notesT:"فحوصات إضافية",
+    noteShort:"الطلبات القصيرة جدًا تعطي إجابات عامة. اكتب جملتين أو ثلاثًا على الأقل.",
+    noteExample:"رائع: أضفت مثالًا. هذه من أفضل الطرق للحصول على الأسلوب الذي تريده.",
+    noteAsk:"رائع: طلبت منه أن يسألك أسئلة أولًا.",
+    noteBrackets:"ما زالت هناك أقواس [ ]. املأها قبل الإرسال.",
+    notePrivate:k=>`يبدو أن طلبك يحتوي على ${k}. استبدله برمز بديل مثل [العميل] قبل لصقه في أي أداة ذكاء اصطناعي.`,
+    privKinds:{email:"عنوان بريد إلكتروني",phone:"رقم هاتف",iban:"رقم حساب بنكي (IBAN)",card:"رقم بطاقة أو حساب"},
+    safeLink:"اقرأ: ما الذي لا تلصقه أبدًا",
+    upT:"الطلب المحسّن", upS:"احتفظنا بكلماتك وأضفنا الأجزاء الناقصة. املأ الأقواس [ ] ثم الصقه في أداة الذكاء الاصطناعي.",
+    upFull:"طلبك يحتوي على الأجزاء الأربعة. انسخه كما هو.",
+    copy:"انسخ الطلب", copied:"تم النسخ", share:"شارك درجتي",
+    shareText:n=>`حصلت على ${n}/100 في أداة تقييم الطلبات المجانية. هل تستطيع أن تتفوق عليّ؟`, linkCopied:"تم نسخ الرابط",
+    copiedToast:"تم النسخ. املأ الأقواس [ ] قبل الإرسال.",
+    how1t:"١. الدور", how1:"من يجب أن يكون الذكاء الاصطناعي. يحدد الخبرة والأسلوب.",
+    how2t:"٢. المهمة والسياق", how2:"ما تريده، مع الحقائق التي لا يستطيع تخمينها: لمن، وماذا حدث.",
+    how3t:"٣. الشكل", how3:"كيف تبدو الإجابة: الطول، نقاط أو جدول، والأسلوب.",
+    ctaTitle:"تعلّم الطلب ذا الأجزاء الأربعة في 5 دقائق", ctaText:"الدرس المجاني الذي بُنيت عليه هذه الأداة، مع أمثلة تنسخها.",
+    ctaBtn:"افتح الدرس المجاني", ctaLib:"تصفّح 30 طلبًا جاهزًا",
+    other:"English", theme:["الوضع الفاتح","الوضع الداكن"],
+    foot:"موقع مستقل غير تابع لأي شركة ذكاء اصطناعي مذكورة فيه. تفحص الأداة بنية طلبك بقواعد بسيطة، ولا ترسل نصك إلى أي مكان.",
+    up:{role:"أنت [الخبير الذي تحتاجه، مثل: محاسب خبير].",task:"المهمة: [قل ما تريده بالضبط، مثل: اكتب / لخّص / قارن].",context:"السياق: [لمن الرد، وماذا حدث، والحقائق المهمة].",format:"الشكل: [الطول، مثل: أقل من 120 كلمة]، [نقاط أو جدول]، [الأسلوب: رسمي أو ودود]."}}
+};
+
+const EXAMPLES = {
+  en: { weak:"write an email about the meeting",
+    strong:"You are my office assistant.\nWrite a short email to my team saying Thursday's meeting moves to 2 pm.\nThere are 6 of us and some work remotely, so include the Teams link.\nKeep it under 80 words, friendly but professional, and end with a question." },
+  ar: { weak:"اكتب إيميل عن الاجتماع",
+    strong:"أنت مساعدي في المكتب.\nاكتب إيميلًا قصيرًا لفريقي بأن اجتماع الخميس انتقل إلى الساعة 2 ظهرًا.\nنحن 6 أشخاص وبعضنا يعمل عن بُعد، لذلك أضف رابط Teams.\nاجعله أقل من 80 كلمة، بأسلوب ودود ومهني، واختمه بسؤال." }
+};
+
+/* ---------- Grading rules ----------
+   Each part has English and Arabic patterns. English uses word boundaries;
+   Arabic matches word starts (allowing و/ف prefixes) because suffixes vary. */
+const en = f => new RegExp(`(^|[^a-z0-9])(${f})(?![a-z])`, 'gi');
+// whole=true for short words that would otherwise match inside longer ones (أنت in انتقل).
+const ar = (f, whole) => new RegExp(`(^|[^\\u0600-\\u06FF])((?:و|ف)?(?:${f}))${whole ? '(?![\\u0600-\\u06FF])' : ''}`, 'g');
+const RULES = {
+  role: [
+    en("you are(?: an?| my| the)?|you're(?: an?| my)?|act(?:ing)? as(?: an?| my)?|pretend(?: to be| you are)|imagine you are|take the role of|your role is|role:|as an? (?:expert|experienced|senior|professional|specialist)"),
+    ar("أنت|انت|أنتَ", true), ar("تصرّف ك|تصرف ك|بصفتك|كأنك|دورك|اعمل ك|الدور:")],
+  taskStrong: [
+    en("write|draft|summari[sz]e|create|make|explain|list|translate|rewrite|re-write|review|check|compare|analy[sz]e|build|give me|suggest|plan|prepare|calculate|convert|extract|generate|fix|improve|find|design|edit|proofread|outline|turn|reply|respond|classify|sort|rank|recommend|brainstorm|reconcile|format|shorten|simplify|identify|answer"),
+    ar("اكتب|أكتب|لخّص|لخص|أنشئ|انشئ|اشرح|ترجم|راجع|قارن|حلّل|حلل|اقترح|جهّز|جهز|احسب|صحّح|صحح|حسّن|حسن|أعد صياغة|اعد صياغة|أعطني|اعطني|رتّب|رتب|استخرج|صمّم|صمم|اذكر|حوّل|حول|ردّ|رد على|صنّف|صنف|أجب|اجب"), ar("ضع", true)],
+  taskVague: [
+    en("help me(?: with)?|tell me about|something about|i need|can you|i want"),
+    ar("ساعدني|أخبرني عن|اخبرني عن|أريد|اريد|أحتاج|احتاج|هل يمكنك")],
+  context: [
+    en("because|so that|for my|for our|for the|my (?:team|manager|boss|client|customer|company|colleagues?|audience|students?)|our (?:team|company|clients?|customers?)|the (?:reader|audience|client|customer)|audience|background|context:|we are|we have|i am an?|i'm an?|i work|there are|currently|deadline|last (?:month|week|year|quarter)|this (?:month|week|year|quarter)|due to|after|before|who (?:is|are)|\\d+ (?:people|of us|employees|staff|clients|customers|items|rows|columns|invoices|accounts)"),
+    ar("لأن|لان|حتى|لفريقي|فريقي|مديري|عميل|العميل|عملاء|شركتنا|شركتي|الجمهور|القارئ|السياق|الخلفية|نحن|لدينا|عندنا|أنا|انا أعمل|أعمل|يوجد|هناك|حالي|الموعد|الشهر الماضي|هذا الشهر|بسبب|بعد|قبل|موجّه|موجه")],
+  format: [
+    en("\\d+ (?:words?|sentences?|bullets?|bullet points|points|lines?|paragraphs?|characters|items|slides|steps)|under \\d+|at most|no more than|max(?:imum)?|bullet(?:s| points?)?|a list|numbered|table|json|csv|markdown|headings?|subject line|step[- ]by[- ]step|in (?:english|arabic)|formal|friendly|polite|professional|casual|simple|plain (?:words|english|language)|tone|short|brief|concise|one page|end with|start with|format:"),
+    ar("\\d+ (?:كلمة|كلمات|جملة|جمل|نقطة|نقاط|سطر|أسطر|فقرة|فقرات|خطوات)|لا يزيد|لا تزيد|أقل من|اقل من|على الأكثر|نقاط|جدول|قائمة|مرقّمة|مرقمة|بأسلوب|اسلوب|أسلوب|رسمي|ودود|مهني|مختصر|باختصار|قصير|خطوة بخطوة|عنوان|بالعربية|بالإنجليزية|اختم|ابدأ ب|الشكل:")],
+  example: [en("for example|e\\.g\\.|such as|like this|example:|here is an example|sample:"), ar("مثال|مثلاً|مثلا|على سبيل المثال")],
+  askFirst: [en("ask me|questions? (?:first|before)|before you (?:start|answer|begin)"), ar("اسألني|اسالني|أسئلة قبل|اسئلة قبل|قبل أن تبدأ|قبل ان تبدأ")]
+};
+const PRIVATE = {
+  email: /[\w.+-]+@[\w-]+\.[\w.]+/,
+  iban: /\b[A-Z]{2}\d{2}(?:\s?[A-Z0-9]{4}){3,7}\b/,
+  card: /\b(?:\d[ -]?){13,19}\b/,
+  phone: /(?:\+|00)\d[\d\s-]{7,}\d|\b05\d[\s-]?\d{3}[\s-]?\d{4}\b/
+};
+
+function hits(text, regs) {
+  const out = [];
+  for (const re of regs) {
+    re.lastIndex = 0; let m;
+    while ((m = re.exec(text))) {
+      const start = m.index + m[1].length, word = m[2];
+      if (word.trim()) out.push({ start, end: start + word.length, word: word.toLowerCase().trim() });
+      if (re.lastIndex === m.index) re.lastIndex++;
+    }
+  }
+  return out;
+}
+const distinct = h => new Set(h.map(x => x.word)).size;
+const countWords = s => (s.trim().match(/[\p{L}\p{N}]+/gu) || []).length;
+
+function grade(text) {
+  const words = countWords(text);
+  const h = {
+    role: hits(text, RULES.role), task: hits(text, RULES.taskStrong), vague: hits(text, RULES.taskVague),
+    context: hits(text, RULES.context), format: hits(text, RULES.format)
+  };
+  // Long pasted material (several lines or a quoted block) is context too.
+  const pasted = text.split(/\n/).filter(l => l.trim()).length >= 4 || /["“«][^"”»]{80,}["”»]/.test(text);
+  const ctxCount = distinct(h.context) + (pasted ? 1 : 0);
+  const st = {
+    role: h.role.length ? 'full' : 'missing',
+    task: h.task.length && words >= 4 ? 'full' : (h.task.length || h.vague.length) ? 'partial' : 'missing',
+    context: ctxCount >= 2 || (ctxCount === 1 && words >= 40) ? 'full' : ctxCount === 1 ? 'partial' : 'missing',
+    format: distinct(h.format) >= 2 ? 'full' : h.format.length ? 'partial' : 'missing'
+  };
+  const pts = s => s === 'full' ? 25 : s === 'partial' ? 12 : 0;
+  let score = ['role','task','context','format'].reduce((a, k) => a + pts(st[k]), 0);
+  if (words < 6) score = Math.min(score, 30);
+  const privateKinds = Object.keys(PRIVATE).filter(k => PRIVATE[k].test(text));
+  return {
+    words, score, st, pts,
+    marks: { role: h.role, task: h.task.concat(h.vague), context: h.context, format: h.format },
+    example: hits(text, RULES.example).length > 0,
+    askFirst: hits(text, RULES.askFirst).length > 0,
+    brackets: /\[[^\]]+\]/.test(text),
+    privateKinds
+  };
+}
+
+/* ---------- UI ---------- */
+const params = new URLSearchParams(location.search);
+const state = {
+  lang: params.get('lang') === 'ar' || location.pathname.startsWith('/ar/') ? 'ar' : 'en',
+  theme: document.documentElement.dataset.theme || 'dark'
+};
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isArabic = s => (s.match(/[؀-ۿ]/g) || []).length > (s.match(/[a-z]/gi) || []).length;
+const COLORS = ['var(--bad)', 'var(--warn)', 'var(--accent)', 'var(--ok)'];
+let last = null;
+
+function markUp(text, marks) {
+  // Merge part matches into non-overlapping ranges, earliest first.
+  const ranges = [];
+  for (const part of Object.keys(marks)) for (const r of marks[part]) ranges.push({ ...r, part });
+  ranges.sort((a, b) => a.start - b.start || b.end - a.end);
+  let out = '', pos = 0;
+  for (const r of ranges) {
+    if (r.start < pos) continue;
+    out += esc(text.slice(pos, r.start)) + `<mark class="m-${r.part}">${esc(text.slice(r.start, r.end))}</mark>`;
+    pos = r.end;
+  }
+  return out + esc(text.slice(pos));
+}
+
+function upgraded(text, g) {
+  // Template language follows the prompt, not the page, so the upgrade reads naturally.
+  const up = T[isArabic(text) ? 'ar' : 'en'].up;
+  const lines = [];
+  if (g.st.role === 'missing') lines.push(up.role);
+  lines.push(text.trim());
+  if (g.st.task !== 'full') lines.push(up.task);
+  if (g.st.context !== 'full') lines.push(up.context);
+  if (g.st.format !== 'full') lines.push(up.format);
+  return lines.join('\n');
+}
+
+function render() {
+  const t = T[state.lang];
+  const text = $('#prompt').value;
+  $('#words').textContent = t.words(countWords(text));
+  if (!text.trim()) {
+    last = null;
+    $('#results').innerHTML = `<div class="empty"><b>${t.emptyT}</b>${t.emptyS}</div>`;
+    return;
+  }
+  const g = grade(text);
+  const band = g.score >= 90 ? 3 : g.score >= 70 ? 2 : g.score >= 40 ? 1 : 0;
+  const color = COLORS[band];
+  const C = 2 * Math.PI * 50;
+  const notes = [];
+  for (const k of g.privateKinds) notes.push(`<li class="note note--warn"><i aria-hidden="true">⚠</i><span>${esc(t.notePrivate(t.privKinds[k]))} <a href="${state.lang === 'ar' ? '/ar' : ''}/lessons/use-ai-safely/">${t.safeLink}</a></span></li>`);
+  if (g.words < 12) notes.push(`<li class="note"><i aria-hidden="true">✎</i><span>${t.noteShort}</span></li>`);
+  if (g.brackets) notes.push(`<li class="note"><i aria-hidden="true">[ ]</i><span>${t.noteBrackets}</span></li>`);
+  if (g.example) notes.push(`<li class="note"><i aria-hidden="true">✓</i><span>${t.noteExample}</span></li>`);
+  if (g.askFirst) notes.push(`<li class="note"><i aria-hidden="true">✓</i><span>${t.noteAsk}</span></li>`);
+  const allFull = Object.values(g.st).every(s => s === 'full');
+  last = { g, up: allFull ? text.trim() : upgraded(text, g) };
+  const upHtml = esc(last.up).replace(/\[([^\]]+)\]/g, '<mark>[$1]</mark>');
+
+  $('#results').innerHTML = `
+    <div class="score" style="--c:${color}">
+      <div class="ring" role="img" aria-label="${g.score} ${t.out}">
+        <svg width="112" height="112" viewBox="0 0 112 112" aria-hidden="true"><circle class="track" cx="56" cy="56" r="50"/>
+          <circle class="bar-c" cx="56" cy="56" r="50" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - g.score / 100)}"/></svg>
+        <b><span>${g.score}<small>${t.out}</small></span></b>
+      </div>
+      <div><p class="verdict">${t.verdicts[band][0]}</p><p class="verdict-sub">${t.verdicts[band][1]}</p></div>
+    </div>
+    <ul class="parts">${['role','task','context','format'].map(k => `
+      <li class="part m-${k}"><span class="part__dot" aria-hidden="true"></span>
+        <span class="part__name">${t.parts[k]}<span class="pill pill--${g.st[k]}">${t.status[g.st[k]]}</span></span>
+        <span class="part__pts">${t.pts(g.pts(g.st[k]))}</span>
+        <span class="part__tip">${t.tips[k][g.st[k]]}</span></li>`).join('')}
+    </ul>
+    <p class="sub">${t.seeT}</p>
+    <div class="marked" dir="auto">${markUp(text, g.marks)}</div>
+    <div class="legend">${['role','task','context','format'].map(k => `<span class="m-${k}">${t.parts[k]}</span>`).join('')}</div>
+    ${notes.length ? `<p class="sub">${t.notesT}</p><ul class="notes">${notes.join('')}</ul>` : ''}
+    <p class="sub">${t.upT}</p>
+    <p style="color:var(--text-2);font-size:14px;margin-bottom:10px">${allFull ? t.upFull : t.upS}</p>
+    <div class="upgrade" dir="auto">${upHtml}</div>
+    <div class="row">
+      <button class="btn btn--primary" type="button" id="copyUp">${t.copy}</button>
+      <button class="btn btn--quiet" type="button" id="shareScore">${t.share}</button>
+    </div>`;
+}
+
+function renderStatic() {
+  const t = T[state.lang];
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
+  $('#prompt').placeholder = t.placeholder;
+  $('#lang').textContent = t.other;
+  $('#lang').lang = state.lang === 'ar' ? 'en' : 'ar';
+  $('#ctaLesson').href = state.lang === 'ar' ? '/ar/#free-lesson' : '/#free-lesson';
+  $('#ctaLib').href = '/prompt-library.html' + (state.lang === 'ar' ? '?lang=ar' : '');
+  const dark = state.theme === 'dark';
+  $('#theme').textContent = dark ? '☀' : '☾';
+  $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
+  document.title = state.lang === 'ar' ? 'مقيّم الطلبات | أحمد حسين · دروس الذكاء الاصطناعي' : 'Prompt Grader | Ahmed Hussein · AI Lessons';
+}
+
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); return true; }
+  catch (_) {
+    const ta = document.createElement('textarea'); ta.value = s; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok;
+  }
+}
+let toastTimer;
+function toast(msg) {
+  const el = $('#toast'); el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+function save() { try { localStorage.setItem('ahl:grader', $('#prompt').value); } catch (_) {} }
+
+let timer;
+$('#prompt').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { render(); save(); }, 150); });
+$('#clear').addEventListener('click', () => { $('#prompt').value = ''; render(); save(); $('#prompt').focus(); });
+document.querySelectorAll('[data-example]').forEach(b => b.addEventListener('click', () => {
+  $('#prompt').value = EXAMPLES[state.lang][b.dataset.example]; render(); save();
+}));
+$('#results').addEventListener('click', async e => {
+  if (!last) return;
+  const t = T[state.lang];
+  if (e.target.id === 'copyUp' && await copyText(last.up)) {
+    e.target.textContent = t.copied; e.target.classList.add('is-done'); toast(t.copiedToast);
+    setTimeout(() => { e.target.textContent = t.copy; e.target.classList.remove('is-done'); }, 1600);
+  }
+  if (e.target.id === 'shareScore') {
+    // Shares the score and the page link only, never the prompt text.
+    const url = location.origin + (state.lang === 'ar' ? '/ar/prompt-grader' : '/prompt-grader');
+    const text = t.shareText(last.g.score);
+    if (navigator.share) { try { await navigator.share({ title: document.title, text, url }); } catch (_) {} }
+    else if (await copyText(text + ' ' + url)) toast(t.linkCopied);
+  }
+});
+$('#lang').addEventListener('click', () => {
+  state.lang = state.lang === 'en' ? 'ar' : 'en';
+  history.replaceState(null, '', state.lang === 'ar' ? '/ar/prompt-grader' : '/prompt-grader');
+  renderStatic(); render();
+});
+$('#theme').addEventListener('click', () => {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = state.theme;
+  try { localStorage.setItem('ahl:theme', state.theme); } catch (_) {}
+  renderStatic();
+});
+
+try { const saved = localStorage.getItem('ahl:grader'); if (saved) $('#prompt').value = saved; } catch (_) {}
+renderStatic(); render();
+</script>
+<script defer src="/ahl-links.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
