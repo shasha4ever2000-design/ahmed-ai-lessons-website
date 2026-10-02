@@ -1,0 +1,134 @@
+/*
+ * Ledger theme: a design layer on top of the built site.
+ * Loaded after each page's own styles, so these rules win.
+ * Idea: an accountant's working ledger. Ledger-green paper, highlighter for actions,
+ * red margin rule on the hero, serif headings (Instrument Serif / Amiri for Arabic).
+ */
+
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2) format("woff2")}
+@font-face{font-family:"Amiri";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/amiri-arabic-400-normal-DdpaZWqT.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Amiri";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/amiri-arabic-700-normal-D7VDNf4C.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+
+/* ---------- Tokens (html[...] beats the site's [data-theme=...]) ---------- */
+html:root[data-theme=dark],html:root:not([data-theme]){
+  --bg:#0f1a16;--surface:#152520;--surface-2:#1b2e28;--line:#22382f;--line-2:#2f4a3f;
+  --text:#edf2e8;--text-2:#c6d2c6;--muted:#93a79a;
+  --accent:#f4d35e;--accent-hover:#f8e07f;--accent-ink:#13201b;--accent-soft:#2b2f1c;--accent-text:#f4d35e;
+  --teal:#5cc79a;--teal-soft:#173a2d;--ink-blue:#8db8ff;--ink-blue-soft:#1a2a40;--ink-red:#e2655a;
+  --warm:#f4d35e;--shine-1:#f4d35e;--shine-2:#f8e07f;--shine-3:#5cc79a;--dot:transparent;
+  --ledger-rule:#1d3029;
+  --shadow:0 1px 2px #0006;--shadow-lift:0 10px 30px -18px #000c;
+  --radius:10px;--radius-sm:7px;--radius-lg:14px;
+}
+html:root[data-theme=light]{
+  --bg:#eef3ea;--surface:#fafcf7;--surface-2:#e4ece0;--line:#d2decf;--line-2:#b9cbb5;
+  --text:#13221c;--text-2:#2e4038;--muted:#56695f;
+  --accent:#f2cc3a;--accent-hover:#ffd94d;--accent-ink:#13221c;--accent-soft:#fff3b8;--accent-text:#1d6a50;
+  --teal:#18805a;--teal-soft:#d6efe2;--ink-blue:#2459a8;--ink-blue-soft:#dde8fa;--ink-red:#c2412f;
+  --warm:#9a6b00;--shine-1:#1d6a50;--shine-2:#2e8a68;--shine-3:#9a6b00;--dot:transparent;
+  --ledger-rule:#d9e4d5;
+  --shadow:0 1px 2px #13221c14;--shadow-lift:0 10px 30px -18px #13221c40;
+  --radius:10px;--radius-sm:7px;--radius-lg:14px;
+}
+body{background:var(--bg)}
+
+/* Quieter page: no dotted particle field, no tilting cards. */
+.fx-field{display:none!important}
+.fx-tilt,.fx-tilt:hover{transform:none!important}
+
+/* ---------- Type ---------- */
+h1,.hero__title,.h2,.lesson-h2,.page-title,.lesson-title{font-family:"Instrument Serif","Amiri",Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.hero__title{font-size:clamp(3.2rem,1.4rem + 5.6vw,6.6rem);line-height:.96}
+.h2{font-size:clamp(2.2rem,1.4rem + 2.6vw,3.6rem);line-height:1.04}
+.lesson-h2{font-size:clamp(1.7rem,1.3rem + 1.2vw,2.3rem);line-height:1.1}
+:lang(ar) h1,:lang(ar) .hero__title,:lang(ar) .h2,:lang(ar) .lesson-h2,:lang(ar) .page-title,:lang(ar) .lesson-title,
+[dir=rtl] h1,[dir=rtl] .hero__title,[dir=rtl] .h2,[dir=rtl] .lesson-h2,[dir=rtl] .page-title,[dir=rtl] .lesson-title{font-family:"Amiri","Instrument Serif",serif;font-weight:700;letter-spacing:0;line-height:1.3}
+:lang(ar) .hero__title,[dir=rtl] .hero__title{font-size:clamp(2.6rem,1.3rem + 4.4vw,5.2rem);line-height:1.25}
+/* The accent line reads as one sentence with the rest of the heading. */
+.hero__line--accent>span{color:var(--text);-webkit-text-fill-color:currentColor;background:none}
+
+/* Small labels: sentence case, readable, no monospace. */
+.mono{font-family:var(--font-sans);text-transform:none;letter-spacing:0;font-size:.86rem;font-weight:600}
+.brand__tag{font-size:.74rem;font-weight:500;color:var(--muted)}
+.eyebrow{color:var(--accent-text)}
+.eyebrow:before{display:none}
+.small-title,.sheet__label,.compare__label,.callout__title,.answer__label{text-transform:none;letter-spacing:0;font-family:var(--font-sans)}
+.lede{color:var(--text-2)}
+
+/* ---------- Hero: the ledger page ---------- */
+/* Two red margin rules (2px each, 4px apart) at the page edge, over ruled lines every 40px. */
+.hero--stage{
+  --margin-x:max(3px,calc(var(--gutter,24px) - 16px));
+  background:
+    linear-gradient(var(--ink-red),var(--ink-red)) var(--margin-x) 0/2px 100% no-repeat,
+    linear-gradient(var(--ink-red),var(--ink-red)) calc(var(--margin-x) + 6px) 0/2px 100% no-repeat,
+    repeating-linear-gradient(180deg,transparent 0,transparent 39px,var(--ledger-rule) 39px,var(--ledger-rule) 40px);
+  border-bottom:1px solid var(--line-2)}
+[dir=rtl] .hero--stage{background:
+    linear-gradient(var(--ink-red),var(--ink-red)) right var(--margin-x) top 0/2px 100% no-repeat,
+    linear-gradient(var(--ink-red),var(--ink-red)) right calc(var(--margin-x) + 6px) top 0/2px 100% no-repeat,
+    repeating-linear-gradient(180deg,transparent 0,transparent 39px,var(--ledger-rule) 39px,var(--ledger-rule) 40px)}
+.hero__eyebrow{color:var(--accent-text);font-size:.95rem}
+.hero__eyebrow:before{display:none}
+.hero__byline{font-size:1rem;color:var(--text-2);gap:16px;margin-top:22px}
+.hero__byline img{width:80px;height:80px;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--accent);background:var(--surface)}
+.hero__byline b{font-size:1.08rem}
+.pf__slab{border-radius:var(--radius-sm);background:var(--surface);box-shadow:none}
+.hero__caption{color:var(--muted)}
+.fact-strip{color:var(--text-2)}
+
+/* ---------- Buttons ---------- */
+.btn{border-radius:var(--radius-sm)}
+.btn--primary{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.btn--primary:hover{background:var(--accent-hover);color:var(--accent-ink)}
+.btn--ghost{border-color:var(--line-2)}
+
+/* ---------- Tracks: one ink per track ---------- */
+.track-card{border-top:4px solid var(--track,var(--accent));background:var(--surface)}
+.track-card--ai{--track:var(--accent)}
+.track-card--finance{--track:var(--teal)}
+.track-card--m365{--track:var(--ink-blue)}
+.track-card--ai .icon-tile{background:var(--accent-soft);color:var(--accent-text)}
+.track-card--finance .icon-tile{background:var(--teal-soft);color:var(--teal)}
+.track-card--m365 .icon-tile{background:var(--ink-blue-soft);color:var(--ink-blue)}
+.track-card__name{font-family:"Instrument Serif","Amiri",serif;font-weight:400;font-size:1.9rem;line-height:1.1}
+[dir=rtl] .track-card__name{font-family:"Amiri",serif;font-weight:700;font-size:1.6rem}
+.track-card__cta{color:var(--track,var(--accent-text))}
+html:root[data-theme=light] .track-card--ai{--track:#c79a00}
+html:root[data-theme=light] .track-card--ai .track-card__cta{color:#7a5600}
+
+/* ---------- Cards and lesson tiles: lighter chrome ---------- */
+.card,.tile,.tool,.flow{box-shadow:none}
+.tile{background:transparent;border-color:var(--line-2)}
+.tile:hover{border-color:var(--accent);background:var(--surface)}
+.tile__title{font-size:1.12rem;line-height:1.3}
+.tile__date{color:var(--muted)}
+
+/* ---------- Homepage: shorter. The full list lives on /lessons/. ---------- */
+body:has(.hero--stage) .section--articles{display:none}
+
+/* ---------- About: give the portrait room ---------- */
+.about__photo{max-width:420px;background:var(--surface)}
+
+/* ---------- Free-tools band (added by ahl-links.js) ---------- */
+.ahl-tools{padding-block:clamp(48px,7vw,88px);border-block:1px solid var(--line-2);background:var(--surface)}
+.ahl-tools__in{max-width:var(--maxw,1200px);margin:0 auto;padding-inline:var(--gutter,16px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 48px;align-items:start}
+@media (max-width:860px){.ahl-tools__in{grid-template-columns:minmax(0,1fr)}}
+.ahl-tools h2{margin:0;font-size:clamp(2rem,1.4rem + 2vw,3rem);line-height:1.05}
+.ahl-tools p{margin:12px 0 0;color:var(--text-2);max-width:34rem;font-size:1.05rem}
+.ahl-tools__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-2)}
+.ahl-tools__list a{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:18px 4px;border-bottom:1px solid var(--line-2);text-decoration:none;color:var(--text)}
+.ahl-tools__list a:hover .ahl-tools__name{color:var(--accent-text);text-decoration:underline;text-underline-offset:4px}
+.ahl-tools__name{font-weight:650;font-size:1.15rem}
+.ahl-tools__what{grid-column:1;color:var(--muted);font-size:.95rem}
+.ahl-tools__go{grid-row:1/3;grid-column:2;align-self:center;color:var(--accent-text);font-weight:600;font-size:.95rem}
+.ahl-tools__list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- Standalone pages (links, grader, quiz, prompt library) ---------- */
+.hero h1,main.wrap h1,.me h1{font-family:"Instrument Serif","Amiri",Georgia,serif;font-weight:400;letter-spacing:-.01em}
+[dir=rtl] .hero h1{font-family:"Amiri",serif;font-weight:700;letter-spacing:0}
+.kicker{text-transform:none;letter-spacing:0;font-size:.95rem}
+.label,.sub{text-transform:none;letter-spacing:0;font-size:.9rem}
+body{background-image:none}
+
+@media (prefers-reduced-motion:reduce){.tile,.btn{transition:none}}

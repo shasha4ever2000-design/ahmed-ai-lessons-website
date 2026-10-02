@@ -75,4 +75,54 @@ window.AHL_SOCIALS = [
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addStrip);
     else addStrip();
   }
+
+  // Homepage "free tools" band, placed before the featured lessons. Styled by ahl-theme.css.
+  function addToolsBand() {
+    var featured = document.getElementById('lessons');
+    if (!featured || !document.querySelector('.hero--stage') || document.querySelector('.ahl-tools')) return;
+    var ar = document.documentElement.lang === 'ar', p = ar ? '/ar' : '';
+    var items = ar ? [
+      ['قيّم طلبك', 'الصق طلبًا واحصل على درجة من 100 ونسخة محسّنة.', p + '/prompt-grader', 'جرّبها'],
+      ['أي أداة تناسبني؟', 'ستة أسئلة سريعة، وأداة واحدة مناسبة لعملك.', p + '/ai-tool-quiz', 'ابدأ الاختبار'],
+      ['مكتبة الطلبات', '30 طلبًا جاهزًا لأعمال المالية والمكتب.', '/prompt-library.html?lang=ar', 'تصفّح']
+    ] : [
+      ['Prompt Grader', 'Paste a prompt, get a score out of 100 and an upgraded version.', '/prompt-grader', 'Grade a prompt'],
+      ['Which AI tool should I use?', 'Six quick questions, one tool that fits your work.', '/ai-tool-quiz', 'Take the quiz'],
+      ['Prompt Library', '30 ready prompts for finance and office work.', '/prompt-library.html', 'Browse prompts']
+    ];
+    var sec = document.createElement('section');
+    sec.className = 'ahl-tools';
+    sec.setAttribute('aria-labelledby', 'ahl-tools-title');
+    sec.innerHTML = '<div class="ahl-tools__in"><div><h2 id="ahl-tools-title" class="h2">' +
+      (ar ? 'جرّبها على عملك' : 'Try it on your own work') + '</h2><p>' +
+      (ar ? 'أدوات مجانية تعمل داخل متصفحك. لا تسجيل، ولا يغادر نصك جهازك.' : 'Free tools that run in your browser. No sign-up, and your text never leaves your device.') +
+      '</p></div><ul class="ahl-tools__list" role="list">' + items.map(function (i) {
+        return '<li><a href="' + i[2] + '"><span class="ahl-tools__name">' + i[0] + '</span><span class="ahl-tools__what">' + i[1] +
+          '</span><span class="ahl-tools__go">' + i[3] + '</span></a></li>';
+      }).join('') + '</ul></div>';
+    featured.parentNode.insertBefore(sec, featured);
+  }
+
+  // The homepage sections are hydrated lazily, a while after the page loads. Adding a node inside <main>
+  // before that makes React reject the server HTML and re-render everything. So wait until React has
+  // attached to the featured section (its DOM node gets a __reactFiber key), then insert.
+  function hydrated(el) {
+    for (var k in el) if (k.indexOf('__reactFiber') === 0) return true;
+    return false;
+  }
+  function whenHydrated() {
+    if (!document.querySelector('.hero--stage')) return;
+    var tries = 0;
+    (function poll() {
+      var f = document.getElementById('lessons');
+      if (f && hydrated(f)) {
+        addToolsBand();
+        // If React ever re-renders <main>, put the band back.
+        new MutationObserver(function () { if (!document.querySelector('.ahl-tools')) addToolsBand(); })
+          .observe(document.getElementById('main'), { childList: true });
+      } else if (++tries < 100) setTimeout(poll, 200);
+    })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', whenHydrated);
+  else whenHydrated();
 })();
