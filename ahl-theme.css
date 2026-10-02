@@ -32,8 +32,9 @@ html:root[data-theme=light]{
 }
 body{background:var(--bg)}
 
-/* Quieter page: no dotted particle field, no tilting cards. */
-.fx-field{display:none!important}
+/* Quieter cards: no tilt on hover. */
+/* The morphing 3D particle field stays (recoloured to ledger inks by ahl-links.js); only its dot grain goes. */
+.fx-field{background:none}
 .fx-tilt,.fx-tilt:hover{transform:none!important}
 
 /* ---------- Type ---------- */
@@ -136,3 +137,25 @@ body{background-image:none}
 /* ---------- Certificate line under the Start Here steps (added by ahl-links.js) ---------- */
 .ahl-cert{margin-top:22px;padding:14px 18px;border:1px dashed var(--line-2);border-radius:var(--radius-sm);color:var(--text-2);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
 .ahl-cert a{color:var(--accent-text);font-weight:650}
+
+/* ---------- Page-load moment (homepage, motion allowed) ----------
+   The ledger page draws itself: the red margin rules run down, the ruled lines run across,
+   then the headline rises. Plays once; without motion the static hero background above is used. */
+.motion .hero--stage{background:none;isolation:isolate}
+.motion .hero--stage:before,.motion .hero--stage:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+.motion .hero--stage:before{
+  background:repeating-linear-gradient(180deg,transparent 0,transparent 39px,var(--ledger-rule) 39px,var(--ledger-rule) 40px);
+  transform-origin:0 50%;animation:ahl-rules 1.1s cubic-bezier(.2,.7,.2,1) .35s both}
+[dir=rtl].motion .hero--stage:before,.motion[dir=rtl] .hero--stage:before{transform-origin:100% 50%}
+.motion .hero--stage:after{
+  --margin-x:max(3px,calc(var(--gutter,24px) - 16px));
+  background:linear-gradient(var(--ink-red),var(--ink-red)) var(--margin-x) 0/2px 100% no-repeat,
+    linear-gradient(var(--ink-red),var(--ink-red)) calc(var(--margin-x) + 6px) 0/2px 100% no-repeat;
+  transform-origin:50% 0;animation:ahl-margin .8s cubic-bezier(.6,0,.2,1) .05s both}
+.motion[dir=rtl] .hero--stage:after{
+  background:linear-gradient(var(--ink-red),var(--ink-red)) right var(--margin-x) top 0/2px 100% no-repeat,
+    linear-gradient(var(--ink-red),var(--ink-red)) right calc(var(--margin-x) + 6px) top 0/2px 100% no-repeat}
+.motion .hero__title .hero__line>span{display:inline-block;animation:ahl-rise .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.75s + var(--i,0) * .12s)}
+@keyframes ahl-rules{from{transform:scaleX(0);opacity:.2}to{transform:none;opacity:1}}
+@keyframes ahl-margin{from{transform:scaleY(0)}to{transform:none}}
+@keyframes ahl-rise{from{transform:translateY(.45em);opacity:0}to{transform:none;opacity:1}}

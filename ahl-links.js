@@ -13,6 +13,38 @@ window.AHL_SOCIALS = [
   { id: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/966507384045' },
 ];
 
+/*
+ * Ledger colours for the site's 3D scenes (the morphing particle field and the glass prompt cards).
+ * Their colours are hard-coded in the built three.js chunks. Instead of editing those cached files, we load
+ * the same three.js module (same URL = same module instance) and remap the old hex codes in Color.set
+ * before the scenes are created. Only runs where the scenes will run: a field canvas, motion allowed.
+ */
+(function () {
+  var MAP = {
+    // dark theme: particles, card glass, lights, glow outline
+    '#8b93ff': '#f4d35e', '#3cc6b4': '#5cc79a', '#f5b971': '#8db8ff', '#141829': '#17302a',
+    // light theme
+    '#4f46e5': '#1d6a50', '#0b7a6e': '#2459a8', '#b45309': '#c2412f'
+  };
+  if (!document.getElementById('field-canvas')) return;
+  try { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch (e) {}
+  var script = [].slice.call(document.querySelectorAll('script[type=module][src]')).filter(function (s) { return /\/assets\/index-/.test(s.src); })[0];
+  if (!script) return;
+  // The scenes import "./three.module-DJc3Ov2s.js" relative to /assets/, so resolve it the same way.
+  import(new URL('three.module-DJc3Ov2s.js', script.src).href).then(function (THREE) {
+    var Color = Object.keys(THREE).map(function (k) { return THREE[k]; }).filter(function (v) {
+      return typeof v === 'function' && v.prototype && v.prototype.setStyle && v.prototype.getHexString;
+    })[0];
+    if (!Color || Color.prototype.__ahlLedger) return;
+    var set = Color.prototype.set;
+    Color.prototype.set = function (a) {
+      if (typeof a === 'string' && MAP[a.toLowerCase()]) arguments[0] = MAP[a.toLowerCase()];
+      return set.apply(this, arguments);
+    };
+    Color.prototype.__ahlLedger = true;
+  }).catch(function () {});
+})();
+
 (function () {
   var ICONS = {
     instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
