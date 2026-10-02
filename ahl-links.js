@@ -4,8 +4,9 @@
  * Used by the /links page and the "Follow" strip at the bottom of every page.
  */
 window.AHL_SOCIALS = [
-  { id: 'instagram', label: 'Instagram', href: '' },
-  { id: 'linkedin', label: 'LinkedIn', href: '' },
+  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/aboelshash/' },
+  { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/ahmed-hussien-elsayed-3a3050135/' },
+  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/ahmed.hussien.94402' },
   { id: 'youtube', label: 'YouTube', href: '' },
   { id: 'tiktok', label: 'TikTok', href: '' },
   { id: 'x', label: 'X', href: '' },
@@ -18,6 +19,7 @@ window.AHL_SOCIALS = [
     linkedin: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
     youtube: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>',
     tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.3 4.5 5 4.8"/>',
+    facebook: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M15.5 8.5H14a2 2 0 0 0-2 2V21M9.5 13h5"/>',
     x: '<path d="M4 4l16 16M20 4L4 20"/>',
     whatsapp: '<path d="M3.5 20.5l1.3-4.1A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a5 5 0 0 1-2.8-2.8l.8-1-1-2z" fill="currentColor" stroke="none"/>',
   };
