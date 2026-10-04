@@ -30,6 +30,14 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), geolocation=(), payment=(), usb=()"
         }
       ]
     }
@@ -74,6 +82,22 @@
     {
       "source": "/ar/today/",
       "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/prompt-library",
+      "destination": "/prompt-library.html"
+    },
+    {
+      "source": "/prompt-library/",
+      "destination": "/prompt-library.html"
+    },
+    {
+      "source": "/ar/prompt-library",
+      "destination": "/prompt-library.html"
+    },
+    {
+      "source": "/ar/prompt-library/",
+      "destination": "/prompt-library.html"
     },
     {
       "source": "/time-saved",

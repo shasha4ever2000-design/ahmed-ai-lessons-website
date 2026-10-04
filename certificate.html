@@ -275,7 +275,7 @@ function renderStatic() {
   $('#lang').textContent = t.other; $('#lang').lang = state.lang === 'ar' ? 'en' : 'ar';
   const dark = state.theme === 'dark';
   $('#theme').textContent = dark ? '☀' : '☾'; $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
-  document.title = state.lang === 'ar' ? 'شهادة «ابدأ هنا» | أحمد حسين' : 'Your Start Here certificate | Ahmed Hussein · AI Lessons';
+  document.title = state.lang === 'ar' ? 'شهادة «ابدأ هنا» | أحمد حسين · دروس الذكاء الاصطناعي' : 'Your Start Here certificate | Ahmed Hussein · AI Lessons';
 }
 function render() { renderStatic(); renderSteps(); draw(); }
 

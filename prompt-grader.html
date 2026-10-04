@@ -181,7 +181,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);f
       <div><h2 data-t="ctaTitle"></h2><p data-t="ctaText"></p></div>
       <div class="row" style="margin:0">
         <a class="btn btn--primary" id="ctaLesson" href="/#free-lesson" data-t="ctaBtn"></a>
-        <a class="btn btn--quiet" id="ctaLib" href="/prompt-library.html" data-t="ctaLib"></a>
+        <a class="btn btn--quiet" id="ctaLib" href="/prompt-library" data-t="ctaLib"></a>
       </div>
     </div>
   </section>
@@ -452,7 +452,7 @@ function renderStatic() {
   $('#lang').textContent = t.other;
   $('#lang').lang = state.lang === 'ar' ? 'en' : 'ar';
   $('#ctaLesson').href = state.lang === 'ar' ? '/ar/#free-lesson' : '/#free-lesson';
-  $('#ctaLib').href = '/prompt-library.html' + (state.lang === 'ar' ? '?lang=ar' : '');
+  $('#ctaLib').href = state.lang === 'ar' ? '/ar/prompt-library' : '/prompt-library';
   const dark = state.theme === 'dark';
   $('#theme').textContent = dark ? '☀' : '☾';
   $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
