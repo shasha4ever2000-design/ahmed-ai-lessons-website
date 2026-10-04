@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import LessonCard from './LessonCard.astro';
+import Newsletter from './Newsletter.astro';
+import { T, SITE, pre, type Lang } from '../i18n';
+import data from '../data/site-data.json';
+interface Props { lang: Lang; which: 'finance' | 'm365' }
+const { lang, which } = Astro.props;
+const t = T[lang], p = pre(lang);
+const hub = (data as any)[lang][which];
+const bySlug = Object.fromEntries((await getCollection('lessons', l => l.data.lang === lang)).map(l => [l.data.slug, l]));
+const path = `${p}/${which === 'finance' ? 'finance' : 'microsoft-365'}/`;
+const og = `/media/og/${lang}-${which === 'finance' ? 'finance' : 'microsoft-365'}.jpg`;
+---
+<Base lang={lang} title={`${hub.eyebrow}: ${hub.title.replace(/\.$/, '')} | ${t.siteName}`} description={hub.lede} path={path} ogImage={og}
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: hub.eyebrow, description: hub.lede, url: SITE + path, inLanguage: lang }]}>
+  <div class="wrap">
+    <header class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{t.lesson.home}</a></li><li aria-current="page">{hub.eyebrow}</li></ol></nav>
+      <p class="kicker">{hub.eyebrow}</p>
+      <h1>{hub.title}</h1>
+      <p class="lede">{hub.lede}</p>
+    </header>
+    {hub.sections.length > 1 && <nav class="chips" aria-label={hub.eyebrow} style="margin-bottom:12px">{hub.sections.map((s: any) => <a class="chip" style="display:inline-flex;align-items:center;text-decoration:none" href={`#${s.id}`}>{s.title}</a>)}</nav>}
+    {hub.sections.map((s: any) => (
+      <section class="hub-sec" id={s.id} aria-labelledby={`${s.id}-h`}>
+        <h2 id={`${s.id}-h`}>{s.title}</h2>
+        <p>{s.text}</p>
+        <div class="cards">{s.lessons.map((sl: string) => bySlug[sl] && <LessonCard lesson={bySlug[sl]} lang={lang} />)}</div>
+      </section>
+    ))}
+    {hub.note && <p class="hub-note">{hub.note}</p>}
+    <p class="hub-more"><a href={`${p}/lessons/`}>{t.list.title}</a></p>
+  </div>
+  <Newsletter lang={lang} compact />
+</Base>
+<style>
+  .hub-sec{display:grid;gap:10px;padding-block:28px;border-top:1px solid var(--line)}
+  .hub-sec h2{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.2rem)}
+  .hub-sec>p{color:var(--muted);margin-bottom:8px}
+  .hub-note{color:var(--muted);font-size:.9rem;margin-top:12px}
+  .hub-more{padding-block:20px 64px}
+  .hub-more a{color:var(--accent-text);font-weight:600}
+</style>

@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { T } from '../i18n';
+const en = T.en.notFound, ar = T.ar.notFound;
+---
+<Base lang="en" title={`${en.title} | ${T.en.siteName}`} description={en.p} path="/404" noAlternate>
+  <div class="wrap nf">
+    <svg class="nf__star" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.5l3.3 5.4 6.2-1.4-1.4 6.2 5.4 3.3-5.4 3.3 1.4 6.2-6.2-1.4L16 29.5l-3.3-5.4-6.2 1.4 1.4-6.2L2.5 16l5.4-3.3-1.4-6.2 6.2 1.4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    <h1>{en.h}</h1>
+    <p class="lede">{en.p}</p>
+    <p class="nf__links"><a class="btn btn--accent" href="/">{en.home}</a><a class="btn btn--line" href="/lessons/">{en.lessons}</a></p>
+    <div lang="ar" dir="rtl" class="nf__ar">
+      <h2>{ar.h}</h2>
+      <p>{ar.p}</p>
+      <p class="nf__links"><a class="btn btn--line" href="/ar/">{ar.home}</a><a class="btn btn--line" href="/ar/lessons/">{ar.lessons}</a></p>
+    </div>
+  </div>
+</Base>
+<style>
+  .nf{display:grid;gap:16px;justify-items:start;padding-block:72px 96px;max-width:760px}
+  .nf__star{width:72px;height:72px;color:var(--accent)}
+  .nf h1{font-size:clamp(2.4rem,1.4rem + 3vw,3.6rem)}
+  .nf__links{display:flex;flex-wrap:wrap;gap:10px}
+  .nf__ar{display:grid;gap:12px;margin-top:28px;padding-top:28px;border-top:1px solid var(--line);width:100%;font-family:var(--body)}
+  .nf__ar h2{font-size:1.8rem}
+  .nf__ar p{color:var(--text-2)}
+</style>

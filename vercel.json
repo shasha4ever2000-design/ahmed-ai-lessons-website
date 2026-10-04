@@ -1,7 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
+  "framework": "astro",
+  "buildCommand": "astro build",
+  "outputDirectory": "dist",
   "headers": [
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/assets/(.*)",
       "headers": [
@@ -44,27 +55,11 @@
   ],
   "rewrites": [
     {
-      "source": "/links",
-      "destination": "/links.html"
-    },
-    {
-      "source": "/links/",
-      "destination": "/links.html"
-    },
-    {
       "source": "/prompt-of-the-day",
       "destination": "/prompt-of-the-day.html"
     },
     {
       "source": "/prompt-of-the-day/",
-      "destination": "/prompt-of-the-day.html"
-    },
-    {
-      "source": "/today",
-      "destination": "/prompt-of-the-day.html"
-    },
-    {
-      "source": "/today/",
       "destination": "/prompt-of-the-day.html"
     },
     {
@@ -74,30 +69,6 @@
     {
       "source": "/ar/prompt-of-the-day/",
       "destination": "/prompt-of-the-day.html"
-    },
-    {
-      "source": "/ar/today",
-      "destination": "/prompt-of-the-day.html"
-    },
-    {
-      "source": "/ar/today/",
-      "destination": "/prompt-of-the-day.html"
-    },
-    {
-      "source": "/prompt-library",
-      "destination": "/prompt-library.html"
-    },
-    {
-      "source": "/prompt-library/",
-      "destination": "/prompt-library.html"
-    },
-    {
-      "source": "/ar/prompt-library",
-      "destination": "/prompt-library.html"
-    },
-    {
-      "source": "/ar/prompt-library/",
-      "destination": "/prompt-library.html"
     },
     {
       "source": "/time-saved",
@@ -164,408 +135,108 @@
       "destination": "/ai-tool-quiz.html"
     },
     {
-      "source": "/assets/:file",
-      "destination": "/:file"
+      "source": "/prompt-library",
+      "destination": "/prompt-library.html"
     },
     {
-      "source": "/media/og/:file",
-      "destination": "/og-:file"
+      "source": "/prompt-library/",
+      "destination": "/prompt-library.html"
     },
     {
-      "source": "/media/:file",
-      "destination": "/:file"
+      "source": "/ar/prompt-library",
+      "destination": "/prompt-library.html"
+    },
+    {
+      "source": "/ar/prompt-library/",
+      "destination": "/prompt-library.html"
+    },
+    {
+      "source": "/today",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/today/",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/ar/today",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/ar/today/",
+      "destination": "/prompt-of-the-day.html"
+    },
+    {
+      "source": "/links",
+      "destination": "/links.html"
+    },
+    {
+      "source": "/links/",
+      "destination": "/links.html"
     },
     {
       "source": "/lessons",
-      "destination": "/lessons.html"
-    },
-    {
-      "source": "/lessons/",
-      "destination": "/lessons.html"
-    },
-    {
-      "source": "/lessons/fix-a-weak-answer",
-      "destination": "/lesson-fix-a-weak-answer.html"
-    },
-    {
-      "source": "/lessons/fix-a-weak-answer/",
-      "destination": "/lesson-fix-a-weak-answer.html"
-    },
-    {
-      "source": "/lessons/emails-in-english-and-arabic",
-      "destination": "/lesson-emails-in-english-and-arabic.html"
-    },
-    {
-      "source": "/lessons/emails-in-english-and-arabic/",
-      "destination": "/lesson-emails-in-english-and-arabic.html"
-    },
-    {
-      "source": "/lessons/excel-formulas-and-cleanup",
-      "destination": "/lesson-excel-formulas-and-cleanup.html"
-    },
-    {
-      "source": "/lessons/excel-formulas-and-cleanup/",
-      "destination": "/lesson-excel-formulas-and-cleanup.html"
-    },
-    {
-      "source": "/lessons/summarize-documents-and-meetings",
-      "destination": "/lesson-summarize-documents-and-meetings.html"
-    },
-    {
-      "source": "/lessons/summarize-documents-and-meetings/",
-      "destination": "/lesson-summarize-documents-and-meetings.html"
-    },
-    {
-      "source": "/lessons/use-ai-safely",
-      "destination": "/lesson-use-ai-safely.html"
-    },
-    {
-      "source": "/lessons/use-ai-safely/",
-      "destination": "/lesson-use-ai-safely.html"
-    },
-    {
-      "source": "/lessons/check-facts-and-numbers",
-      "destination": "/lesson-check-facts-and-numbers.html"
-    },
-    {
-      "source": "/lessons/check-facts-and-numbers/",
-      "destination": "/lesson-check-facts-and-numbers.html"
-    },
-    {
-      "source": "/lessons/set-up-chatgpt-for-work",
-      "destination": "/lesson-set-up-chatgpt-for-work.html"
-    },
-    {
-      "source": "/lessons/set-up-chatgpt-for-work/",
-      "destination": "/lesson-set-up-chatgpt-for-work.html"
-    },
-    {
-      "source": "/lessons/claude-projects",
-      "destination": "/lesson-claude-projects.html"
-    },
-    {
-      "source": "/lessons/claude-projects/",
-      "destination": "/lesson-claude-projects.html"
-    },
-    {
-      "source": "/lessons/prompt-patterns",
-      "destination": "/lesson-prompt-patterns.html"
-    },
-    {
-      "source": "/lessons/prompt-patterns/",
-      "destination": "/lesson-prompt-patterns.html"
-    },
-    {
-      "source": "/lessons/proposals-and-reports",
-      "destination": "/lesson-proposals-and-reports.html"
-    },
-    {
-      "source": "/lessons/proposals-and-reports/",
-      "destination": "/lesson-proposals-and-reports.html"
-    },
-    {
-      "source": "/lessons/first-ai-automation",
-      "destination": "/lesson-first-ai-automation.html"
-    },
-    {
-      "source": "/lessons/first-ai-automation/",
-      "destination": "/lesson-first-ai-automation.html"
-    },
-    {
-      "source": "/lessons/ai-agents-at-work",
-      "destination": "/lesson-ai-agents-at-work.html"
-    },
-    {
-      "source": "/lessons/ai-agents-at-work/",
-      "destination": "/lesson-ai-agents-at-work.html"
-    },
-    {
-      "source": "/lessons/month-end-close-with-ai",
-      "destination": "/lesson-month-end-close-with-ai.html"
-    },
-    {
-      "source": "/lessons/month-end-close-with-ai/",
-      "destination": "/lesson-month-end-close-with-ai.html"
-    },
-    {
-      "source": "/lessons/study-cma-with-ai",
-      "destination": "/lesson-study-cma-with-ai.html"
-    },
-    {
-      "source": "/lessons/study-cma-with-ai/",
-      "destination": "/lesson-study-cma-with-ai.html"
-    },
-    {
-      "source": "/lessons/excel-pivot-tables",
-      "destination": "/lesson-excel-pivot-tables.html"
-    },
-    {
-      "source": "/lessons/excel-pivot-tables/",
-      "destination": "/lesson-excel-pivot-tables.html"
-    },
-    {
-      "source": "/lessons/first-power-bi-report",
-      "destination": "/lesson-first-power-bi-report.html"
-    },
-    {
-      "source": "/lessons/first-power-bi-report/",
-      "destination": "/lesson-first-power-bi-report.html"
-    },
-    {
-      "source": "/lessons/word-long-reports",
-      "destination": "/lesson-word-long-reports.html"
-    },
-    {
-      "source": "/lessons/word-long-reports/",
-      "destination": "/lesson-word-long-reports.html"
-    },
-    {
-      "source": "/lessons/outlook-inbox-control",
-      "destination": "/lesson-outlook-inbox-control.html"
-    },
-    {
-      "source": "/lessons/outlook-inbox-control/",
-      "destination": "/lesson-outlook-inbox-control.html"
-    },
-    {
-      "source": "/lessons/teams-better-meetings",
-      "destination": "/lesson-teams-better-meetings.html"
-    },
-    {
-      "source": "/lessons/teams-better-meetings/",
-      "destination": "/lesson-teams-better-meetings.html"
-    },
-    {
-      "source": "/tools",
-      "destination": "/tools.html"
-    },
-    {
-      "source": "/tools/",
-      "destination": "/tools.html"
-    },
-    {
-      "source": "/glossary",
-      "destination": "/glossary.html"
-    },
-    {
-      "source": "/glossary/",
-      "destination": "/glossary.html"
+      "destination": "/lessons/index.html"
     },
     {
       "source": "/finance",
-      "destination": "/finance.html"
-    },
-    {
-      "source": "/finance/",
-      "destination": "/finance.html"
+      "destination": "/finance/index.html"
     },
     {
       "source": "/microsoft-365",
-      "destination": "/microsoft-365.html"
+      "destination": "/microsoft-365/index.html"
     },
     {
-      "source": "/microsoft-365/",
-      "destination": "/microsoft-365.html"
+      "source": "/tools",
+      "destination": "/tools/index.html"
     },
     {
-      "source": "/ar",
-      "destination": "/ar.html"
+      "source": "/glossary",
+      "destination": "/glossary/index.html"
     },
     {
-      "source": "/ar/",
-      "destination": "/ar.html"
+      "source": "/lessons/:slug",
+      "destination": "/lessons/:slug/index.html"
     },
     {
       "source": "/ar/lessons",
-      "destination": "/ar-lessons.html"
-    },
-    {
-      "source": "/ar/lessons/",
-      "destination": "/ar-lessons.html"
-    },
-    {
-      "source": "/ar/lessons/fix-a-weak-answer",
-      "destination": "/ar-lesson-fix-a-weak-answer.html"
-    },
-    {
-      "source": "/ar/lessons/fix-a-weak-answer/",
-      "destination": "/ar-lesson-fix-a-weak-answer.html"
-    },
-    {
-      "source": "/ar/lessons/emails-in-english-and-arabic",
-      "destination": "/ar-lesson-emails-in-english-and-arabic.html"
-    },
-    {
-      "source": "/ar/lessons/emails-in-english-and-arabic/",
-      "destination": "/ar-lesson-emails-in-english-and-arabic.html"
-    },
-    {
-      "source": "/ar/lessons/excel-formulas-and-cleanup",
-      "destination": "/ar-lesson-excel-formulas-and-cleanup.html"
-    },
-    {
-      "source": "/ar/lessons/excel-formulas-and-cleanup/",
-      "destination": "/ar-lesson-excel-formulas-and-cleanup.html"
-    },
-    {
-      "source": "/ar/lessons/summarize-documents-and-meetings",
-      "destination": "/ar-lesson-summarize-documents-and-meetings.html"
-    },
-    {
-      "source": "/ar/lessons/summarize-documents-and-meetings/",
-      "destination": "/ar-lesson-summarize-documents-and-meetings.html"
-    },
-    {
-      "source": "/ar/lessons/use-ai-safely",
-      "destination": "/ar-lesson-use-ai-safely.html"
-    },
-    {
-      "source": "/ar/lessons/use-ai-safely/",
-      "destination": "/ar-lesson-use-ai-safely.html"
-    },
-    {
-      "source": "/ar/lessons/check-facts-and-numbers",
-      "destination": "/ar-lesson-check-facts-and-numbers.html"
-    },
-    {
-      "source": "/ar/lessons/check-facts-and-numbers/",
-      "destination": "/ar-lesson-check-facts-and-numbers.html"
-    },
-    {
-      "source": "/ar/lessons/set-up-chatgpt-for-work",
-      "destination": "/ar-lesson-set-up-chatgpt-for-work.html"
-    },
-    {
-      "source": "/ar/lessons/set-up-chatgpt-for-work/",
-      "destination": "/ar-lesson-set-up-chatgpt-for-work.html"
-    },
-    {
-      "source": "/ar/lessons/claude-projects",
-      "destination": "/ar-lesson-claude-projects.html"
-    },
-    {
-      "source": "/ar/lessons/claude-projects/",
-      "destination": "/ar-lesson-claude-projects.html"
-    },
-    {
-      "source": "/ar/lessons/prompt-patterns",
-      "destination": "/ar-lesson-prompt-patterns.html"
-    },
-    {
-      "source": "/ar/lessons/prompt-patterns/",
-      "destination": "/ar-lesson-prompt-patterns.html"
-    },
-    {
-      "source": "/ar/lessons/proposals-and-reports",
-      "destination": "/ar-lesson-proposals-and-reports.html"
-    },
-    {
-      "source": "/ar/lessons/proposals-and-reports/",
-      "destination": "/ar-lesson-proposals-and-reports.html"
-    },
-    {
-      "source": "/ar/lessons/first-ai-automation",
-      "destination": "/ar-lesson-first-ai-automation.html"
-    },
-    {
-      "source": "/ar/lessons/first-ai-automation/",
-      "destination": "/ar-lesson-first-ai-automation.html"
-    },
-    {
-      "source": "/ar/lessons/ai-agents-at-work",
-      "destination": "/ar-lesson-ai-agents-at-work.html"
-    },
-    {
-      "source": "/ar/lessons/ai-agents-at-work/",
-      "destination": "/ar-lesson-ai-agents-at-work.html"
-    },
-    {
-      "source": "/ar/lessons/month-end-close-with-ai",
-      "destination": "/ar-lesson-month-end-close-with-ai.html"
-    },
-    {
-      "source": "/ar/lessons/month-end-close-with-ai/",
-      "destination": "/ar-lesson-month-end-close-with-ai.html"
-    },
-    {
-      "source": "/ar/lessons/study-cma-with-ai",
-      "destination": "/ar-lesson-study-cma-with-ai.html"
-    },
-    {
-      "source": "/ar/lessons/study-cma-with-ai/",
-      "destination": "/ar-lesson-study-cma-with-ai.html"
-    },
-    {
-      "source": "/ar/lessons/excel-pivot-tables",
-      "destination": "/ar-lesson-excel-pivot-tables.html"
-    },
-    {
-      "source": "/ar/lessons/excel-pivot-tables/",
-      "destination": "/ar-lesson-excel-pivot-tables.html"
-    },
-    {
-      "source": "/ar/lessons/first-power-bi-report",
-      "destination": "/ar-lesson-first-power-bi-report.html"
-    },
-    {
-      "source": "/ar/lessons/first-power-bi-report/",
-      "destination": "/ar-lesson-first-power-bi-report.html"
-    },
-    {
-      "source": "/ar/lessons/word-long-reports",
-      "destination": "/ar-lesson-word-long-reports.html"
-    },
-    {
-      "source": "/ar/lessons/word-long-reports/",
-      "destination": "/ar-lesson-word-long-reports.html"
-    },
-    {
-      "source": "/ar/lessons/outlook-inbox-control",
-      "destination": "/ar-lesson-outlook-inbox-control.html"
-    },
-    {
-      "source": "/ar/lessons/outlook-inbox-control/",
-      "destination": "/ar-lesson-outlook-inbox-control.html"
-    },
-    {
-      "source": "/ar/lessons/teams-better-meetings",
-      "destination": "/ar-lesson-teams-better-meetings.html"
-    },
-    {
-      "source": "/ar/lessons/teams-better-meetings/",
-      "destination": "/ar-lesson-teams-better-meetings.html"
-    },
-    {
-      "source": "/ar/tools",
-      "destination": "/ar-tools.html"
-    },
-    {
-      "source": "/ar/tools/",
-      "destination": "/ar-tools.html"
-    },
-    {
-      "source": "/ar/glossary",
-      "destination": "/ar-glossary.html"
-    },
-    {
-      "source": "/ar/glossary/",
-      "destination": "/ar-glossary.html"
+      "destination": "/ar/lessons/index.html"
     },
     {
       "source": "/ar/finance",
-      "destination": "/ar-finance.html"
-    },
-    {
-      "source": "/ar/finance/",
-      "destination": "/ar-finance.html"
+      "destination": "/ar/finance/index.html"
     },
     {
       "source": "/ar/microsoft-365",
-      "destination": "/ar-microsoft-365.html"
+      "destination": "/ar/microsoft-365/index.html"
     },
     {
-      "source": "/ar/microsoft-365/",
-      "destination": "/ar-microsoft-365.html"
+      "source": "/ar/tools",
+      "destination": "/ar/tools/index.html"
+    },
+    {
+      "source": "/ar/glossary",
+      "destination": "/ar/glossary/index.html"
+    },
+    {
+      "source": "/ar/lessons/:slug",
+      "destination": "/ar/lessons/:slug/index.html"
+    },
+    {
+      "source": "/ar",
+      "destination": "/ar/index.html"
+    },
+    {
+      "source": "/portrait-720.webp",
+      "destination": "/media/portrait-720.webp"
+    },
+    {
+      "source": "/portrait-1200.webp",
+      "destination": "/media/portrait-1200.webp"
+    },
+    {
+      "source": "/avatar-160.webp",
+      "destination": "/media/avatar-160.webp"
     }
   ]
 }

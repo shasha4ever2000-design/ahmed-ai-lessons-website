@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Newsletter from './Newsletter.astro';
+import { T, SITE, fill, pre, formatDate, type Lang } from '../i18n';
+
+interface Props { entry: any; lang: Lang }
+const { entry, lang } = Astro.props;
+const d = entry.data;
+const t = T[lang];
+const L = t.lesson;
+const p = pre(lang);
+const all = (await getCollection('lessons', l => l.data.lang === lang)).sort((a, b) => a.data.number - b.data.number);
+const i = all.findIndex(l => l.data.slug === d.slug);
+const prev = all[i - 1]?.data, next = all[i + 1]?.data;
+const path = `${p}/lessons/${d.slug}/`;
+const url = SITE + path;
+const enc = encodeURIComponent;
+const share = [
+  ['WhatsApp', `https://wa.me/?text=${enc(d.title + ' ' + url)}`],
+  ['LinkedIn', `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`],
+  ['X', `https://x.com/intent/tweet?text=${enc(d.title)}&url=${enc(url)}`],
+  ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`],
+];
+const jsonld = [
+  { '@context': 'https://schema.org', '@type': 'Article', headline: d.title, description: d.description, inLanguage: lang, datePublished: d.updated, dateModified: d.updated,
+    author: { '@type': 'Person', name: 'Ahmed Hussein', url: SITE + (lang === 'ar' ? '/ar/' : '/') }, image: `${SITE}/media/og/${lang}-${d.slug}.jpg`, mainEntityOfPage: url, isAccessibleForFree: true,
+    educationalLevel: d.level, timeRequired: `PT${d.minutes}M` },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: L.home, item: SITE + (lang === 'ar' ? '/ar/' : '/') },
+    { '@type': 'ListItem', position: 2, name: L.all, item: `${SITE}${p}/lessons/` },
+    { '@type': 'ListItem', position: 3, name: d.title, item: url } ] },
+];
+const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span class="done-toggle__label">${L.done}</span>`;
+---
+<Base lang={lang} title={`${d.title} | ${t.siteName}`} description={d.description} path={path} ogImage={`/media/og/${lang}-${d.slug}.jpg`} ogType="article" jsonld={jsonld}>
+  <article class="lesson wrap" aria-labelledby="lesson-title" data-slug={d.slug}>
+    <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:24px">
+      <ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{L.home}</a></li><li><a href={`${p}/lessons/`}>{L.all}</a></li><li aria-current="page">{fill(L.n, { n: d.number })}</li></ol>
+    </nav>
+    <header class="lesson-hero">
+      <p class="topic-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={d.topicIcon} /><span>{d.topic}</span><span aria-hidden="true">·</span><span>{fill(L.n, { n: d.number })}</span></p>
+      <h1 id="lesson-title" class="lesson-title">{d.title}</h1>
+      <p class="lede">{d.lede}</p>
+      <ul class="lesson-meta" role="list"><li>{L.level}: {d.level}</li><li>{fill(L.read, { n: d.minutes })}</li><li>{L.updated}: <time datetime={d.updated}>{formatDate(d.updated, lang)}</time></li></ul>
+    </header>
+    <div class="lesson-layout">
+      <aside class="lesson-aside">
+        <nav class="toc" aria-labelledby="toc-title">
+          <p id="toc-title" class="small-title">{L.toc}</p>
+          <ol role="list">{d.toc.map((x: any) => <li><a href={`#${x.id}`}>{x.label}</a></li>)}</ol>
+        </nav>
+        <button type="button" class="done-toggle" aria-pressed="false" data-done={L.done} data-is={L.isDone} set:html={doneBtn}></button>
+      </aside>
+      <div class="lesson-body" data-copy={L.copy} data-copied={L.copiedBtn} data-copied-sr={L.copiedSr}>
+        {/* Lesson bodies are HTML, inserted exactly as written (no Markdown processing). */}
+        <Fragment set:html={entry.body} />
+        <div class="lesson-end">
+          <button type="button" class="done-toggle" aria-pressed="false" data-done={L.done} data-is={L.isDone} set:html={doneBtn}></button>
+          <section class="share" aria-labelledby="share-h">
+            <h2 id="share-h" class="small-title">{L.shareH}</h2>
+            <p>{L.shareP}</p>
+            <ul role="list">
+              {share.map(([n, h]) => <li><a class="btn btn--quiet btn--sm" href={h} target="_blank" rel="noopener noreferrer">{n}</a></li>)}
+              <li><button type="button" class="btn btn--quiet btn--sm" id="copy-link" data-done={L.linkCopied} data-url={url}>{L.copyLink}</button></li>
+            </ul>
+            <p class="visually-hidden" role="status" id="link-status"></p>
+          </section>
+          <nav class="pager" aria-label={L.all}>
+            {prev && <a class="pager__link pager__link--prev" href={`${p}/lessons/${prev.slug}/`} rel="prev"><span class="pager__dir">{L.prev}</span><span class="pager__title">{fill(L.n, { n: prev.number })}: {prev.title}</span></a>}
+            {next && <a class="pager__link pager__link--next" href={`${p}/lessons/${next.slug}/`} rel="next"><span class="pager__dir">{L.next}</span><span class="pager__title">{fill(L.n, { n: next.number })}: {next.title}</span></a>}
+          </nav>
+        </div>
+      </div>
+    </div>
+  </article>
+  <Newsletter lang={lang} compact />
+</Base>
+
+<script>
+  const art = document.querySelector<HTMLElement>('article.lesson')!;
+  const slug = art.dataset.slug!;
+  const body = document.querySelector<HTMLElement>('.lesson-body')!;
+
+  // Mark as done: both buttons stay in sync; saved in ahl:done (read by the homepage, lists and certificate).
+  const read = () => { try { const d = JSON.parse(localStorage.getItem('ahl:done') || '[]'); return Array.isArray(d) ? d : []; } catch (e) { return []; } };
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('.done-toggle')];
+  const paint = () => { const on = read().includes(slug); btns.forEach(b => { b.setAttribute('aria-pressed', String(on)); b.querySelector('.done-toggle__label')!.textContent = on ? b.dataset.is! : b.dataset.done!; }); };
+  btns.forEach(b => b.addEventListener('click', () => {
+    let d = read(); d = d.includes(slug) ? d.filter((s: string) => s !== slug) : [...d, slug];
+    try { localStorage.setItem('ahl:done', JSON.stringify(d)); } catch (e) {}
+    paint();
+  }));
+  paint();
+
+  // Copy buttons on prompt cards and "better prompt" boxes.
+  async function copy(text: string) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch (e) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (_) {} ta.remove(); return ok; }
+  }
+  body.addEventListener('click', async e => {
+    const b = (e.target as Element).closest<HTMLButtonElement>('.copy-btn');
+    if (!b) return;
+    const box = b.closest('.sheet, .compare__col');
+    const src = box?.querySelector('.sheet__text, .compare__text');
+    if (!src || !(await copy(src.textContent!.trim()))) return;
+    const label = [...b.childNodes].find(n => n.nodeType === 3 && n.textContent!.trim());
+    if (label) { label.textContent = body.dataset.copied!; setTimeout(() => (label.textContent = body.dataset.copy!), 1600); }
+    b.classList.add('is-copied'); setTimeout(() => b.classList.remove('is-copied'), 1600);
+    const st = box!.querySelector('.copy-status'); if (st) st.textContent = body.dataset.copiedSr!;
+  });
+
+  // Copy the page link.
+  const cl = document.getElementById('copy-link') as HTMLButtonElement;
+  cl.addEventListener('click', async () => { if (await copy(cl.dataset.url!)) document.getElementById('link-status')!.textContent = cl.dataset.done!; const t = cl.textContent; cl.textContent = cl.dataset.done!; setTimeout(() => (cl.textContent = t), 1600); });
+
+  // Highlight the section you're reading in "On this page".
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc a')];
+  const secs = links.map(a => document.getElementById(a.hash.slice(1))).filter(Boolean) as HTMLElement[];
+  const io = new IntersectionObserver(es => {
+    es.forEach(en => { if (en.isIntersecting) links.forEach(a => a.setAttribute('aria-current', String(a.hash === '#' + en.target.id))); });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  secs.forEach(s => io.observe(s));
+</script>

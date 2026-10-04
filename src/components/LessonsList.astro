@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import LessonCard from './LessonCard.astro';
+import Newsletter from './Newsletter.astro';
+import { T, SITE, fill, pre, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang], L = t.list, p = pre(lang);
+const lessons = (await getCollection('lessons', l => l.data.lang === lang)).sort((a, b) => a.data.number - b.data.number);
+const topics = [...new Set(lessons.map(l => l.data.topic))];
+const path = `${p}/lessons/`;
+const jsonld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: L.title, url: SITE + path, inLanguage: lang,
+  mainEntity: { '@type': 'ItemList', itemListElement: lessons.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}${p}/lessons/${l.data.slug}/`, name: l.data.title })) } }];
+---
+<Base lang={lang} title={`${L.title} | ${t.siteName}`} description={L.lede} path={path} ogImage={`/media/og/${lang}-lessons.jpg`} jsonld={jsonld}>
+  <div class="wrap">
+    <header class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{t.lesson.home}</a></li><li aria-current="page">{L.title}</li></ol></nav>
+      <h1>{L.title}</h1>
+      <p class="lede">{L.lede}</p>
+      <p class="done-note" id="done-note" data-t={L.doneN} hidden></p>
+    </header>
+    <div class="chips" role="group" aria-label={L.filter}>
+      <button class="chip" type="button" data-topic="" aria-pressed="true">{L.all}</button>
+      {topics.map(tp => <button class="chip" type="button" data-topic={tp} aria-pressed="false">{tp}</button>)}
+    </div>
+    <p class="count mono" id="count" aria-live="polite" data-t={L.count}>{fill(L.count, { n: lessons.length })}</p>
+    <div class="cards" style="padding-bottom:72px">
+      <article class="card card--zero">
+        <span class="card__topic">★</span>
+        <h2 style="font-size:1.25rem"><a href={(lang === 'ar' ? '/ar/' : '/') + '#builder'}>{L.builder}</a></h2>
+        <p>{L.builderP}</p>
+      </article>
+      {lessons.map(l => <LessonCard lesson={l} lang={lang} heading="h2" />)}
+    </div>
+  </div>
+  <Newsletter lang={lang} compact />
+</Base>
+<style>
+  .card--zero{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+  .card--zero :global(h2 a){text-decoration:none}
+  .card--zero :global(h2 a)::after{content:"";position:absolute;inset:0}
+  .done-note{color:var(--ok);font-weight:600}
+  .cards :global(.card h2){font-size:1.25rem}
+  .cards :global(.card h2 a){text-decoration:none}
+  .cards :global(.card h2 a)::after{content:"";position:absolute;inset:0;border-radius:inherit}
+</style>
+<script>
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip')];
+  const cards = [...document.querySelectorAll<HTMLElement>('.lesson-card')];
+  const count = document.getElementById('count')!;
+  const zero = document.querySelector<HTMLElement>('.card--zero')!;
+  function apply(topic: string) {
+    let n = 0;
+    cards.forEach(c => { const show = !topic || c.dataset.topic === topic; c.hidden = !show; if (show) n++; });
+    zero.hidden = !!topic;
+    chips.forEach(ch => ch.setAttribute('aria-pressed', String(ch.dataset.topic === topic)));
+    count.textContent = count.dataset.t!.replace('{n}', String(n));
+  }
+  chips.forEach(ch => ch.addEventListener('click', () => apply(ch.dataset.topic!)));
+  let done: string[] = [];
+  try { const d = JSON.parse(localStorage.getItem('ahl:done') || '[]'); if (Array.isArray(d)) done = d; } catch (e) {}
+  const n = cards.filter(c => done.includes(c.dataset.slug!)).length;
+  const note = document.getElementById('done-note')!;
+  if (n) { note.textContent = note.dataset.t!.replace('{n}', String(n)); note.hidden = false; }
+</script>

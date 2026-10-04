@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from './Newsletter.astro';
+import { T, SITE, fill, pre, type Lang } from '../i18n';
+import data from '../data/site-data.json';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang], tt = t.tools, p = pre(lang);
+const lib = (data as any)[lang].tools;
+const cats = [...new Set(lib.tools.map((x: any) => x.category))] as string[];
+const path = `${p}/tools/`;
+---
+<Base lang={lang} title={`${lib.title} | ${t.siteName}`} description={lib.lede} path={path} ogImage={`/media/og/${lang}-tools.jpg`}
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: lib.title, description: lib.lede, url: SITE + path, inLanguage: lang }]}>
+  <div class="wrap">
+    <header class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{t.lesson.home}</a></li><li aria-current="page">{lib.title}</li></ol></nav>
+      <h1>{lib.title}</h1>
+      <p class="lede">{lib.lede}</p>
+      <p class="note">{lib.note}</p>
+    </header>
+    <div class="bar">
+      <label class="search"><span class="visually-hidden">{tt.search}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="tq" type="search" placeholder={tt.placeholder} autocomplete="off" /></label>
+      <div class="chips" role="group" aria-label={tt.search}><button class="chip" type="button" data-cat="" aria-pressed="true">{tt.all}</button>{cats.map(c => <button class="chip" type="button" data-cat={c} aria-pressed="false">{c}</button>)}</div>
+    </div>
+    <p class="count mono" id="tcount" aria-live="polite" data-t={tt.count} data-none={tt.none}>{fill(tt.count, { n: lib.tools.length })}</p>
+    <ul class="cards tgrid" role="list">
+      {lib.tools.map((x: any) => (
+        <li class="card tool" data-cat={x.category} data-hay={`${x.name} ${x.maker} ${x.does} ${x.best} ${x.category}`.toLowerCase()}>
+          <div class="tool__top"><span class="tool__tile" aria-hidden="true">{x.tile}</span><div><h2>{x.name}</h2><p class="tool__maker">{x.maker}</p></div></div>
+          <p>{x.does}</p>
+          <p class="tool__best"><b>{tt.best}</b> {x.best}</p>
+          <ul class="badges" role="list"><li>{x.category}</li><li>{x.level}</li><li class={`price price--${x.priceKey}`}>{x.price}</li></ul>
+          <p class="tool__foot"><span>{x.checked}</span><a href={x.url} target="_blank" rel="noopener noreferrer">{tt.visit}<span class="visually-hidden"> {x.name} {tt.newTab}</span></a></p>
+        </li>
+      ))}
+    </ul>
+    <p style="padding-bottom:64px"></p>
+  </div>
+  <Newsletter lang={lang} compact />
+</Base>
+<style>
+  .note{color:var(--muted);font-size:.9rem}
+  .bar{display:grid;gap:12px}
+  .search{position:relative;display:block;max-width:560px}
+  .search svg{position:absolute;inset-inline-start:14px;top:13px;width:20px;height:20px;color:var(--muted)}
+  .search input{width:100%;min-height:48px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);padding-inline:44px 16px}
+  .search input:focus{border-color:var(--accent);outline:none}
+  .tgrid{list-style:none;margin:0;padding:0}
+  .tool h2{font-size:1.2rem}
+  .tool__top{display:flex;gap:12px;align-items:center}
+  .tool__tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface-2);font:600 .9rem var(--mono);color:var(--tile-text);flex:none}
+  .tool__maker{font-size:.85rem;color:var(--muted)!important}
+  .tool__best b{color:var(--text)}
+  .badges{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .badges li{font-size:.8rem;padding:2px 10px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-2)}
+  .tool__foot{display:flex;justify-content:space-between;gap:12px;font-size:.85rem;color:var(--muted)!important;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+  .tool__foot a{color:var(--accent-text);font-weight:600}
+</style>
+<script>
+  const q = document.getElementById('tq') as HTMLInputElement;
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip[data-cat]')];
+  const items = [...document.querySelectorAll<HTMLElement>('.tool')];
+  const count = document.getElementById('tcount')!;
+  let cat = '';
+  function apply() {
+    const words = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    let n = 0;
+    items.forEach(it => { const ok = (!cat || it.dataset.cat === cat) && words.every(w => it.dataset.hay!.includes(w)); it.hidden = !ok; if (ok) n++; });
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.cat === cat)));
+    count.textContent = n ? count.dataset.t!.replace('{n}', String(n)) : count.dataset.none!;
+  }
+  q.addEventListener('input', apply);
+  chips.forEach(c => c.addEventListener('click', () => { cat = c.dataset.cat!; apply(); }));
+</script>

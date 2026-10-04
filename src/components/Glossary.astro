@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from './Newsletter.astro';
+import { T, SITE, pre, type Lang } from '../i18n';
+import data from '../data/site-data.json';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang], p = pre(lang);
+const g = (data as any)[lang].glossary;
+const path = `${p}/glossary/`;
+const jsonld = [{ '@context': 'https://schema.org', '@type': 'DefinedTermSet', name: g.title, url: SITE + path, inLanguage: lang,
+  hasDefinedTerm: g.terms.map((x: any) => ({ '@type': 'DefinedTerm', name: x.name, alternateName: x.other, description: x.def.replace(/<[^>]+>/g, ''), url: `${SITE}${path}#${x.id}` })) }];
+---
+<Base lang={lang} title={`${g.title} | ${t.siteName}`} description={g.lede} path={path} ogImage={`/media/og/${lang}-glossary.jpg`} jsonld={jsonld}>
+  <div class="wrap">
+    <header class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{t.lesson.home}</a></li><li aria-current="page">{g.title}</li></ol></nav>
+      <h1>{g.title}</h1>
+      <p class="lede">{g.lede}</p>
+    </header>
+    <nav class="jump" aria-label={t.glossary.jump}><ul role="list">{g.terms.map((x: any) => <li><a href={`#${x.id}`}>{x.name}</a></li>)}</ul></nav>
+    <dl class="terms">
+      {g.terms.map((x: any) => <div class="term" id={x.id}><dt><span class="term__name">{x.name}</span><span class="term__other" lang={lang === 'en' ? 'ar' : 'en'}>{x.other}</span></dt><dd set:html={x.def} /></div>)}
+    </dl>
+    <p class="gnote">{g.note}</p>
+  </div>
+  <Newsletter lang={lang} compact />
+</Base>
+<style>
+  .jump ul{list-style:none;margin:0 0 28px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .jump a{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-size:.88rem;color:var(--text-2)}
+  .jump a:hover{border-color:var(--accent);color:var(--text)}
+  .terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:14px}
+  .term{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:18px 20px;display:grid;gap:8px;align-content:start;scroll-margin-top:calc(var(--header-h) + 16px)}
+  .term:target{border-color:var(--accent)}
+  .term dt{display:grid;gap:2px}
+  .term__name{font:600 1.2rem var(--display)}
+  .term__other{color:var(--tile-text);font-size:.92rem}
+  .term dd{color:var(--text-2)}
+  .gnote{color:var(--muted);font-size:.9rem;padding-block:24px 64px}
+</style>

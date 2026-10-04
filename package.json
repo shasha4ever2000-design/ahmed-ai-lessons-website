@@ -1,0 +1,14 @@
+{
+  "name": "ahmed-ai-lessons-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.18.2",
+    "three": "^0.170.0"
+  }
+}
