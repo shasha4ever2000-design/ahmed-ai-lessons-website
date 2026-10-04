@@ -78,7 +78,7 @@ window.AHL_SOCIALS = [
     var ar = document.documentElement.lang === 'ar';
     var css = document.createElement('style');
     css.textContent =
-      '.ahl-follow{border-top:1px solid var(--line);background:var(--bg);color:var(--text)}' +
+      '.ahl-follow{border-top:1px solid var(--line);background:var(--surface);color:var(--text)}' +
       // Bottom padding keeps the icons clear of the floating chat button.
       '.ahl-follow__in{max-width:var(--maxw,1200px);margin:0 auto;padding:22px var(--gutter,16px) 88px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}' +
       '.ahl-follow__txt{margin:0;color:var(--text-2);font-size:15px}' +
@@ -146,14 +146,43 @@ window.AHL_SOCIALS = [
     if (!path || document.querySelector('.ahl-cert')) return;
     var done = [], cert = {};
     try { done = JSON.parse(localStorage.getItem('ahl:done') || '[]'); cert = JSON.parse(localStorage.getItem('ahl:cert') || '{}'); } catch (e) {}
-    var n = CERT_SLUGS.filter(function (s) { return done.indexOf(s) > -1; }).length + (cert.step1 ? 1 : 0);
+    if (!Array.isArray(done)) done = [];
+    // Step 1 is the free lesson on the homepage; the certificate page records it as cert.step1.
+    var isDone = [!!(cert && cert.step1)].concat(CERT_SLUGS.map(function (s) { return done.indexOf(s) > -1; }));
+    var n = isDone.filter(Boolean).length;
     var ar = document.documentElement.lang === 'ar';
-    var msg = n >= 6 ? (ar ? 'أنجزت الخطوات الست. شهادتك جاهزة.' : 'All six steps done. Your certificate is ready.')
-      : (ar ? 'أكمل الخطوات الست واحصل على شهادة مجانية تضيفها إلى LinkedIn.' : 'Finish all six steps for a free certificate you can add to LinkedIn.');
+    var steps = path.querySelectorAll('.path__step');
+
+    // The app ticks steps 2-6 itself but doesn't know about step 1, so tick it the same way.
+    if (isDone[0] && steps[0] && !steps[0].classList.contains('is-done')) {
+      var tick = path.querySelector('.path__step.is-done .path__n');
+      var num = steps[0].querySelector('.path__n');
+      steps[0].classList.add('is-done');
+      if (num) num.innerHTML = tick ? tick.innerHTML : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    }
+
+    // Returning visitors: point at the first unfinished step.
+    var next = n > 0 && n < 6 ? isDone.indexOf(false) : -1;
+    var nextLink = next > -1 && steps[next] ? steps[next].querySelector('.path__link') : null;
+    if (nextLink) steps[next].classList.add('ahl-next');
+
+    var certHref = ar ? '/ar/certificate' : '/certificate';
     var p = document.createElement('p');
     p.className = 'ahl-cert';
-    p.innerHTML = '<span>' + msg + '</span> <a href="' + (ar ? '/ar/certificate' : '/certificate') + '">' +
-      (n >= 6 ? (ar ? 'احصل على شهادتك' : 'Get your certificate') : (ar ? 'تابع تقدّمك' : 'See your progress')) + '</a>';
+    if (n >= 6) {
+      p.innerHTML = '<span>' + (ar ? 'أنجزت الخطوات الست. شهادتك جاهزة.' : 'All six steps done. Your certificate is ready.') +
+        '</span> <a href="' + certHref + '">' + (ar ? 'احصل على شهادتك' : 'Get your certificate') + '</a>';
+    } else if (nextLink) {
+      p.classList.add('ahl-cert--progress');
+      p.innerHTML = '<span><b>' + (ar ? 'أنجزت ' + n + ' من 6 خطوات.' : n + ' of 6 steps done.') + '</b> ' +
+        (ar ? 'تابع من حيث توقفت.' : 'Pick up where you left off.') + '</span>' +
+        '<a class="ahl-cert__next" href="' + nextLink.getAttribute('href') + '"></a>' +
+        '<a href="' + certHref + '">' + (ar ? 'تابع تقدّمك' : 'See your progress') + '</a>';
+      p.querySelector('.ahl-cert__next').textContent = (ar ? 'التالي: ' : 'Next: ') + nextLink.textContent;
+    } else {
+      p.innerHTML = '<span>' + (ar ? 'أكمل الخطوات الست واحصل على شهادة مجانية تضيفها إلى LinkedIn.' : 'Finish all six steps for a free certificate you can add to LinkedIn.') +
+        '</span> <a href="' + certHref + '">' + (ar ? 'تابع تقدّمك' : 'See your progress') + '</a>';
+    }
     path.parentNode.insertBefore(p, path.nextSibling);
   }
 
