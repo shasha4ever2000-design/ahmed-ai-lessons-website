@@ -1,0 +1,33 @@
+---
+import { T, type Lang } from '../i18n';
+interface Props { lang: Lang; compact?: boolean }
+const { lang, compact = false } = Astro.props;
+const t = T[lang].news;
+const id = compact ? 'nl-c' : 'nl';
+---
+<section class="block newsletter" id="newsletter" aria-labelledby={`${id}-h`}>
+  <div class="wrap">
+    <div>
+      <h2 id={`${id}-h`}>{compact ? t.hLesson : t.h}</h2>
+      <p>{t.p}</p>
+    </div>
+    <form class="nl-form" action="https://app.kit.com/forms/9971457/subscriptions" method="post" novalidate data-msg={t.bad}>
+      <label class="field-label" for={`${id}-email`}>{t.label}</label>
+      <div class="nl-row">
+        <input id={`${id}-email`} name="email_address" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="you@example.com" required aria-describedby={`${id}-hint ${id}-msg`} />
+        <button class="btn btn--accent" type="submit">{t.join}</button>
+      </div>
+      <p class="field-hint" id={`${id}-hint`}>{t.hint}</p>
+      <p class="field-msg" id={`${id}-msg`} role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+<script>
+  // Check the address here; a valid one goes to Kit, which shows its own confirmation page.
+  document.querySelectorAll<HTMLFormElement>('.nl-form').forEach(f => f.addEventListener('submit', e => {
+    const input = f.querySelector('input')!;
+    const msg = f.querySelector('.field-msg')!;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(input.value.trim())) { e.preventDefault(); msg.textContent = f.dataset.msg!; input.setAttribute('aria-invalid', 'true'); input.focus(); }
+    else { msg.textContent = ''; input.removeAttribute('aria-invalid'); }
+  }));
+</script>

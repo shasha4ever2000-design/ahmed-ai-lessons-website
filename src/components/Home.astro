@@ -1,0 +1,345 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import LessonCard from './LessonCard.astro';
+import Newsletter from './Newsletter.astro';
+import { T, TRACKS, START, FREE_TOOLS, SITE, SOCIALS, fill, pre, type Lang } from '../i18n';
+import data from '../data/site-data.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+const h = t.home;
+const p = pre(lang);
+const lessons = (await getCollection('lessons', l => l.data.lang === lang)).sort((a, b) => a.data.number - b.data.number);
+const bySlug = Object.fromEntries(lessons.map(l => [l.data.slug, l]));
+const FEATURED = ['set-up-chatgpt-for-work', 'claude-projects', 'prompt-patterns', 'summarize-documents-and-meetings', 'excel-formulas-and-cleanup', 'month-end-close-with-ai'];
+const counts = Object.fromEntries(Object.keys(TRACKS).map(k => [k, lessons.filter(l => l.data.track === k).length]));
+const faq = (data as any)[lang].faq;
+const path = lang === 'ar' ? '/ar/' : '/';
+const jsonld = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: t.siteName, url: SITE + path, inLanguage: lang, description: h.description },
+  { '@context': 'https://schema.org', '@type': 'Person', name: 'Ahmed Hussein', jobTitle: lang === 'ar' ? 'محاسب' : 'Accountant', address: { '@type': 'PostalAddress', addressLocality: 'Riyadh', addressCountry: 'SA' }, url: SITE + path, image: SITE + '/media/portrait-720.webp', sameAs: SOCIALS.filter(s => s.id !== 'whatsapp').map(s => s.href) },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.items.map((i: any) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a.replace(/<[^>]+>/g, '') } })) },
+];
+const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${p}/lessons/${s.slug}/`, minutes: i === 0 ? 5 : bySlug[s.slug]?.data.minutes }));
+---
+<Base lang={lang} title={h.title} description={h.description} path={path} jsonld={jsonld}>
+  <Fragment slot="head"><link rel="preload" as="image" href="/media/room-poster.webp" /></Fragment>
+
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="kicker">{h.kicker}</p>
+        <h1 id="hero-h">{h.h1}</h1>
+        <p class="lede">{h.lead}</p>
+        <div class="hero__cta"><a class="btn btn--accent" href="#builder">{h.cta1}</a><a class="btn btn--line" href="#start">{h.cta2}</a></div>
+        <ul class="hero__stats" role="list">{h.stats.map(s => <li>{s}</li>)}</ul>
+      </div>
+      <div class="room" id="room">
+        <img class="room__poster" src="/media/room-poster.webp" alt={h.scene} width="900" height="1000" fetchpriority="high" />
+        <div class="room__times" role="group" aria-label={h.timesLabel}>
+          {h.times.map((n, i) => <button type="button" data-time={i} aria-pressed={i === 1 ? 'true' : 'false'}>{n}</button>)}
+        </div>
+        <p class="room__meter" aria-hidden="true"><span id="room-light">100%</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block builder-sec" id="builder" aria-labelledby="builder-h">
+    <div class="wrap">
+      <div class="head"><h2 id="builder-h">{h.bH}</h2><p>{h.bP}</p></div>
+      <div class="builder" data-t={JSON.stringify({ ex: h.ex, parts: h.parts, lightOf: h.lightOf, hintMiss: h.hintMiss, hintFull: h.hintFull, copied: h.copied, selected: h.selected, empty: h.empty, stepDone: h.stepDone })}>
+        <div class="btabs" role="tablist" aria-label={h.examplesLabel}>
+          {h.tabs.map((n, i) => <button class="btab" role="tab" type="button" data-ex={i} aria-selected={i === 0 ? 'true' : 'false'} aria-controls="b-fields">{n}</button>)}
+        </div>
+        <div class="fields" id="b-fields" role="tabpanel">
+          {h.labels.map((l, i) => (
+            <div class="field"><label for={`bf${i}`}><i class={`dot dot--${i}`} aria-hidden="true"></i>{l}</label><textarea id={`bf${i}`} rows="2">{h.ex[0][i]}</textarea></div>
+          ))}
+        </div>
+        <div class="out">
+          <p class="kicker">{h.yours}</p>
+          <div class="preview" id="b-preview"></div>
+          <div class="meter">
+            <div class="stars" aria-hidden="true">{[0, 1, 2, 3].map(i => <i class={`star star--${i}`}></i>)}</div>
+            <p><b id="b-score">100%</b> <span>{h.lightOf}</span></p>
+          </div>
+          <p class="hint" id="b-hint" role="status"></p>
+          <div class="brow"><button class="btn btn--accent" type="button" id="b-copy">{h.copy}</button><a class="btn btn--line" href="#room">{h.seeLight}</a></div>
+          <p class="hint" id="b-copied" role="status"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block start-sec" id="start" aria-labelledby="start-h">
+    <div class="wrap">
+      <div class="head"><h2 id="start-h">{h.startH}</h2><p>{h.startP}</p></div>
+      <ol class="arches" role="list">
+        {startSteps.map((s, i) => (
+          <li class="arch" data-step={i} data-slug={s.slug}>
+            <span class="arch__n" aria-hidden="true"><span class="arch__num">{i + 1}</span><svg class="arch__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <h3><a href={s.href}>{s[lang][0]}</a></h3>
+            <p>{s[lang][1]}</p>
+            <span class="arch__min mono">{fill(t.lesson.read, { n: s.minutes ?? 7 })}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="cert-line" id="cert-line" data-t={JSON.stringify({ progress: h.progress, next: h.next, certLine: h.certLine, certGo: h.certGo, certReady: h.certReady, certGet: h.certGet })} data-cert={`${p}/certificate`}>
+        <span>{h.certLine}</span> <a href={`${p}/certificate`}>{h.certGo}</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="block" id="tracks" aria-labelledby="tracks-h">
+    <div class="wrap">
+      <div class="head"><h2 id="tracks-h">{h.tracksH}</h2><p>{h.tracksP}</p></div>
+      <div class="courts">
+        {Object.entries(TRACKS).map(([k, tr]) => (
+          <article class="court">
+            <span class="mono court__n">{fill(t.list.count, { n: counts[k] })}</span>
+            <h3><a href={p + tr.href}>{tr[lang]}</a></h3>
+            <p>{(h.trackText as any)[k]}</p>
+            <span class="court__go" aria-hidden="true">{h.open} <svg class="icon icon-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="lessons" aria-labelledby="latest-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="head head--row"><div><h2 id="latest-h">{h.latestH}</h2><p>{h.latestP}</p></div><a class="btn btn--line" href={`${p}/lessons/`}>{h.allLessons}</a></div>
+      <div class="cards">{FEATURED.map(s => bySlug[s] && <LessonCard lesson={bySlug[s]} lang={lang} />)}</div>
+    </div>
+  </section>
+
+  <section class="block tools-sec" aria-labelledby="tools-h">
+    <div class="wrap tools-grid">
+      <div class="head"><h2 id="tools-h">{h.toolsH}</h2><p>{h.toolsP}</p></div>
+      <ul class="tool-list" role="list">
+        {FREE_TOOLS.map(ft => { const [n, d] = lang === 'ar' ? ft.arT : ft.en; return <li><a href={lang === 'ar' ? ft.ar : ft.href}><span class="tool-list__n">{n}</span><span class="tool-list__d">{d}</span></a></li>; })}
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="about" aria-labelledby="about-h">
+    <div class="wrap about">
+      <figure><img src="/media/portrait-720.webp" alt={h.photo} width="720" height="703" loading="lazy" decoding="async" /></figure>
+      <div>
+        <h2 id="about-h">{h.aboutH}</h2>
+        {h.about.map(x => <p>{x}</p>)}
+        <p class="about__note">{h.aboutNote}</p>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter lang={lang} />
+
+  <section class="block" id="faq" aria-labelledby="faq-h">
+    <div class="wrap faq">
+      <h2 id="faq-h">{faq.title}</h2>
+      <div class="faq__list">{faq.items.map((i: any) => <details><summary>{i.q}</summary><div set:html={i.a} /></details>)}</div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* hero */
+  .hero{padding-block:clamp(24px,4vw,48px) clamp(48px,7vw,88px)}
+  .hero__grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center}
+  .hero h1{font-size:clamp(2.5rem,1.4rem + 3.6vw,4.5rem);margin-block:12px 18px}
+  .hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .hero__stats{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;color:var(--muted);font-size:.92rem}
+  .hero__stats li{display:flex;align-items:center;gap:8px}
+  .hero__stats li::before{content:"";width:7px;height:7px;transform:rotate(45deg);background:var(--accent)}
+  .room{position:relative;aspect-ratio:.9;border-radius:220px 220px 18px 18px;overflow:hidden;border:1px solid var(--line-2);background:#16100c;max-width:100%}
+  .room :global(canvas),.room__poster{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover}
+  .room__poster{transition:opacity .6s}
+  .room.is-live .room__poster{opacity:0}
+  .room__times{position:absolute;inset-inline:12px;bottom:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
+  .room__times button{min-height:38px;padding:0 14px;border-radius:999px;border:1px solid #6b5139;background:#16100ccc;color:#f3ece3;font-size:.88rem;cursor:pointer;backdrop-filter:blur(6px)}
+  .room__times button[aria-pressed=true]{background:#f2a33a;border-color:#f2a33a;color:#1d1206}
+  .room:not(.is-live) .room__times{display:none}
+  .room__meter{position:absolute;top:18%;inset-inline-end:10%;font:500 .8rem var(--mono);color:#f3ece3;background:#16100ccc;border:1px solid #6b5139;border-radius:999px;padding:4px 10px;opacity:0;transition:opacity .4s}
+  .room.is-dim .room__meter{opacity:1}
+  @media (max-width:880px){.hero__grid{grid-template-columns:minmax(0,1fr)}.room{aspect-ratio:1;max-height:70vh;width:100%}}
+
+  /* builder */
+  .builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(16px,3vw,28px)}
+  .btabs{display:flex;flex-wrap:wrap;gap:6px;grid-column:1/-1}
+  .btab{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:transparent;cursor:pointer;font-size:.92rem}
+  .btab[aria-selected=true]{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .fields{display:grid;gap:12px}
+  .field{display:grid;gap:6px}
+  .field label{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.94rem}
+  .field textarea{min-height:64px;resize:vertical;border-radius:12px;border:1px solid var(--line-2);background:var(--bg);color:var(--text);padding:10px 12px;line-height:1.6}
+  .field textarea:focus{border-color:var(--accent);outline:none}
+  .dot,.star{display:inline-block;clip-path:polygon(99.0% 59.8%,81.8% 71.3%,77.8% 91.6%,57.5% 87.5%,40.2% 99.0%,28.7% 81.8%,8.4% 77.8%,12.5% 57.5%,1.0% 40.2%,18.2% 28.7%,22.2% 8.4%,42.5% 12.5%,59.8% 1.0%,71.3% 18.2%,91.6% 22.2%,87.5% 42.5%)}
+  .dot{width:14px;height:14px}
+  .dot--0,.star--0.on{background:var(--role)}.dot--1,.star--1.on{background:var(--task)}.dot--2,.star--2.on{background:var(--context)}.dot--3,.star--3.on{background:var(--format)}
+  .out{display:grid;gap:14px;align-content:start}
+  .preview{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:18px;line-height:1.85;min-height:180px}
+  .preview :global(.r){color:var(--role)}.preview :global(.t){color:var(--task)}.preview :global(.c){color:var(--context)}.preview :global(.f){color:var(--format)}
+  .meter{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .meter b{font:600 2.2rem/1 var(--display);font-variant-numeric:tabular-nums;color:var(--text)}
+  .meter span{color:var(--muted)}
+  .stars{display:flex;gap:8px}
+  .star{width:34px;height:34px;background:var(--line);transition:background .3s}
+  .hint{color:var(--text-2);font-size:.95rem;min-height:1.5em}
+  .brow{display:flex;flex-wrap:wrap;gap:10px}
+  @media (max-width:860px){.builder{grid-template-columns:minmax(0,1fr)}}
+
+  /* start here */
+  .start-sec{background:var(--surface);border-block:1px solid var(--line)}
+  .arches{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+  .arch{position:relative;border:1px solid var(--line);border-radius:999px 999px 12px 12px;padding:28px 14px 18px;text-align:center;display:grid;gap:8px;align-content:start;justify-items:center;background:linear-gradient(180deg,var(--surface-2),var(--bg))}
+  .arch h3{font-size:1.08rem}
+  .arch h3 a{text-decoration:none}
+  .arch h3 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+  .arch:has(a:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
+  .arch h3 a:focus-visible{outline:none}
+  .arch p{color:var(--muted);font-size:.9rem}
+  .arch__n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line-2);font:600 1rem var(--mono);color:var(--accent-text)}
+  .arch__tick{width:18px;height:18px;display:none}
+  .arch__min{font-size:.78rem;color:var(--muted)}
+  .arch.is-done .arch__n{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+  .arch.is-done .arch__num{display:none}.arch.is-done .arch__tick{display:block}
+  .arch.is-next{border-color:var(--accent)}
+  .arch.is-next .arch__n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .cert-line{margin-top:22px;padding:14px 18px;border:1px dashed var(--line-2);border-radius:12px;color:var(--text-2);display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+  .cert-line :global(a){color:var(--accent-text);font-weight:600}
+  .cert-line :global(.next){display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;background:var(--accent);color:var(--accent-ink);text-decoration:none}
+  @media (max-width:980px){.arches{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:560px){.arches{grid-template-columns:repeat(2,minmax(0,1fr))}.arch{padding-top:22px}}
+
+  /* courtyards */
+  .courts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .court{position:relative;border-radius:var(--radius);padding:26px 22px 22px;display:grid;gap:10px;align-content:start;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+  .court::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:repeating-linear-gradient(90deg,var(--tile) 0 14px,transparent 14px 20px)}
+  .court h3{font-size:1.6rem}
+  .court h3 a{text-decoration:none}
+  .court h3 a::after{content:"";position:absolute;inset:0}
+  .court:has(a:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
+  .court h3 a:focus-visible{outline:none}
+  .court:hover{border-color:var(--line-2)}
+  .court p{color:var(--text-2)}
+  .court__n{color:var(--tile-text);font-size:.85rem}
+  .court__go{display:inline-flex;align-items:center;gap:6px;color:var(--accent-text);font-weight:600}
+  .court__go .icon{width:18px;height:18px}
+  @media (max-width:860px){.courts{grid-template-columns:minmax(0,1fr)}}
+
+  /* tools */
+  .tools-sec{background:var(--surface);border-block:1px solid var(--line)}
+  .tools-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 48px;align-items:start}
+  .tool-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-2)}
+  .tool-list a{display:grid;gap:2px;padding:16px 4px;border-bottom:1px solid var(--line-2);text-decoration:none}
+  .tool-list__n{font:600 1.2rem var(--display)}
+  .tool-list__d{color:var(--muted);font-size:.95rem}
+  .tool-list a:hover .tool-list__n{color:var(--accent-text)}
+  @media (max-width:860px){.tools-grid{grid-template-columns:minmax(0,1fr)}}
+
+  /* about */
+  .about{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center}
+  .about img{width:100%;border-radius:180px 180px 14px 14px;border:1px solid var(--line-2);background:var(--surface-2)}
+  .about h2{font-size:clamp(2rem,1.3rem + 2vw,3rem);margin-bottom:6px}
+  .about p{color:var(--text-2);margin-top:12px;max-width:38rem}
+  .about__note{display:inline-block;font-size:.9rem;color:var(--muted)!important;border:1px solid var(--line);border-radius:999px;padding:4px 14px}
+  @media (max-width:760px){.about{grid-template-columns:minmax(0,1fr)}.about figure{max-width:260px}}
+
+  /* faq */
+  .faq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:32px}
+  .faq h2{font-size:clamp(2rem,1.3rem + 2vw,3rem)}
+  .faq__list{border-top:1px solid var(--line)}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;padding:18px 4px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--accent-text);font-size:1.3rem;line-height:1}
+  .faq details[open] summary::after{content:"−"}
+  .faq details div{padding:0 4px 18px;color:var(--text-2)}
+  @media (max-width:760px){.faq{grid-template-columns:minmax(0,1fr)}}
+</style>
+
+<script>
+  import type { Room } from '../scripts/lattice';
+  const read = (k: string, d: any) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v ?? d; } catch (e) { return d; } };
+  const write = (k: string, v: any) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+  // ---- the room ----
+  const roomEl = document.getElementById('room')!;
+  let room: Room | null = null;
+  let pendingLight = 1;
+  function canRun() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
+  }
+  if (canRun()) {
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      import('../scripts/lattice').then(({ createRoom }) => { room = createRoom(roomEl); room.setLight(pendingLight); requestAnimationFrame(() => roomEl.classList.add('is-live')); }).catch(() => { room = null; });
+    }, { rootMargin: '200px' });
+    io.observe(roomEl);
+  }
+  roomEl.querySelectorAll<HTMLButtonElement>('[data-time]').forEach(b => b.addEventListener('click', () => {
+    roomEl.querySelectorAll('[data-time]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    room?.setTime(+b.dataset.time!);
+  }));
+
+  // ---- the prompt builder: each part lets a quarter of the light in ----
+  const bEl = document.querySelector<HTMLElement>('.builder')!;
+  const bt = JSON.parse(bEl.dataset.t!);
+  const F = [0, 1, 2, 3].map(i => document.getElementById('bf' + i) as HTMLTextAreaElement);
+  const esc = (s: string) => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]!));
+  const cls = ['r', 't', 'c', 'f'];
+  function render() {
+    const v = F.map(f => f.value.trim());
+    const ok = v.map(x => x.length >= 10);
+    const score = ok.filter(Boolean).length * 25;
+    document.getElementById('b-preview')!.innerHTML = v.map((x, i) => x ? `<span class="${cls[i]}">${esc(x)}</span>` : '').filter(Boolean).join(' ') || `<span style="color:var(--muted)">${bt.empty}</span>`;
+    document.getElementById('b-score')!.textContent = score + '%';
+    document.getElementById('room-light')!.textContent = score + '%';
+    bEl.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('on', ok[i]));
+    const miss = ok.indexOf(false);
+    document.getElementById('b-hint')!.textContent = miss > -1 ? bt.hintMiss.replace('{p}', bt.parts[miss]) : bt.hintFull;
+    pendingLight = score / 100;
+    room?.setLight(pendingLight);
+    roomEl.classList.toggle('is-dim', score < 100);
+    return score;
+  }
+  function load(i: number) {
+    bt.ex[i].forEach((t: string, k: number) => F[k].value = t);
+    bEl.querySelectorAll('.btab').forEach((b, k) => b.setAttribute('aria-selected', String(k === i)));
+    document.getElementById('b-copied')!.textContent = '';
+    render();
+  }
+  bEl.querySelectorAll<HTMLButtonElement>('.btab').forEach(b => b.addEventListener('click', () => load(+b.dataset.ex!)));
+  F.forEach(f => f.addEventListener('input', render));
+  document.getElementById('b-copy')!.addEventListener('click', async () => {
+    const out = document.getElementById('b-copied')!;
+    const text = F.map(f => f.value.trim()).filter(Boolean).join(' ');
+    try { await navigator.clipboard.writeText(text); out.textContent = bt.copied; }
+    catch (e) { const r = document.createRange(); r.selectNodeContents(document.getElementById('b-preview')!); getSelection()!.removeAllRanges(); getSelection()!.addRange(r); out.textContent = bt.selected; }
+    // Copying a complete prompt counts as step 1 of Start Here (the 4-part prompt).
+    if (render() === 100) { const c = read('ahl:cert', {}); if (!c.step1) { c.step1 = true; write('ahl:cert', c); out.textContent += ' ' + bt.stepDone; progress(); } }
+  });
+  render();
+
+  // ---- Start Here progress (same keys as before: ahl:done, ahl:cert.step1) ----
+  function progress() {
+    const done: string[] = (() => { const d = read('ahl:done', []); return Array.isArray(d) ? d : []; })();
+    const cert = read('ahl:cert', {}) || {};
+    const arches = [...document.querySelectorAll<HTMLElement>('.arch')];
+    const isDone = arches.map((a, i) => i === 0 ? !!cert.step1 : done.includes(a.dataset.slug!));
+    const n = isDone.filter(Boolean).length;
+    const nextI = n > 0 && n < 6 ? isDone.indexOf(false) : -1;
+    arches.forEach((a, i) => { a.classList.toggle('is-done', isDone[i]); a.classList.toggle('is-next', i === nextI); });
+    const line = document.getElementById('cert-line')!;
+    const lt = JSON.parse(line.dataset.t!);
+    const link = (h: string, txt: string, c = '') => `<a ${c ? `class="${c}"` : ''} href="${h}">${esc(txt)}</a>`;
+    if (n >= 6) line.innerHTML = `<span>${lt.certReady}</span> ${link(line.dataset.cert!, lt.certGet)}`;
+    else if (nextI > -1) { const a = arches[nextI].querySelector('a')!; line.innerHTML = `<span><b>${lt.progress.replace('{n}', n)}</b></span> ${link(a.getAttribute('href')!, lt.next.replace('{t}', a.textContent!), 'next')} ${link(line.dataset.cert!, lt.certGo)}`; }
+  }
+  progress();
+</script>

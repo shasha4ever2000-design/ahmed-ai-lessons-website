@@ -1,0 +1,21 @@
+---
+import { T, fill, pre, type Lang } from '../i18n';
+interface Props { lesson: any; lang: Lang; heading?: 'h2' | 'h3' }
+const { lesson, lang, heading = 'h3' } = Astro.props;
+const d = lesson.data;
+const t = T[lang];
+const H = heading;
+---
+<article class="card lesson-card" data-slug={d.slug} data-topic={d.topic}>
+  <span class="card__topic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={d.topicIcon} />{d.topic}</span>
+  <H><a href={`${pre(lang)}/lessons/${d.slug}/`}>{d.title}</a></H>
+  <p>{d.summary}</p>
+  <p class="card__meta"><span>{fill(t.lesson.n, { n: d.number })}</span><span>{fill(t.lesson.read, { n: d.minutes })}</span><span>{d.level}</span></p>
+  <span class="card__done" hidden aria-label={t.lesson.isDone}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+</article>
+<script>
+  // Tick lessons this visitor has finished (saved by "Mark this lesson as done").
+  let done: string[] = [];
+  try { const d = JSON.parse(localStorage.getItem('ahl:done') || '[]'); if (Array.isArray(d)) done = d; } catch (e) {}
+  document.querySelectorAll<HTMLElement>('.lesson-card').forEach(c => { const tick = c.querySelector<HTMLElement>('.card__done'); if (tick) tick.hidden = !done.includes(c.dataset.slug!); });
+</script>

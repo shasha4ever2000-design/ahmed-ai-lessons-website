@@ -1,0 +1,37 @@
+/*
+ * Mashrabiya theme for the standalone tool pages (Prompt Grader, quiz, time saved, certificate,
+ * prompt of the day, Prompt Library, links). Loaded after each page's own styles, so these rules win.
+ * The rest of the site gets the same tokens from src/styles/global.css.
+ */
+@font-face{font-family:"El Messiri";font-weight:400 700;font-display:swap;src:url(/assets/el-messiri-latin-var.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD}
+@font-face{font-family:"El Messiri";font-weight:400 700;font-display:swap;src:url(/assets/el-messiri-arabic-var.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-latin-400-normal-Bo5KPYvw.woff2) format("woff2");unicode-range:U+00??,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:600;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-latin-600-normal-KrqB56Mw.woff2) format("woff2");unicode-range:U+00??,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-400-normal-DqElNKgb.woff2) format("woff2");unicode-range:U+06??,U+200C-200F,U+2010-2011}
+@font-face{font-family:"IBM Plex Sans Arabic";font-weight:600;font-display:swap;src:url(/assets/ibm-plex-sans-arabic-arabic-600-normal-DIa3GCJg.woff2) format("woff2");unicode-range:U+06??,U+200C-200F,U+2010-2011}
+
+/* Tokens (html:root[...] beats the pages' own [data-theme=...]) */
+html:root[data-theme=dark],html:root:not([data-theme]){
+  --bg:#16100c;--surface:#21180f;--surface-2:#2d2117;--line:#3b2c1f;--line-2:#56412e;
+  --text:#f3ece3;--text-2:#d8cbbd;--muted:#b3a291;
+  --accent:#f2a33a;--accent-hover:#f7b55a;--accent-ink:#1d1206;--accent-soft:#3a2a14;--accent-text:#f2a33a;
+  --ok:#5ec7a0;--warn:#f2a33a;--bad:#e0705f;--warm:#f2a33a;--dot:transparent;
+  --role:#f2a33a;--task:#3fb3a7;--context:#e0705f;--format:#7fa6ea;
+  color-scheme:dark;
+}
+html:root[data-theme=light]{
+  --bg:#f4eee6;--surface:#fcf9f4;--surface-2:#ece2d4;--line:#ddd0be;--line-2:#c7b59e;
+  --text:#1f160f;--text-2:#463627;--muted:#6a5646;
+  --accent:#f2a33a;--accent-hover:#f7b55a;--accent-ink:#1d1206;--accent-soft:#fbe7c4;--accent-text:#8a4f00;
+  --ok:#1f7a55;--warn:#8a4f00;--bad:#b0402b;--warm:#8a4f00;--dot:transparent;
+  --role:#9a5800;--task:#16756b;--context:#b0402b;--format:#3a62b0;
+  color-scheme:light;
+}
+html,body{background:var(--bg)}
+body{background-image:none;font-family:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+h1,h2,h3,.brand,.hero h1,main.wrap h1,.me h1{font-family:"El Messiri","IBM Plex Sans Arabic",Georgia,serif;letter-spacing:0}
+h1{font-weight:600}
+.kicker{text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--accent-text)}
+.label,.sub{text-transform:none;letter-spacing:0;font-size:.9rem}
+.brand__mark{background:var(--accent);color:var(--accent-ink)}
+@media (prefers-reduced-motion:reduce){.tile,.btn{transition:none}}

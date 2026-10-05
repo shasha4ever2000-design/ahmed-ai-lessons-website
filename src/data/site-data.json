@@ -1,0 +1,866 @@
+{
+ "en": {
+  "glossary": {
+   "title": "AI words in plain language",
+   "lede": "The words you keep seeing in AI tools and news, explained in one or two sentences, with the Arabic term next to each one.",
+   "note": "Each Arabic term is the one used on the Arabic version of this site. Other names are also common.",
+   "terms": [
+    {
+     "id": "ai",
+     "name": "Artificial intelligence (AI)",
+     "other": "الذكاء الاصطناعي",
+     "def": "Computer systems that do tasks we usually link with human thinking, such as writing, understanding language or recognising images."
+    },
+    {
+     "id": "generative-ai",
+     "name": "Generative AI",
+     "other": "الذكاء الاصطناعي التوليدي",
+     "def": "AI that creates new content, such as text, images or audio, from your instructions. Claude and ChatGPT are generative AI tools."
+    },
+    {
+     "id": "chatbot",
+     "name": "AI assistant (chatbot)",
+     "other": "المساعد الذكي (روبوت المحادثة)",
+     "def": "A tool you talk to in everyday language. You type a message and it replies, and it remembers the conversation so far."
+    },
+    {
+     "id": "llm",
+     "name": "Large language model (LLM)",
+     "other": "النموذج اللغوي الكبير",
+     "def": "The engine behind tools like Claude and ChatGPT. It learned patterns from huge amounts of text and uses them to write the most likely next words."
+    },
+    {
+     "id": "model",
+     "name": "Model",
+     "other": "النموذج",
+     "def": "A specific version of the AI engine. Tools often let you choose between models: faster ones for simple tasks, stronger ones for harder work."
+    },
+    {
+     "id": "prompt",
+     "name": "Prompt",
+     "other": "الطلب (البرومبت)",
+     "def": "The message you give the AI: your question or instructions. A clear prompt with a role, task, context and format gets a better answer."
+    },
+    {
+     "id": "follow-up",
+     "name": "Follow-up",
+     "other": "رسالة المتابعة",
+     "def": "A message you send after the first answer to change or improve it, for example \"make it shorter\" or \"use a table\"."
+    },
+    {
+     "id": "context",
+     "name": "Context",
+     "other": "السياق",
+     "def": "Background information the AI can't guess: who the text is for, what happened before, or the details of your situation."
+    },
+    {
+     "id": "context-window",
+     "name": "Context window",
+     "other": "نافذة السياق",
+     "def": "How much text the AI can keep in mind at once, including the whole conversation and any files. Very long chats can go past it, and early details get lost."
+    },
+    {
+     "id": "token",
+     "name": "Token",
+     "other": "الرمز (التوكن)",
+     "def": "A small piece of text, often part of a word, that AI models count. Limits and prices are usually measured in tokens."
+    },
+    {
+     "id": "hallucination",
+     "name": "Hallucination",
+     "other": "الهلوسة",
+     "def": "When the AI states something false as if it were true, such as a made-up number, quote or source."
+    },
+    {
+     "id": "knowledge-cutoff",
+     "name": "Knowledge cut-off",
+     "other": "تاريخ توقف المعرفة",
+     "def": "The date the model's training data ends. It won't know about later events unless it searches the web."
+    },
+    {
+     "id": "web-search",
+     "name": "Web search",
+     "other": "البحث في الإنترنت",
+     "def": "A feature that lets the AI look things up online and show its sources. Still open the sources to check them."
+    },
+    {
+     "id": "training-data",
+     "name": "Training data",
+     "other": "بيانات التدريب",
+     "def": "The text and other material a model learned from. Some personal accounts let you choose whether your chats are used to train future models."
+    },
+    {
+     "id": "upload",
+     "name": "File upload",
+     "other": "رفع الملفات",
+     "def": "Adding a document, spreadsheet or image to the chat so the AI can read it. Only upload files you are allowed to share."
+    },
+    {
+     "id": "multimodal",
+     "name": "Multimodal",
+     "other": "متعدد الوسائط",
+     "def": "Able to work with more than text, for example reading images and documents or understanding voice."
+    },
+    {
+     "id": "placeholder",
+     "name": "Placeholder",
+     "other": "الرمز البديل",
+     "def": "A stand-in like [Client] or [Amount] that you use instead of private details, then replace yourself after you get the answer."
+    },
+    {
+     "id": "temporary-chat",
+     "name": "Temporary or incognito chat",
+     "other": "المحادثة المؤقتة أو الخفية",
+     "def": "A chat mode that isn't saved in your history and isn't used to train models. Providers may still keep it for a short time for safety."
+    },
+    {
+     "id": "template",
+     "name": "Prompt template",
+     "other": "قالب الطلب",
+     "def": "A prompt you save and reuse, with blanks you fill in each time, like the ready-to-copy prompts in these lessons."
+    },
+    {
+     "id": "projects",
+     "name": "Projects and custom GPTs",
+     "other": "المشاريع وGPTs المخصصة",
+     "def": "Features that save instructions and files for a topic, so you don't repeat them in every chat. Claude calls them Projects; ChatGPT has Projects and custom GPTs."
+    },
+    {
+     "id": "agent",
+     "name": "AI agent",
+     "other": "الوكيل الذكي",
+     "def": "An AI that can take several steps on its own to finish a task, such as searching, opening files or filling in forms, usually with your approval."
+    },
+    {
+     "id": "bias",
+     "name": "Bias",
+     "other": "التحيّز",
+     "def": "When answers lean unfairly one way because of patterns in the training data. Check important answers from more than one angle."
+    }
+   ]
+  },
+  "tools": {
+   "title": "AI Tool Library",
+   "lede": "A curated list of AI tools for work. Search by name or task, or filter by type, price and difficulty.",
+   "note": "Prices change often. Labels were checked on each company’s pricing page in September 2026, so check their site before you pay.",
+   "tools": [
+    {
+     "name": "ChatGPT",
+     "maker": "OpenAI",
+     "tile": "Ch",
+     "does": "A general AI assistant for writing, questions, files and images.",
+     "best": "Everyday drafting, explaining and brainstorming.",
+     "category": "Assistants",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://chatgpt.com/"
+    },
+    {
+     "name": "Claude",
+     "maker": "Anthropic",
+     "tile": "Cl",
+     "does": "A general AI assistant that is strong with long documents and careful writing.",
+     "best": "Reports, long files and thoughtful rewrites.",
+     "category": "Assistants",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://claude.ai/"
+    },
+    {
+     "name": "Gemini",
+     "maker": "Google",
+     "tile": "Ge",
+     "does": "Google's AI assistant, connected to Gmail, Docs and Drive when you allow it.",
+     "best": "People who work in Google Workspace.",
+     "category": "Assistants",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://gemini.google.com/"
+    },
+    {
+     "name": "Microsoft Copilot",
+     "maker": "Microsoft",
+     "tile": "Co",
+     "does": "Microsoft's AI assistant, built into Windows, Edge and Microsoft 365 apps.",
+     "best": "Help inside Word, Excel, Outlook and Teams.",
+     "category": "Assistants",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://copilot.microsoft.com/"
+    },
+    {
+     "name": "Perplexity",
+     "maker": "Perplexity AI",
+     "tile": "Pe",
+     "does": "An AI search engine that answers with links to its sources.",
+     "best": "Quick research you can check.",
+     "category": "Research",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://www.perplexity.ai/"
+    },
+    {
+     "name": "Gemini Notebook (NotebookLM)",
+     "maker": "Google",
+     "tile": "Nb",
+     "does": "Answers questions using only the files and links you upload.",
+     "best": "Studying reports, policies and course material.",
+     "category": "Research",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://notebook.google/"
+    },
+    {
+     "name": "Grammarly",
+     "maker": "Grammarly",
+     "tile": "Gr",
+     "does": "Checks and improves your English writing as you type.",
+     "best": "Clear, correct emails and documents in English.",
+     "category": "Writing",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://www.grammarly.com/"
+    },
+    {
+     "name": "Canva",
+     "maker": "Canva",
+     "tile": "Ca",
+     "does": "Design tool with AI features for images, slides and social posts.",
+     "best": "Quick visuals without design skills.",
+     "category": "Design",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://www.canva.com/"
+    },
+    {
+     "name": "Midjourney",
+     "maker": "Midjourney",
+     "tile": "Mj",
+     "does": "Creates high-quality images from a text description.",
+     "best": "Illustrations and concept images.",
+     "category": "Design",
+     "level": "Intermediate",
+     "price": "Paid",
+     "priceKey": "paid",
+     "checked": "Checked Sep 2026",
+     "url": "https://www.midjourney.com/"
+    },
+    {
+     "name": "Notion AI",
+     "maker": "Notion",
+     "tile": "No",
+     "does": "AI inside Notion pages: summarise, draft and search your notes.",
+     "best": "Teams that keep notes and plans in Notion.",
+     "category": "Productivity",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://www.notion.com/product/ai"
+    },
+    {
+     "name": "Otter.ai",
+     "maker": "Otter.ai",
+     "tile": "Ot",
+     "does": "Records and transcribes meetings, then writes a summary.",
+     "best": "Meeting notes and action items.",
+     "category": "Productivity",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://otter.ai/"
+    },
+    {
+     "name": "Fireflies.ai",
+     "maker": "Fireflies.ai",
+     "tile": "Ff",
+     "does": "Joins your online meetings to take notes and find key moments.",
+     "best": "Teams with many online meetings.",
+     "category": "Productivity",
+     "level": "Beginner",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://fireflies.ai/"
+    },
+    {
+     "name": "Cursor",
+     "maker": "Anysphere",
+     "tile": "Cu",
+     "does": "A code editor with an AI that writes and fixes code with you.",
+     "best": "Building small tools and scripts.",
+     "category": "Coding",
+     "level": "Intermediate",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://cursor.com/"
+    },
+    {
+     "name": "Zapier",
+     "maker": "Zapier",
+     "tile": "Za",
+     "does": "Connects your apps so tasks run automatically, with AI steps in between.",
+     "best": "Automating repeated tasks without code.",
+     "category": "Automation",
+     "level": "Intermediate",
+     "price": "Free + paid",
+     "priceKey": "freemium",
+     "checked": "Checked Sep 2026",
+     "url": "https://zapier.com/"
+    }
+   ]
+  },
+  "faq": {
+   "title": "Questions visitors ask",
+   "items": [
+    {
+     "q": "Do I need a technical background?",
+     "a": "<p>No. The lessons use everyday language and real examples. If you can write an email, you can follow along.</p>"
+    },
+    {
+     "q": "Claude or ChatGPT: which one should I use?",
+     "a": "<p>Start with the one you already have. Most lessons work in both, and I point out when something is different.</p>"
+    },
+    {
+     "q": "Are the lessons free?",
+     "a": "<p>Yes. The lessons on this site are free to read.</p>"
+    },
+    {
+     "q": "Is the site available in Arabic?",
+     "a": "<p>Yes. Every page has an Arabic version: use the “العربية” link in the header.</p>"
+    },
+    {
+     "q": "Is it safe to paste my work files into AI?",
+     "a": "<p>Be careful. Don't paste passwords, ID numbers, or confidential company data unless your company allows it. Check your workplace's AI policy first. Lesson 5, “Use AI safely at work”, covers this in detail.</p>"
+    },
+    {
+     "q": "Are you connected to Anthropic or OpenAI?",
+     "a": "<p>No. This is an independent site. I teach people how to use their tools.</p>"
+    }
+   ]
+  },
+  "finance": {
+   "eyebrow": "Finance & CMA",
+   "title": "AI for finance work and CMA study.",
+   "lede": "Practical lessons from an accountant: close the month faster, explain the numbers clearly, and study for the CMA with AI as a tutor.",
+   "sections": [
+    {
+     "id": "finance",
+     "title": "Finance",
+     "text": "Month-end, reconciliations, variance notes and reports.",
+     "lessons": [
+      "month-end-close-with-ai"
+     ]
+    },
+    {
+     "id": "cma",
+     "title": "CMA",
+     "text": "Plan your study, understand hard topics and practise with your own notes.",
+     "lessons": [
+      "study-cma-with-ai"
+     ]
+    }
+   ],
+   "note": "CMA is a certification of IMA. This site is independent and not affiliated with or endorsed by IMA. Examples use made-up companies and numbers."
+  },
+  "m365": {
+   "eyebrow": "Microsoft 365",
+   "title": "Excel, Power BI, Word, Outlook and Teams, made easy.",
+   "lede": "Short lessons on the Office apps you use every day, with the AI tips that save the most effort, in Copilot and in ChatGPT or Claude.",
+   "sections": [
+    {
+     "id": "excel",
+     "title": "Excel",
+     "text": "Formulas, pivot tables and clean data.",
+     "lessons": [
+      "excel-formulas-and-cleanup",
+      "excel-pivot-tables"
+     ]
+    },
+    {
+     "id": "powerbi",
+     "title": "Power BI",
+     "text": "From an Excel file to a clear report.",
+     "lessons": [
+      "first-power-bi-report"
+     ]
+    },
+    {
+     "id": "word",
+     "title": "Word",
+     "text": "Long reports that are easy to build and update.",
+     "lessons": [
+      "word-long-reports"
+     ]
+    },
+    {
+     "id": "outlook",
+     "title": "Outlook",
+     "text": "A calmer inbox with rules, flags and Copilot.",
+     "lessons": [
+      "outlook-inbox-control"
+     ]
+    },
+    {
+     "id": "teams",
+     "title": "Teams",
+     "text": "Shorter meetings with clear notes and recaps.",
+     "lessons": [
+      "teams-better-meetings"
+     ]
+    }
+   ],
+   "note": "Microsoft 365, Excel, Power BI, Word, Outlook, Teams and Copilot are Microsoft products. This site is independent and not affiliated with Microsoft."
+  }
+ },
+ "ar": {
+  "glossary": {
+   "title": "كلمات الذكاء الاصطناعي بلغة بسيطة",
+   "lede": "الكلمات التي تراها باستمرار في أدوات الذكاء الاصطناعي وأخباره، مشروحة في جملة أو جملتين، مع المصطلح الإنجليزي بجانب كل كلمة.",
+   "note": "المصطلح العربي هو المستخدم في هذا الموقع، وقد تصادف أسماء أخرى شائعة.",
+   "terms": [
+    {
+     "id": "ai",
+     "name": "الذكاء الاصطناعي",
+     "other": "Artificial intelligence (AI)",
+     "def": "أنظمة حاسوبية تنجز مهام نربطها عادةً بالتفكير البشري، مثل الكتابة وفهم اللغة والتعرّف على الصور."
+    },
+    {
+     "id": "generative-ai",
+     "name": "الذكاء الاصطناعي التوليدي",
+     "other": "Generative AI",
+     "def": "ذكاء اصطناعي ينشئ محتوى جديدًا مثل النصوص والصور والأصوات بناءً على تعليماتك. ‏Claude وChatGPT من أدواته."
+    },
+    {
+     "id": "chatbot",
+     "name": "المساعد الذكي (روبوت المحادثة)",
+     "other": "AI assistant (chatbot)",
+     "def": "أداة تتحدث معها بلغتك اليومية: تكتب رسالة فترد عليك، وتتذكر ما قيل في المحادثة حتى الآن."
+    },
+    {
+     "id": "llm",
+     "name": "النموذج اللغوي الكبير",
+     "other": "Large language model (LLM)",
+     "def": "المحرّك الذي تعمل به أدوات مثل Claude وChatGPT. تعلّم أنماطًا من كميات هائلة من النصوص، ويستخدمها ليكتب الكلمات الأكثر احتمالًا."
+    },
+    {
+     "id": "model",
+     "name": "النموذج",
+     "other": "Model",
+     "def": "نسخة محددة من محرّك الذكاء الاصطناعي. كثير من الأدوات تتيح لك الاختيار بين نماذج: أسرع للمهام البسيطة، وأقوى للعمل الأصعب."
+    },
+    {
+     "id": "prompt",
+     "name": "الطلب (البرومبت)",
+     "other": "Prompt",
+     "def": "الرسالة التي تعطيها للذكاء الاصطناعي: سؤالك أو تعليماتك. الطلب الواضح الذي فيه دور ومهمة وسياق وشكل يعطي إجابة أفضل."
+    },
+    {
+     "id": "follow-up",
+     "name": "رسالة المتابعة",
+     "other": "Follow-up",
+     "def": "رسالة ترسلها بعد الإجابة الأولى لتغييرها أو تحسينها، مثل «اجعلها أقصر» أو «ضعها في جدول»."
+    },
+    {
+     "id": "context",
+     "name": "السياق",
+     "other": "Context",
+     "def": "المعلومات التي لا يستطيع الذكاء الاصطناعي تخمينها: لمن النص، وماذا حدث قبل ذلك، وتفاصيل موقفك."
+    },
+    {
+     "id": "context-window",
+     "name": "نافذة السياق",
+     "other": "Context window",
+     "def": "مقدار النص الذي يستطيع الذكاء الاصطناعي أن يستوعبه في وقت واحد، بما فيه المحادثة كلها والملفات. المحادثات الطويلة جدًا قد تتجاوزها فتضيع التفاصيل الأولى."
+    },
+    {
+     "id": "token",
+     "name": "الرمز (التوكن)",
+     "other": "Token",
+     "def": "قطعة صغيرة من النص، غالبًا جزء من كلمة، تعدّها نماذج الذكاء الاصطناعي. الحدود والأسعار تُقاس عادةً بالتوكنات."
+    },
+    {
+     "id": "hallucination",
+     "name": "الهلوسة",
+     "other": "Hallucination",
+     "def": "عندما يذكر الذكاء الاصطناعي معلومة خاطئة كأنها صحيحة، مثل رقم أو اقتباس أو مصدر مختلَق."
+    },
+    {
+     "id": "knowledge-cutoff",
+     "name": "تاريخ توقف المعرفة",
+     "other": "Knowledge cut-off",
+     "def": "التاريخ الذي تنتهي عنده بيانات تدريب النموذج. لن يعرف ما حدث بعده إلا إذا بحث في الإنترنت."
+    },
+    {
+     "id": "web-search",
+     "name": "البحث في الإنترنت",
+     "other": "Web search",
+     "def": "ميزة تتيح للذكاء الاصطناعي البحث عن المعلومات على الإنترنت وعرض مصادرها. ومع ذلك افتح المصادر وتحقّق منها."
+    },
+    {
+     "id": "training-data",
+     "name": "بيانات التدريب",
+     "other": "Training data",
+     "def": "النصوص والمواد التي تعلّم منها النموذج. بعض الحسابات الشخصية تتيح لك أن تختار هل تُستخدم محادثاتك لتدريب النماذج القادمة."
+    },
+    {
+     "id": "upload",
+     "name": "رفع الملفات",
+     "other": "File upload",
+     "def": "إضافة مستند أو جدول أو صورة إلى المحادثة ليقرأها الذكاء الاصطناعي. ارفع فقط الملفات المسموح لك بمشاركتها."
+    },
+    {
+     "id": "multimodal",
+     "name": "متعدد الوسائط",
+     "other": "Multimodal",
+     "def": "قادر على التعامل مع أكثر من النص، مثل قراءة الصور والمستندات أو فهم الصوت."
+    },
+    {
+     "id": "placeholder",
+     "name": "الرمز البديل",
+     "other": "Placeholder",
+     "def": "كلمة مؤقتة مثل [العميل] أو [المبلغ] تضعها مكان التفاصيل الخاصة، ثم تستبدلها بنفسك بعد أن تحصل على الإجابة."
+    },
+    {
+     "id": "temporary-chat",
+     "name": "المحادثة المؤقتة أو الخفية",
+     "other": "Temporary or incognito chat",
+     "def": "وضع محادثة لا يُحفظ في سجلك ولا يُستخدم لتدريب النماذج، وقد تحتفظ به الشركة لفترة قصيرة لأغراض السلامة."
+    },
+    {
+     "id": "template",
+     "name": "قالب الطلب",
+     "other": "Prompt template",
+     "def": "طلب تحفظه وتعيد استخدامه، فيه فراغات تملؤها كل مرة، مثل الطلبات الجاهزة للنسخ في هذه الدروس."
+    },
+    {
+     "id": "projects",
+     "name": "المشاريع وGPTs المخصصة",
+     "other": "Projects and custom GPTs",
+     "def": "ميزات تحفظ التعليمات والملفات لموضوع معيّن حتى لا تكررها في كل محادثة. في Claude تُسمّى Projects، وفي ChatGPT توجد Projects وGPTs المخصصة."
+    },
+    {
+     "id": "agent",
+     "name": "الوكيل الذكي",
+     "other": "AI agent",
+     "def": "ذكاء اصطناعي يستطيع تنفيذ عدة خطوات بنفسه لإنهاء مهمة، مثل البحث وفتح الملفات وتعبئة النماذج، وعادةً بموافقتك."
+    },
+    {
+     "id": "bias",
+     "name": "التحيّز",
+     "other": "Bias",
+     "def": "عندما تميل الإجابات بشكل غير عادل إلى جهة معيّنة بسبب أنماط في بيانات التدريب. راجع الإجابات المهمة من أكثر من زاوية."
+    }
+   ]
+  },
+  "tools": {
+   "title": "مكتبة أدوات الذكاء الاصطناعي",
+   "lede": "قائمة مختارة من أدوات الذكاء الاصطناعي للعمل. ابحث بالاسم أو بالمهمة، أو صفِّ حسب النوع والسعر والصعوبة.",
+   "note": "الأسعار تتغير كثيرًا. راجعنا التصنيفات على صفحة الأسعار لكل شركة في سبتمبر 2026، فتأكد من موقعهم قبل أن تدفع.",
+   "tools": [
+    {
+     "name": "ChatGPT",
+     "maker": "OpenAI",
+     "tile": "Ch",
+     "does": "مساعد ذكاء اصطناعي عام للكتابة والأسئلة والملفات والصور.",
+     "best": "المسودات اليومية والشرح وتوليد الأفكار.",
+     "category": "مساعدون",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://chatgpt.com/"
+    },
+    {
+     "name": "Claude",
+     "maker": "Anthropic",
+     "tile": "Cl",
+     "does": "مساعد ذكاء اصطناعي عام قوي في المستندات الطويلة والكتابة الدقيقة.",
+     "best": "التقارير والملفات الطويلة وإعادة الصياغة المتأنية.",
+     "category": "مساعدون",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://claude.ai/"
+    },
+    {
+     "name": "Gemini",
+     "maker": "Google",
+     "tile": "Ge",
+     "does": "مساعد Google للذكاء الاصطناعي، ويتصل بـ Gmail وDocs وDrive إذا سمحت له.",
+     "best": "من يعمل داخل Google Workspace.",
+     "category": "مساعدون",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://gemini.google.com/"
+    },
+    {
+     "name": "Microsoft Copilot",
+     "maker": "Microsoft",
+     "tile": "Co",
+     "does": "مساعد Microsoft للذكاء الاصطناعي، مدمج في Windows وEdge وتطبيقات Microsoft 365.",
+     "best": "المساعدة داخل Word وExcel وOutlook وTeams.",
+     "category": "مساعدون",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://copilot.microsoft.com/"
+    },
+    {
+     "name": "Perplexity",
+     "maker": "Perplexity AI",
+     "tile": "Pe",
+     "does": "محرك بحث بالذكاء الاصطناعي يجيب مع روابط لمصادره.",
+     "best": "بحث سريع تستطيع التحقق منه.",
+     "category": "بحث",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://www.perplexity.ai/"
+    },
+    {
+     "name": "Gemini Notebook (NotebookLM)",
+     "maker": "Google",
+     "tile": "Nb",
+     "does": "يجيب عن الأسئلة من الملفات والروابط التي ترفعها فقط.",
+     "best": "دراسة التقارير والسياسات والمواد التعليمية.",
+     "category": "بحث",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://notebook.google/"
+    },
+    {
+     "name": "Grammarly",
+     "maker": "Grammarly",
+     "tile": "Gr",
+     "does": "يراجع كتابتك بالإنجليزية ويحسّنها أثناء الكتابة.",
+     "best": "إيميلات ومستندات إنجليزية واضحة وصحيحة.",
+     "category": "كتابة",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://www.grammarly.com/"
+    },
+    {
+     "name": "Canva",
+     "maker": "Canva",
+     "tile": "Ca",
+     "does": "أداة تصميم فيها مزايا ذكاء اصطناعي للصور والعروض ومنشورات التواصل.",
+     "best": "تصاميم سريعة بدون خبرة في التصميم.",
+     "category": "تصميم",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://www.canva.com/"
+    },
+    {
+     "name": "Midjourney",
+     "maker": "Midjourney",
+     "tile": "Mj",
+     "does": "يصنع صورًا عالية الجودة من وصف مكتوب.",
+     "best": "الرسوم التوضيحية وصور الأفكار.",
+     "category": "تصميم",
+     "level": "متوسط",
+     "price": "مدفوع",
+     "priceKey": "paid",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://www.midjourney.com/"
+    },
+    {
+     "name": "Notion AI",
+     "maker": "Notion",
+     "tile": "No",
+     "does": "ذكاء اصطناعي داخل صفحات Notion: تلخيص وكتابة وبحث في ملاحظاتك.",
+     "best": "الفرق التي تحفظ ملاحظاتها وخططها في Notion.",
+     "category": "إنتاجية",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://www.notion.com/product/ai"
+    },
+    {
+     "name": "Otter.ai",
+     "maker": "Otter.ai",
+     "tile": "Ot",
+     "does": "يسجّل الاجتماعات ويحوّلها إلى نص ثم يكتب ملخصًا.",
+     "best": "محاضر الاجتماعات والمهام المطلوبة.",
+     "category": "إنتاجية",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://otter.ai/"
+    },
+    {
+     "name": "Fireflies.ai",
+     "maker": "Fireflies.ai",
+     "tile": "Ff",
+     "does": "ينضم إلى اجتماعاتك عبر الإنترنت ليكتب الملاحظات ويحدد أهم اللحظات.",
+     "best": "الفرق التي تعقد اجتماعات كثيرة عن بُعد.",
+     "category": "إنتاجية",
+     "level": "مبتدئ",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://fireflies.ai/"
+    },
+    {
+     "name": "Cursor",
+     "maker": "Anysphere",
+     "tile": "Cu",
+     "does": "محرر برمجة فيه ذكاء اصطناعي يكتب الكود ويصلحه معك.",
+     "best": "بناء أدوات وسكربتات صغيرة.",
+     "category": "برمجة",
+     "level": "متوسط",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://cursor.com/"
+    },
+    {
+     "name": "Zapier",
+     "maker": "Zapier",
+     "tile": "Za",
+     "does": "يربط تطبيقاتك لتعمل المهام تلقائيًا، مع خطوات ذكاء اصطناعي بينها.",
+     "best": "أتمتة المهام المتكررة بدون برمجة.",
+     "category": "أتمتة",
+     "level": "متوسط",
+     "price": "مجاني + مدفوع",
+     "priceKey": "freemium",
+     "checked": "تمت المراجعة في سبتمبر 2026",
+     "url": "https://zapier.com/"
+    }
+   ]
+  },
+  "faq": {
+   "title": "أسئلة يطرحها الزوار",
+   "items": [
+    {
+     "q": "هل أحتاج خلفية تقنية؟",
+     "a": "<p>لا. الدروس بلغة يومية وأمثلة حقيقية. إذا كنت تستطيع كتابة إيميل، فتستطيع المتابعة.</p>"
+    },
+    {
+     "q": "Claude أم ChatGPT: أيهما أستخدم؟",
+     "a": "<p>ابدأ بالأداة الموجودة عندك. معظم الدروس تعمل في الاثنتين، وأوضّح لك عندما يختلف شيء.</p>"
+    },
+    {
+     "q": "هل الدروس مجانية؟",
+     "a": "<p>نعم. الدروس في هذا الموقع مجانية للقراءة.</p>"
+    },
+    {
+     "q": "هل الموقع متاح بالإنجليزية؟",
+     "a": "<p>نعم. لكل صفحة نسخة إنجليزية: استخدم رابط «English» في أعلى الصفحة.</p>"
+    },
+    {
+     "q": "هل من الآمن لصق ملفات العمل في الذكاء الاصطناعي؟",
+     "a": "<p>انتبه. لا تلصق كلمات المرور أو أرقام الهوية أو بيانات الشركة السرية إلا إذا سمحت شركتك بذلك. راجع سياسة جهة عملك أولًا. الدرس 5 «استخدم الذكاء الاصطناعي بأمان في العمل» يشرح هذا بالتفصيل.</p>"
+    },
+    {
+     "q": "هل لك علاقة بـ Anthropic أو OpenAI؟",
+     "a": "<p>لا. هذا موقع مستقل، وأنا أشرح للناس كيف يستخدمون أدواتهما.</p>"
+    }
+   ]
+  },
+  "finance": {
+   "eyebrow": "المالية وCMA",
+   "title": "الذكاء الاصطناعي في العمل المالي والتحضير لـCMA.",
+   "lede": "دروس عملية من محاسب: أقفل الشهر أسرع، واشرح الأرقام بوضوح، واستعد لاختبار CMA والذكاء الاصطناعي مدرّسك.",
+   "sections": [
+    {
+     "id": "finance",
+     "title": "المالية",
+     "text": "إقفال الشهر والتسويات وشرح الفروقات والتقارير.",
+     "lessons": [
+      "month-end-close-with-ai"
+     ]
+    },
+    {
+     "id": "cma",
+     "title": "CMA",
+     "text": "خطّط لدراستك، وافهم الموضوعات الصعبة، وتدرّب من ملاحظاتك أنت.",
+     "lessons": [
+      "study-cma-with-ai"
+     ]
+    }
+   ],
+   "note": "شهادة CMA تابعة لمعهد IMA. هذا الموقع مستقل وغير تابع لـIMA ولا معتمد منه. الأمثلة تستخدم شركات وأرقامًا مختلَقة."
+  },
+  "m365": {
+   "eyebrow": "Microsoft 365",
+   "title": "Excel وPower BI وWord وOutlook وTeams بسهولة.",
+   "lede": "دروس قصيرة عن برامج Office التي تستخدمها كل يوم، مع نصائح الذكاء الاصطناعي الأكثر توفيرًا للجهد، في Copilot وفي ChatGPT أو Claude.",
+   "sections": [
+    {
+     "id": "excel",
+     "title": "Excel",
+     "text": "المعادلات والجداول المحورية وتنظيف البيانات.",
+     "lessons": [
+      "excel-formulas-and-cleanup",
+      "excel-pivot-tables"
+     ]
+    },
+    {
+     "id": "powerbi",
+     "title": "Power BI",
+     "text": "من ملف Excel إلى تقرير واضح.",
+     "lessons": [
+      "first-power-bi-report"
+     ]
+    },
+    {
+     "id": "word",
+     "title": "Word",
+     "text": "تقارير طويلة يسهل إعدادها وتحديثها.",
+     "lessons": [
+      "word-long-reports"
+     ]
+    },
+    {
+     "id": "outlook",
+     "title": "Outlook",
+     "text": "بريد أهدأ بالقواعد والعلامات وCopilot.",
+     "lessons": [
+      "outlook-inbox-control"
+     ]
+    },
+    {
+     "id": "teams",
+     "title": "Teams",
+     "text": "اجتماعات أقصر بملاحظات وملخصات واضحة.",
+     "lessons": [
+      "teams-better-meetings"
+     ]
+    }
+   ],
+   "note": "Microsoft 365 وExcel وPower BI وWord وOutlook وTeams وCopilot منتجات لشركة Microsoft. هذا الموقع مستقل وغير تابع لـMicrosoft."
+  }
+ }
+}
