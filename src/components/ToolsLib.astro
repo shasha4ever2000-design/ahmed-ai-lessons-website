@@ -24,9 +24,9 @@ const path = `${p}/tools/`;
       <div class="chips" role="group" aria-label={tt.search}><button class="chip" type="button" data-cat="" aria-pressed="true">{tt.all}</button>{cats.map(c => <button class="chip" type="button" data-cat={c} aria-pressed="false">{c}</button>)}</div>
     </div>
     <p class="count mono" id="tcount" aria-live="polite" data-t={tt.count} data-none={tt.none}>{fill(tt.count, { n: lib.tools.length })}</p>
-    <ul class="cards tgrid" role="list">
+    <ul class="cards tgrid" role="list" data-reveal-stagger>
       {lib.tools.map((x: any) => (
-        <li class="card tool" data-cat={x.category} data-hay={`${x.name} ${x.maker} ${x.does} ${x.best} ${x.category}`.toLowerCase()}>
+        <li class="card tool" data-tilt data-cat={x.category} data-hay={`${x.name} ${x.maker} ${x.does} ${x.best} ${x.category}`.toLowerCase()}>
           <div class="tool__top"><span class="tool__tile" aria-hidden="true">{x.tile}</span><div><h2>{x.name}</h2><p class="tool__maker">{x.maker}</p></div></div>
           <p>{x.does}</p>
           <p class="tool__best"><b>{tt.best}</b> {x.best}</p>

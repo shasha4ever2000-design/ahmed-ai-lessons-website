@@ -33,8 +33,8 @@ const jsonld = [
 ];
 const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span class="done-toggle__label">${L.done}</span>`;
 ---
-<Base lang={lang} title={`${d.title} | ${t.siteName}`} description={d.description} path={path} ogImage={`/media/og/${lang}-${d.slug}.jpg`} ogType="article" jsonld={jsonld}>
-  <article class="lesson wrap" aria-labelledby="lesson-title" data-slug={d.slug}>
+<Base lang={lang} title={`${d.title} | ${t.siteName}`} description={d.description} path={path} ogImage={`/media/og/${lang}-${d.slug}.jpg`} ogType="article" jsonld={jsonld} readBar>
+  <article class="lesson wrap" aria-labelledby="lesson-title" data-slug={d.slug} data-read-scope>
     <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:24px">
       <ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{L.home}</a></li><li><a href={`${p}/lessons/`}>{L.all}</a></li><li aria-current="page">{fill(L.n, { n: d.number })}</li></ol>
     </nav>
@@ -78,19 +78,18 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
 </Base>
 
 <script>
+  import { isDone, toggleLesson } from '../domains/learning/progress';
+  import { on } from '../domains/shared/events';
   const art = document.querySelector<HTMLElement>('article.lesson')!;
   const slug = art.dataset.slug!;
   const body = document.querySelector<HTMLElement>('.lesson-body')!;
 
-  // Mark as done: both buttons stay in sync; saved in ahl:done (read by the homepage, lists and certificate).
-  const read = () => { try { const d = JSON.parse(localStorage.getItem('ahl:done') || '[]'); return Array.isArray(d) ? d : []; } catch (e) { return []; } };
+  // Mark as done: both buttons stay in sync. The learning domain saves it and announces it,
+  // and the site layer celebrates (stars and a short message).
   const btns = [...document.querySelectorAll<HTMLButtonElement>('.done-toggle')];
-  const paint = () => { const on = read().includes(slug); btns.forEach(b => { b.setAttribute('aria-pressed', String(on)); b.querySelector('.done-toggle__label')!.textContent = on ? b.dataset.is! : b.dataset.done!; }); };
-  btns.forEach(b => b.addEventListener('click', () => {
-    let d = read(); d = d.includes(slug) ? d.filter((s: string) => s !== slug) : [...d, slug];
-    try { localStorage.setItem('ahl:done', JSON.stringify(d)); } catch (e) {}
-    paint();
-  }));
+  const paint = () => { const done = isDone(slug); btns.forEach(b => { b.setAttribute('aria-pressed', String(done)); b.querySelector('.done-toggle__label')!.textContent = done ? b.dataset.is! : b.dataset.done!; }); };
+  btns.forEach(b => b.addEventListener('click', () => toggleLesson(slug)));
+  on('learning:progress-changed', paint);
   paint();
 
   // Copy buttons on prompt cards and "better prompt" boxes.
@@ -107,6 +106,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
     const label = [...b.childNodes].find(n => n.nodeType === 3 && n.textContent!.trim());
     if (label) { label.textContent = body.dataset.copied!; setTimeout(() => (label.textContent = body.dataset.copy!), 1600); }
     b.classList.add('is-copied'); setTimeout(() => b.classList.remove('is-copied'), 1600);
+    box!.classList.remove('swept'); void (box as HTMLElement).offsetWidth; box!.classList.add('swept');
     const st = box!.querySelector('.copy-status'); if (st) st.textContent = body.dataset.copiedSr!;
   });
 
@@ -122,3 +122,18 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   }, { rootMargin: '-20% 0px -70% 0px' });
   secs.forEach(s => io.observe(s));
 </script>
+<style is:global>
+  /* A band of light sweeps across a prompt card when you copy it. */
+  .sheet,.compare__col{position:relative;overflow:hidden}
+  .motion .swept::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 30%,rgb(242 163 58 / .28) 50%,transparent 70%);animation:card-sweep .9s ease-out both}
+  @keyframes card-sweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+  [dir=rtl] .motion .swept::after{animation-direction:reverse}
+  /* Sections rise in as you read */
+  .motion-ready .lesson-body>section:not(.is-in),.motion-ready .lesson-body>figure:not(.is-in){opacity:0;transform:translateY(24px)}
+  .motion .lesson-body>section,.motion .lesson-body>figure{transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+  .motion .lesson-h2::before{transform-origin:var(--start,left);transform:scaleX(0);transition:transform .9s var(--ease-out) .2s}
+  .motion .is-in .lesson-h2::before,.lesson-h2::before{transform:scaleX(1)}
+  .motion-ready .lesson-section:not(.is-in) .lesson-h2::before{transform:scaleX(0)}
+  .done-toggle[aria-pressed=true] .done-toggle__box{animation:done-pop .55s var(--ease-spring)}
+  @keyframes done-pop{0%{transform:scale(.5)}60%{transform:scale(1.25)}100%{transform:none}}
+</style>

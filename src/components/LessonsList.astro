@@ -26,7 +26,7 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', n
       {topics.map(tp => <button class="chip" type="button" data-topic={tp} aria-pressed="false">{tp}</button>)}
     </div>
     <p class="count mono" id="count" aria-live="polite" data-t={L.count}>{fill(L.count, { n: lessons.length })}</p>
-    <div class="cards" style="padding-bottom:72px">
+    <div class="cards" style="padding-bottom:72px" data-reveal-stagger>
       <article class="card card--zero">
         <span class="card__topic">★</span>
         <h2 style="font-size:1.25rem"><a href={(lang === 'ar' ? '/ar/' : '/') + '#builder'}>{L.builder}</a></h2>
@@ -47,6 +47,7 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', n
   .cards :global(.card h2 a)::after{content:"";position:absolute;inset:0;border-radius:inherit}
 </style>
 <script>
+  import { doneLessons } from '../domains/learning/progress';
   const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip')];
   const cards = [...document.querySelectorAll<HTMLElement>('.lesson-card')];
   const count = document.getElementById('count')!;
@@ -59,8 +60,7 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', n
     count.textContent = count.dataset.t!.replace('{n}', String(n));
   }
   chips.forEach(ch => ch.addEventListener('click', () => apply(ch.dataset.topic!)));
-  let done: string[] = [];
-  try { const d = JSON.parse(localStorage.getItem('ahl:done') || '[]'); if (Array.isArray(d)) done = d; } catch (e) {}
+  const done = doneLessons();
   const n = cards.filter(c => done.includes(c.dataset.slug!)).length;
   const note = document.getElementById('done-note')!;
   if (n) { note.textContent = note.dataset.t!.replace('{n}', String(n)); note.hidden = false; }
