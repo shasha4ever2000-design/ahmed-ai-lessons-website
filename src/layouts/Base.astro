@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/motion.css';
 import { T, SITE, otherPath, SOCIALS, type Lang } from '../i18n';
 
 interface Props {
@@ -11,8 +12,10 @@ interface Props {
   ogType?: string;
   jsonld?: object[];
   noAlternate?: boolean;  // pages that exist in one language only
+  intro?: boolean;        // opening shutters (homepage)
+  readBar?: boolean;      // reading progress strip (lesson pages)
 }
-const { lang, title, description, path, ogImage = `/media/og/${lang}-home.jpg`, ogType = 'website', jsonld = [], noAlternate = false } = Astro.props;
+const { lang, title, description, path, ogImage = `/media/og/${lang}-home.jpg`, ogType = 'website', jsonld = [], noAlternate = false, intro = false, readBar = false } = Astro.props;
 const t = T[lang];
 const url = SITE + path;
 // Pages with one language (like 404) switch to the other language's homepage.
@@ -33,6 +36,15 @@ const ICONS: Record<string, string> = {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <script is:inline>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'?'light':'dark'})()</script>
+  <script is:inline define:vars={{ intro }}>
+    // Motion is on unless the visitor asked for less. The homepage shutters play once per visit.
+    (function (r) {
+      var still = false; try { still = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+      if (still) return;
+      r.classList.add('motion');
+      if (intro) { var seen = null; try { seen = sessionStorage.getItem('ahl:intro'); sessionStorage.setItem('ahl:intro', '1'); } catch (e) {} if (!seen) r.classList.add('intro'); }
+    })(document.documentElement);
+  </script>
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="theme-color" content="#16100c" />
@@ -56,6 +68,7 @@ const ICONS: Record<string, string> = {
   <slot name="head" />
 </head>
 <body>
+  {intro && <div class="shutters" aria-hidden="true"><div class="shutters__panel shutters__panel--a"></div><div class="shutters__panel shutters__panel--b"></div></div>}
   <a class="skip" href="#main">{t.skip}</a>
   <header class="site-head">
     <div class="wrap">
@@ -86,6 +99,7 @@ const ICONS: Record<string, string> = {
     </nav>
   </header>
 
+  {readBar && <div class="read-bar" aria-hidden="true"></div>}
   <main id="main" tabindex="-1"><slot /></main>
 
   <footer class="site-foot">
@@ -107,6 +121,8 @@ const ICONS: Record<string, string> = {
   </footer>
 
   <script>
+    import '../scripts/site.ts';
+    document.documentElement.classList.add('motion-ready');
     // Theme: dark cedar by default, plaster when the visitor picks light. Shared with the tool pages (ahl:theme).
     const root = document.documentElement;
     const tb = document.getElementById('theme-btn')!;

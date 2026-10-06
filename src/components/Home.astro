@@ -24,19 +24,19 @@ const jsonld = [
 ];
 const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${p}/lessons/${s.slug}/`, minutes: i === 0 ? 5 : bySlug[s.slug]?.data.minutes }));
 ---
-<Base lang={lang} title={h.title} description={h.description} path={path} jsonld={jsonld}>
+<Base lang={lang} title={h.title} description={h.description} path={path} jsonld={jsonld} intro>
   <Fragment slot="head"><link rel="preload" as="image" href="/media/room-poster.webp" /></Fragment>
 
   <section class="hero" aria-labelledby="hero-h">
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="kicker">{h.kicker}</p>
-        <h1 id="hero-h">{h.h1}</h1>
-        <p class="lede">{h.lead}</p>
-        <div class="hero__cta"><a class="btn btn--accent" href="#builder">{h.cta1}</a><a class="btn btn--line" href="#start">{h.cta2}</a></div>
-        <ul class="hero__stats" role="list">{h.stats.map(s => <li>{s}</li>)}</ul>
+        <p class="kicker fade-up" style="--d:var(--intro-d)">{h.kicker}</p>
+        <h1 id="hero-h" class="rise" style="--d:calc(var(--intro-d) + .1s)">{h.h1.split(' ').map((w, i) => <><span class="w" style={`--i:${i}`}>{w}</span>{' '}</>)}</h1>
+        <p class="lede fade-up" style="--d:calc(var(--intro-d) + .55s)">{h.lead}</p>
+        <div class="hero__cta fade-up" style="--d:calc(var(--intro-d) + .7s)"><a class="btn btn--accent" href="#builder">{h.cta1}</a><a class="btn btn--line" href="#start">{h.cta2}</a></div>
+        <ul class="hero__stats fade-up" style="--d:calc(var(--intro-d) + .85s)" role="list">{h.stats.map(s => { const m = s.match(/^(\d+)(.*)$/); return <li>{m ? <span><span data-count={m[1]}>{m[1]}</span>{m[2]}</span> : s}</li>; })}</ul>
       </div>
-      <div class="room" id="room">
+      <div class="room fade-up" id="room" style="--d:calc(var(--intro-d) + .3s)">
         <img class="room__poster" src="/media/room-poster.webp" alt={h.scene} width="900" height="1000" fetchpriority="high" />
         <div class="room__times" role="group" aria-label={h.timesLabel}>
           {h.times.map((n, i) => <button type="button" data-time={i} aria-pressed={i === 1 ? 'true' : 'false'}>{n}</button>)}
@@ -48,7 +48,7 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
 
   <section class="block builder-sec" id="builder" aria-labelledby="builder-h">
     <div class="wrap">
-      <div class="head"><h2 id="builder-h">{h.bH}</h2><p>{h.bP}</p></div>
+      <div class="head" data-reveal><h2 id="builder-h">{h.bH}</h2><p>{h.bP}</p></div>
       <div class="builder" data-t={JSON.stringify({ ex: h.ex, parts: h.parts, lightOf: h.lightOf, hintMiss: h.hintMiss, hintFull: h.hintFull, copied: h.copied, selected: h.selected, empty: h.empty, stepDone: h.stepDone })}>
         <div class="btabs" role="tablist" aria-label={h.examplesLabel}>
           {h.tabs.map((n, i) => <button class="btab" role="tab" type="button" data-ex={i} aria-selected={i === 0 ? 'true' : 'false'} aria-controls="b-fields">{n}</button>)}
@@ -75,8 +75,8 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
 
   <section class="block start-sec" id="start" aria-labelledby="start-h">
     <div class="wrap">
-      <div class="head"><h2 id="start-h">{h.startH}</h2><p>{h.startP}</p></div>
-      <ol class="arches" role="list">
+      <div class="head" data-reveal><h2 id="start-h">{h.startH}</h2><p>{h.startP}</p></div>
+      <ol class="arches" role="list" data-reveal-stagger>
         {startSteps.map((s, i) => (
           <li class="arch" data-step={i} data-slug={s.slug}>
             <span class="arch__n" aria-hidden="true"><span class="arch__num">{i + 1}</span><svg class="arch__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
@@ -94,10 +94,10 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
 
   <section class="block" id="tracks" aria-labelledby="tracks-h">
     <div class="wrap">
-      <div class="head"><h2 id="tracks-h">{h.tracksH}</h2><p>{h.tracksP}</p></div>
-      <div class="courts">
+      <div class="head" data-reveal><h2 id="tracks-h">{h.tracksH}</h2><p>{h.tracksP}</p></div>
+      <div class="courts" data-reveal-stagger>
         {Object.entries(TRACKS).map(([k, tr]) => (
-          <article class="court">
+          <article class="court" data-tilt>
             <span class="mono court__n">{fill(t.list.count, { n: counts[k] })}</span>
             <h3><a href={p + tr.href}>{tr[lang]}</a></h3>
             <p>{(h.trackText as any)[k]}</p>
@@ -110,15 +110,15 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
 
   <section class="block" id="lessons" aria-labelledby="latest-h" style="padding-top:0">
     <div class="wrap">
-      <div class="head head--row"><div><h2 id="latest-h">{h.latestH}</h2><p>{h.latestP}</p></div><a class="btn btn--line" href={`${p}/lessons/`}>{h.allLessons}</a></div>
-      <div class="cards">{FEATURED.map(s => bySlug[s] && <LessonCard lesson={bySlug[s]} lang={lang} />)}</div>
+      <div class="head head--row" data-reveal><div><h2 id="latest-h">{h.latestH}</h2><p>{h.latestP}</p></div><a class="btn btn--line" href={`${p}/lessons/`}>{h.allLessons}</a></div>
+      <div class="cards" data-reveal-stagger>{FEATURED.map(s => bySlug[s] && <LessonCard lesson={bySlug[s]} lang={lang} />)}</div>
     </div>
   </section>
 
   <section class="block tools-sec" aria-labelledby="tools-h">
     <div class="wrap tools-grid">
-      <div class="head"><h2 id="tools-h">{h.toolsH}</h2><p>{h.toolsP}</p></div>
-      <ul class="tool-list" role="list">
+      <div class="head" data-reveal><h2 id="tools-h">{h.toolsH}</h2><p>{h.toolsP}</p></div>
+      <ul class="tool-list" role="list" data-reveal-stagger>
         {FREE_TOOLS.map(ft => { const [n, d] = lang === 'ar' ? ft.arT : ft.en; return <li><a href={lang === 'ar' ? ft.ar : ft.href}><span class="tool-list__n">{n}</span><span class="tool-list__d">{d}</span></a></li>; })}
       </ul>
     </div>
@@ -126,7 +126,7 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
 
   <section class="block" id="about" aria-labelledby="about-h">
     <div class="wrap about">
-      <figure><img src="/media/portrait-720.webp" alt={h.photo} width="720" height="703" loading="lazy" decoding="async" /></figure>
+      <figure data-reveal><img src="/media/portrait-720.webp" alt={h.photo} width="720" height="703" loading="lazy" decoding="async" /></figure>
       <div>
         <h2 id="about-h">{h.aboutH}</h2>
         {h.about.map(x => <p>{x}</p>)}
@@ -140,7 +140,7 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   <section class="block" id="faq" aria-labelledby="faq-h">
     <div class="wrap faq">
       <h2 id="faq-h">{faq.title}</h2>
-      <div class="faq__list">{faq.items.map((i: any) => <details><summary>{i.q}</summary><div set:html={i.a} /></details>)}</div>
+      <div class="faq__list" data-reveal-stagger>{faq.items.map((i: any) => <details><summary>{i.q}</summary><div set:html={i.a} /></details>)}</div>
     </div>
   </section>
 </Base>
@@ -259,26 +259,56 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   .faq details[open] summary::after{content:"−"}
   .faq details div{padding:0 4px 18px;color:var(--text-2)}
   @media (max-width:760px){.faq{grid-template-columns:minmax(0,1fr)}}
+
+  /* motion hooks */
+  .hero{--intro-d:.15s}
+  :global(html.intro) .hero{--intro-d:1.2s}
+  :global(.motion) .fade-up{animation:hero-in .9s var(--ease-out) both;animation-delay:var(--d,0s)}
+  @keyframes hero-in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  :global(.motion) .room.fade-up{animation-name:room-in;animation-duration:1.3s}
+  @keyframes room-in{from{opacity:0;transform:translateY(30px) scale(.96);filter:brightness(.4)}to{opacity:1;transform:none;filter:none}}
+  .room.flash::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 60%,rgb(255 217 160 / .55),transparent 70%);animation:flash 1.2s ease-out both}
+  @keyframes flash{from{opacity:1}to{opacity:0}}
+  .star{transform-origin:center}
+  .star.pop{animation:pop .6s var(--ease-spring)}
+  @keyframes pop{0%{transform:scale(.4) rotate(-30deg)}60%{transform:scale(1.35) rotate(10deg)}100%{transform:none}}
+  :global(.beam){position:fixed;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;z-index:94;pointer-events:none;box-shadow:0 0 14px 4px currentColor;color:var(--accent)}
+  :global(.motion) .arch.is-next{animation:arch-glow 2.6s ease-in-out infinite}
+  @keyframes arch-glow{0%,100%{box-shadow:0 0 0 0 rgb(242 163 58 / 0)}50%{box-shadow:0 0 34px -4px rgb(242 163 58 / .45)}}
+  .arch.is-done .arch__n{animation:pop .6s var(--ease-spring)}
+  .court::before{transition:background-position .8s var(--ease-out)}
+  .court:hover::before{background-position:40px 0}
+  .tool-list a{transition:padding .35s var(--ease-out),background .35s}
+  .tool-list a:hover{padding-inline-start:14px;background:linear-gradient(90deg,var(--accent-soft),transparent)}
+  :global([dir=rtl]) .tool-list a:hover{background:linear-gradient(270deg,var(--accent-soft),transparent)}
+  .hero{position:relative;overflow:clip}
+  .hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:140%;pointer-events:none;z-index:-1;background:repeating-linear-gradient(115deg,transparent 0 60px,rgb(242 163 58 / .05) 60px 90px);-webkit-mask:radial-gradient(60% 60% at 70% 40%,#000,transparent);mask:radial-gradient(60% 60% at 70% 40%,#000,transparent)}
+  :global(.motion) .hero::before{animation:rays 18s linear infinite}
+  @keyframes rays{from{background-position:0 0}to{background-position:300px 0}}
 </style>
 
 <script>
-  import type { Room } from '../scripts/lattice';
-  const read = (k: string, d: any) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v ?? d; } catch (e) { return d; } };
-  const write = (k: string, v: any) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+  // Homepage use cases. Talks to the learning domain for progress, to scenes for the room and
+  // celebrations, and announces builder changes as events.
+  import type { Room } from '../domains/scenes/lattice';
+  import { motion } from '../domains/motion/kernel';
+  import { emit, on } from '../domains/shared/events';
+  import { completeStep1, startHere } from '../domains/learning/progress';
+  import { burstFrom } from '../domains/scenes/starburst';
 
   // ---- the room ----
   const roomEl = document.getElementById('room')!;
   let room: Room | null = null;
   let pendingLight = 1;
   function canRun() {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    if (!motion.allowed) return false;
     try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
   }
   if (canRun()) {
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io.disconnect();
-      import('../scripts/lattice').then(({ createRoom }) => { room = createRoom(roomEl); room.setLight(pendingLight); requestAnimationFrame(() => roomEl.classList.add('is-live')); }).catch(() => { room = null; });
+      import('../domains/scenes/lattice').then(({ createRoom }) => { room = createRoom(roomEl); room.setLight(pendingLight); requestAnimationFrame(() => roomEl.classList.add('is-live')); }).catch(() => { room = null; });
     }, { rootMargin: '200px' });
     io.observe(roomEl);
   }
@@ -286,26 +316,50 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
     roomEl.querySelectorAll('[data-time]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     room?.setTime(+b.dataset.time!);
   }));
+  on('builder:score-changed', ({ score }) => {
+    pendingLight = score / 100;
+    room?.setLight(pendingLight);
+    roomEl.classList.toggle('is-dim', score < 100);
+    document.getElementById('room-light')!.textContent = score + '%';
+  });
 
   // ---- the prompt builder: each part lets a quarter of the light in ----
   const bEl = document.querySelector<HTMLElement>('.builder')!;
   const bt = JSON.parse(bEl.dataset.t!);
   const F = [0, 1, 2, 3].map(i => document.getElementById('bf' + i) as HTMLTextAreaElement);
+  const stars = [...bEl.querySelectorAll<HTMLElement>('.star')];
   const esc = (s: string) => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]!));
   const cls = ['r', 't', 'c', 'f'];
+  let prevOk = [true, true, true, true], prevScore = 100, quiet = true;
+
+  // A bead of light flies from the field you just completed to its star.
+  function beam(from: HTMLElement, to: HTMLElement, color: string) {
+    if (!motion.allowed) return;
+    const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+    const dot = document.createElement('i'); dot.className = 'beam'; dot.style.background = color; document.body.appendChild(dot);
+    const x0 = a.left + 24, y0 = a.top + a.height / 2, x1 = b.left + b.width / 2, y1 = b.top + b.height / 2;
+    dot.animate([
+      { transform: `translate(${x0}px, ${y0}px) scale(.6)`, opacity: 0 },
+      { transform: `translate(${(x0 + x1) / 2}px, ${Math.min(y0, y1) - 60}px) scale(1.4)`, opacity: 1, offset: .5 },
+      { transform: `translate(${x1}px, ${y1}px) scale(.4)`, opacity: .2 },
+    ], { duration: 700, easing: 'cubic-bezier(.16,1,.3,1)' }).onfinish = () => { dot.remove(); to.classList.remove('pop'); void to.offsetWidth; to.classList.add('pop'); };
+  }
+
   function render() {
     const v = F.map(f => f.value.trim());
     const ok = v.map(x => x.length >= 10);
     const score = ok.filter(Boolean).length * 25;
     document.getElementById('b-preview')!.innerHTML = v.map((x, i) => x ? `<span class="${cls[i]}">${esc(x)}</span>` : '').filter(Boolean).join(' ') || `<span style="color:var(--muted)">${bt.empty}</span>`;
     document.getElementById('b-score')!.textContent = score + '%';
-    document.getElementById('room-light')!.textContent = score + '%';
-    bEl.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('on', ok[i]));
+    stars.forEach((st, i) => st.classList.toggle('on', ok[i]));
     const miss = ok.indexOf(false);
     document.getElementById('b-hint')!.textContent = miss > -1 ? bt.hintMiss.replace('{p}', bt.parts[miss]) : bt.hintFull;
-    pendingLight = score / 100;
-    room?.setLight(pendingLight);
-    roomEl.classList.toggle('is-dim', score < 100);
+    if (!quiet) {
+      ok.forEach((o, i) => { if (o && !prevOk[i]) { beam(F[i], stars[i], getComputedStyle(stars[i]).backgroundColor); emit('builder:part-filled', { index: i, from: F[i].getBoundingClientRect() }); } });
+      if (score === 100 && prevScore < 100) { setTimeout(() => burstFrom(bEl.querySelector('.stars'), 26), 650); roomEl.classList.remove('flash'); void roomEl.offsetWidth; roomEl.classList.add('flash'); }
+    }
+    prevOk = ok; prevScore = score;
+    emit('builder:score-changed', { score, parts: ok });
     return score;
   }
   function load(i: number) {
@@ -322,24 +376,23 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
     try { await navigator.clipboard.writeText(text); out.textContent = bt.copied; }
     catch (e) { const r = document.createRange(); r.selectNodeContents(document.getElementById('b-preview')!); getSelection()!.removeAllRanges(); getSelection()!.addRange(r); out.textContent = bt.selected; }
     // Copying a complete prompt counts as step 1 of Start Here (the 4-part prompt).
-    if (render() === 100) { const c = read('ahl:cert', {}); if (!c.step1) { c.step1 = true; write('ahl:cert', c); out.textContent += ' ' + bt.stepDone; progress(); } }
+    if (render() === 100 && completeStep1()) out.textContent += ' ' + bt.stepDone;
   });
   render();
+  quiet = false;
 
-  // ---- Start Here progress (same keys as before: ahl:done, ahl:cert.step1) ----
+  // ---- Start Here progress, read from the learning domain and repainted on every change ----
   function progress() {
-    const done: string[] = (() => { const d = read('ahl:done', []); return Array.isArray(d) ? d : []; })();
-    const cert = read('ahl:cert', {}) || {};
+    const { done, n, next } = startHere();
     const arches = [...document.querySelectorAll<HTMLElement>('.arch')];
-    const isDone = arches.map((a, i) => i === 0 ? !!cert.step1 : done.includes(a.dataset.slug!));
-    const n = isDone.filter(Boolean).length;
-    const nextI = n > 0 && n < 6 ? isDone.indexOf(false) : -1;
-    arches.forEach((a, i) => { a.classList.toggle('is-done', isDone[i]); a.classList.toggle('is-next', i === nextI); });
+    arches.forEach((a, i) => { a.classList.toggle('is-done', done[i]); a.classList.toggle('is-next', i === next); });
     const line = document.getElementById('cert-line')!;
     const lt = JSON.parse(line.dataset.t!);
     const link = (h: string, txt: string, c = '') => `<a ${c ? `class="${c}"` : ''} href="${h}">${esc(txt)}</a>`;
     if (n >= 6) line.innerHTML = `<span>${lt.certReady}</span> ${link(line.dataset.cert!, lt.certGet)}`;
-    else if (nextI > -1) { const a = arches[nextI].querySelector('a')!; line.innerHTML = `<span><b>${lt.progress.replace('{n}', n)}</b></span> ${link(a.getAttribute('href')!, lt.next.replace('{t}', a.textContent!), 'next')} ${link(line.dataset.cert!, lt.certGo)}`; }
+    else if (next > -1) { const a = arches[next].querySelector('a')!; line.innerHTML = `<span><b>${lt.progress.replace('{n}', n)}</b></span> ${link(a.getAttribute('href')!, lt.next.replace('{t}', a.textContent!), 'next')} ${link(line.dataset.cert!, lt.certGo)}`; }
   }
   progress();
+  on('learning:progress-changed', progress);
+  on('learning:step-completed', () => burstFrom(document.querySelector('.arch[data-step="0"] .arch__n'), 22));
 </script>

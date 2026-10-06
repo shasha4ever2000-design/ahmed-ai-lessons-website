@@ -27,7 +27,7 @@ const og = `/media/og/${lang}-${which === 'finance' ? 'finance' : 'microsoft-365
       <section class="hub-sec" id={s.id} aria-labelledby={`${s.id}-h`}>
         <h2 id={`${s.id}-h`}>{s.title}</h2>
         <p>{s.text}</p>
-        <div class="cards">{s.lessons.map((sl: string) => bySlug[sl] && <LessonCard lesson={bySlug[sl]} lang={lang} />)}</div>
+        <div class="cards" data-reveal-stagger>{s.lessons.map((sl: string) => bySlug[sl] && <LessonCard lesson={bySlug[sl]} lang={lang} />)}</div>
       </section>
     ))}
     {hub.note && <p class="hub-note">{hub.note}</p>}

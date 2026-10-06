@@ -19,7 +19,7 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'DefinedTermSet', n
       <p class="lede">{g.lede}</p>
     </header>
     <nav class="jump" aria-label={t.glossary.jump}><ul role="list">{g.terms.map((x: any) => <li><a href={`#${x.id}`}>{x.name}</a></li>)}</ul></nav>
-    <dl class="terms">
+    <dl class="terms" data-reveal-stagger>
       {g.terms.map((x: any) => <div class="term" id={x.id}><dt><span class="term__name">{x.name}</span><span class="term__other" lang={lang === 'en' ? 'ar' : 'en'}>{x.other}</span></dt><dd set:html={x.def} /></div>)}
     </dl>
     <p class="gnote">{g.note}</p>

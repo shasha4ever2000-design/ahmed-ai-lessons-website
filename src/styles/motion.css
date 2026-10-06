@@ -1,0 +1,72 @@
+/*
+ * Motion layer (presentation for the motion domain in src/domains/motion).
+ * Rule: everything is readable without it. Animations only run under html.motion,
+ * which the kernel sets when the visitor has not asked for reduced motion.
+ */
+:root{--ease-out:cubic-bezier(.16,1,.3,1);--ease-spring:cubic-bezier(.34,1.56,.64,1);--lattice:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpolygon points='46.63,31.71 40.06,36.06 38.56,43.80 30.83,42.22 24.29,46.63 19.94,40.06 12.20,38.56 13.78,30.83 9.37,24.29 15.94,19.94 17.44,12.20 25.17,13.78 31.71,9.37 36.06,15.94 43.80,17.44 42.22,25.17' fill='%23f2b45a'/%3E%3Cpolygon points='0,-4 4,0 0,4 -4,0' transform='translate(0 0)' fill='%23f2b45a'/%3E%3Cpolygon points='56,-4 60,0 56,4 52,0' fill='%23f2b45a'/%3E%3Cpolygon points='0,52 4,56 0,60 -4,56' fill='%23f2b45a'/%3E%3Cpolygon points='56,52 60,56 56,60 52,56' fill='%23f2b45a'/%3E%3C/svg%3E");--lattice-line:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpolygon points='46.63,31.71 40.06,36.06 38.56,43.80 30.83,42.22 24.29,46.63 19.94,40.06 12.20,38.56 13.78,30.83 9.37,24.29 15.94,19.94 17.44,12.20 25.17,13.78 31.71,9.37 36.06,15.94 43.80,17.44 42.22,25.17' fill='none' stroke='%23f2a33a' stroke-opacity='.5' stroke-width='1'/%3E%3C/svg%3E")}
+
+/* ---------- 1. Opening shutters (homepage, first visit in a session) ---------- */
+.shutters{display:none}
+html.intro .shutters{display:block;position:fixed;inset:0;z-index:90;pointer-events:none;background:radial-gradient(60% 60% at 50% 45%,#ffd9a0 0%,#f2a33a 35%,#16100c 80%);animation:shutters-fade .5s ease 1.55s both}
+.shutters__panel{position:absolute;top:0;bottom:0;width:50.5%;background-color:#2b1d12;background-image:var(--lattice);background-size:56px 56px;box-shadow:0 0 60px #000a}
+.shutters__panel--a{inset-inline-start:0;animation:shutter-a 1.15s var(--ease-out) .35s both}
+.shutters__panel--b{inset-inline-end:0;animation:shutter-b 1.15s var(--ease-out) .35s both}
+[dir=rtl] .shutters__panel--a{animation-name:shutter-b}
+[dir=rtl] .shutters__panel--b{animation-name:shutter-a}
+@keyframes shutter-a{to{transform:translateX(-102%)}}
+@keyframes shutter-b{to{transform:translateX(102%)}}
+@keyframes shutters-fade{to{opacity:0;visibility:hidden}}
+
+/* ---------- 2. Headline: words rise through a sweep of light ---------- */
+.w{display:inline-block}
+.motion .rise .w{animation:word-rise .9s var(--ease-out) both;animation-delay:calc(var(--d,0s) + var(--i,0) * 55ms)}
+@keyframes word-rise{from{opacity:0;transform:translateY(.55em) rotate(2deg);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.motion .sweep{background:linear-gradient(100deg,currentColor 40%,var(--accent) 50%,currentColor 60%) 120% 0/250% 100% no-repeat text;-webkit-background-clip:text;color:var(--text);-webkit-text-fill-color:transparent;animation:sweep 2.4s ease-out var(--d,1s) both}
+@keyframes sweep{from{background-position:120% 0}to{background-position:-20% 0}}
+
+/* ---------- 3. Scroll reveals (classes set by domains/motion/reveal.ts) ---------- */
+.motion [data-reveal]{transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);transition-delay:calc(var(--i,0) * 70ms)}
+.motion-ready [data-reveal]:not(.is-in){opacity:0;transform:translateY(28px)}
+.motion .head h2::after{content:"";display:block;height:3px;width:56px;margin-top:14px;border-radius:3px;background:var(--accent);transform-origin:var(--start,left);transform:scaleX(0);transition:transform 1s var(--ease-out) .25s}
+[dir=rtl]{--start:right}
+.motion .head.is-in h2::after,.motion .is-in .head h2::after{transform:scaleX(1)}
+
+/* ---------- 4. Daylight: the page's ambient light moves from dawn to dusk as you scroll ---------- */
+body::before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;
+  background:radial-gradient(45% 40% at 15% 10%,rgb(242 163 58 / calc(.16 * (1 - var(--scroll,0)))),transparent 70%),
+             radial-gradient(45% 40% at 85% 95%,rgb(224 112 95 / calc(.16 * var(--scroll,0))),transparent 70%)}
+:root[data-theme=light] body::before{opacity:.7}
+
+/* ---------- 5. Lantern: a soft light follows the cursor ---------- */
+.lantern{position:fixed;left:0;top:0;width:600px;height:600px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(closest-side,rgb(242 163 58 / .11),transparent);mix-blend-mode:screen}
+:root[data-theme=light] .lantern{mix-blend-mode:multiply;background:radial-gradient(closest-side,rgb(242 163 58 / .14),transparent)}
+
+/* ---------- 6. Cards tilt and catch light ---------- */
+.motion [data-tilt]{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
+[data-tilt]{isolation:isolate}
+[data-tilt]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgb(242 163 58 / .16),transparent 60%),var(--lattice-line) center/56px 56px;
+  -webkit-mask:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),#000,transparent 75%);mask:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),#000,transparent 75%)}
+[data-tilt].is-lit::after{opacity:1}
+
+/* ---------- 7. Celebration canvas and toast ---------- */
+.starburst{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:95}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:96;transform:translate(-50%,140%);margin:0;padding:12px 18px;border-radius:999px;background:var(--text);color:var(--bg);font-weight:600;box-shadow:var(--shadow);transition:transform .5s var(--ease-spring);max-width:calc(100vw - 32px);text-align:center}
+.toast.is-on{transform:translate(-50%,0)}
+
+/* ---------- 8. Reading bar: a lattice strip that fills with light ---------- */
+.read-bar{position:fixed;inset-inline:0;top:calc(var(--header-h) + env(safe-area-inset-top,0px));height:4px;z-index:49;background:var(--lattice-line) 0 0/14px 14px,var(--line);pointer-events:none}
+.read-bar::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--accent),#ffd9a0);transform-origin:var(--start,left);transform:scaleX(var(--read,0))}
+
+/* ---------- 9. Page transitions: the next page opens through an eight-point star ---------- */
+@view-transition{navigation:auto}
+.site-head{view-transition-name:site-head}
+::view-transition-old(root){animation:vt-out .45s ease both}
+::view-transition-new(root){animation:vt-in .7s var(--ease-out) both}
+@keyframes vt-out{to{opacity:.35;transform:scale(.985)}}
+@keyframes vt-in{from{clip-path:polygon(calc(50% + 0.0vmax) calc(50% + 0.0vmax),calc(50% + 0.0vmax) calc(50% + 0.0vmax),calc(50% + 0.0vmax) calc(50% + 0.0vmax),calc(50% + 0.0vmax) calc(50% + 0.0vmax),calc(50% + -0.0vmax) calc(50% + 0.0vmax),calc(50% + -0.0vmax) calc(50% + 0.0vmax),calc(50% + -0.0vmax) calc(50% + 0.0vmax),calc(50% + -0.0vmax) calc(50% + 0.0vmax),calc(50% + -0.0vmax) calc(50% + -0.0vmax),calc(50% + -0.0vmax) calc(50% + -0.0vmax),calc(50% + -0.0vmax) calc(50% + -0.0vmax),calc(50% + -0.0vmax) calc(50% + -0.0vmax),calc(50% + 0.0vmax) calc(50% + -0.0vmax),calc(50% + 0.0vmax) calc(50% + -0.0vmax),calc(50% + 0.0vmax) calc(50% + -0.0vmax),calc(50% + 0.0vmax) calc(50% + -0.0vmax))}to{clip-path:polygon(calc(50% + 156.9vmax) calc(50% + 31.2vmax),calc(50% + 101.4vmax) calc(50% + 67.8vmax),calc(50% + 88.9vmax) calc(50% + 133.0vmax),calc(50% + 23.8vmax) calc(50% + 119.7vmax),calc(50% + -31.2vmax) calc(50% + 156.9vmax),calc(50% + -67.8vmax) calc(50% + 101.4vmax),calc(50% + -133.0vmax) calc(50% + 88.9vmax),calc(50% + -119.7vmax) calc(50% + 23.8vmax),calc(50% + -156.9vmax) calc(50% + -31.2vmax),calc(50% + -101.4vmax) calc(50% + -67.8vmax),calc(50% + -88.9vmax) calc(50% + -133.0vmax),calc(50% + -23.8vmax) calc(50% + -119.7vmax),calc(50% + 31.2vmax) calc(50% + -156.9vmax),calc(50% + 67.8vmax) calc(50% + -101.4vmax),calc(50% + 133.0vmax) calc(50% + -88.9vmax),calc(50% + 119.7vmax) calc(50% + -23.8vmax))}}
+
+/* ---------- 10. Less motion means no motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+  .lantern,.starburst{display:none}
+}
