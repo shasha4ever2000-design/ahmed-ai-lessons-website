@@ -193,7 +193,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);f
 const T = {
   en: { brand:"Ahmed Hussein", brandTag:"AI LESSONS", kicker:"Free tool", title:"How good is your prompt?",
     lead:"Paste a prompt you use with ChatGPT, Claude or Copilot. Get a score out of 100, see which of the four parts are missing, and copy an upgraded version.",
-    stat1:"Runs in your browser", stat2:"English & العربية", stat3:"Free",
+    stat1:"Runs in your browser", stat2:"English & العربي", stat3:"Free",
     inTitle:"Your prompt", exWeak:"Try a weak one", exStrong:"Try a strong one", clear:"Clear",
     placeholder:"Paste or type your prompt here…\n\nExample: write an email about the meeting",
     private:"Your prompt never leaves this page.", words:n=>`${n} ${n===1?'word':'words'}`, outTitle:"Your score",
@@ -227,55 +227,55 @@ const T = {
     how3t:"3. Format", how3:"How the answer should look: length, bullets or table, and tone.",
     ctaTitle:"Learn the 4-part prompt in 5 minutes", ctaText:"The free lesson behind this grader, with examples you can copy.",
     ctaBtn:"Open the free lesson", ctaLib:"Browse 30 ready prompts",
-    other:"العربية", theme:["Light mode","Dark mode"],
+    other:"العربي", theme:["Light mode","Dark mode"],
     foot:"Independent site. Not affiliated with any AI company mentioned here. The grader checks the structure of your prompt with simple rules; it doesn’t send your text anywhere." ,
     up:{role:"You are [the expert you need, e.g. an experienced accountant].",task:"Task: [say exactly what you want, e.g. write / summarise / compare].",context:"Context: [who it’s for, what happened, and the key facts].",format:"Format: [length, e.g. under 120 words], [layout: bullets or a table], [tone: formal or friendly]."}},
-  ar: { brand:"أحمد حسين", brandTag:"دروس الذكاء الاصطناعي", kicker:"أداة مجانية", title:"ما مدى قوة طلبك؟",
-    lead:"الصق طلبًا تستخدمه مع ChatGPT أو Claude أو Copilot. احصل على درجة من 100، واعرف أي الأجزاء الأربعة ناقصة، وانسخ نسخة محسّنة.",
-    stat1:"يعمل داخل متصفحك", stat2:"العربية و English", stat3:"مجاني",
-    inTitle:"طلبك", exWeak:"جرّب طلبًا ضعيفًا", exStrong:"جرّب طلبًا قويًا", clear:"مسح",
-    placeholder:"الصق طلبك أو اكتبه هنا…\n\nمثال: اكتب إيميل عن الاجتماع",
-    private:"طلبك لا يغادر هذه الصفحة.", words:n=>`${n} ${n===1?'كلمة':'كلمات'}`, outTitle:"درجتك",
-    emptyT:"ستظهر درجتك هنا", emptyS:"تتحدّث الدرجة أثناء الكتابة. جرّب أحد الأمثلة لترى كيف تعمل.",
+  ar: { brand:"أحمد حسين", brandTag:"دروس الذكاء الاصطناعي", kicker:"أداة ببلاش", title:"البرومبت بتاعك قوي قد إيه؟",
+    lead:"الزق برومبت بتستخدمه مع ChatGPT أو Claude أو Copilot. خد درجة من 100، واعرف أنهي جزء من الـ4 أجزاء ناقص، وانسخ نسخة أحسن.",
+    stat1:"شغال جوه المتصفح بتاعك", stat2:"العربي و English", stat3:"ببلاش",
+    inTitle:"البرومبت بتاعك", exWeak:"جرّب برومبت ضعيف", exStrong:"جرّب برومبت قوي", clear:"امسح",
+    placeholder:"الزق البرومبت بتاعك أو اكتبه هنا…\n\nمثال: اكتب إيميل عن الاجتماع",
+    private:"البرومبت بتاعك مش بيخرج من الصفحة دي.", words:n=>`${n} ${n===1?'كلمة':'كلمات'}`, outTitle:"درجتك",
+    emptyT:"درجتك هتظهر هنا", emptyS:"الدرجة بتتحدّث وإنت بتكتب. جرّب مثال من الأمثلة عشان تشوفها شغالة إزاي.",
     out:"من 100",
-    verdicts:[["يحتاج إلى عمل","سيضطر الذكاء الاصطناعي إلى التخمين كثيرًا. أضف الأجزاء الناقصة بالأسفل."],["بداية جيدة","أكمل الفجوات لتحصل على إجابة أفضل بكثير."],["طلب جيد","واضح وقابل للاستخدام. إضافة أو اثنتان ستجعلانه ممتازًا."],["ممتاز","الأجزاء الأربعة موجودة. لدى الذكاء الاصطناعي ما يحتاجه."]],
+    verdicts:[["محتاج شغل","الذكاء الاصطناعي هيضطر يخمّن كتير. ضيف الأجزاء الناقصة اللي تحت."],["بداية كويسة","كمّل الناقص وهتاخد إجابة أحسن بكتير."],["برومبت كويس","واضح وينفع يتستخدم. حاجة أو اتنين زيادة ويبقى ممتاز."],["ممتاز","الأجزاء الأربعة موجودة. الذكاء الاصطناعي معاه كل اللي محتاجه."]],
     parts:{role:"الدور",task:"المهمة",context:"السياق",format:"الشكل"},
-    status:{full:"واضح",partial:"جزئي",missing:"ناقص"},
+    status:{full:"واضح",partial:"نص نص",missing:"ناقص"},
     tips:{
-      role:{full:"أخبرت الذكاء الاصطناعي بالدور الذي يأخذه.",missing:"ابدأ بالدور، مثل: «أنت محاسب خبير».",partial:""},
-      task:{full:"المهمة واضحة.",partial:"قل ما تريده بالضبط بفعل واضح: اكتب، لخّص، قارن، اذكر…",missing:"قل ما تريد أن يفعله: «اكتب…»، «لخّص…»، «قارن…»."},
-      context:{full:"أعطيت معلومات لا يستطيع تخمينها.",partial:"أضف معلومة أخرى: لمن الرد، ماذا حدث، أو الأرقام المهمة.",missing:"أضف ما لا يستطيع تخمينه: لمن الرد، الموقف، الحقائق المهمة."},
-      format:{full:"حدّدت شكل الإجابة.",partial:"كن أدق: الطول، والشكل (نقاط أو جدول)، والأسلوب.",missing:"حدّد شكل الإجابة: الطول، نقاط أو جدول، الأسلوب."}},
+      role:{full:"قلت للذكاء الاصطناعي هو هيلعب دور مين.",missing:"ابدأ بالدور، زي: «إنت محاسب شاطر».",partial:""},
+      task:{full:"المهمة واضحة.",partial:"قول إنت عايز إيه بالظبط بفعل واضح: اكتب، لخّص، قارن، اذكر…",missing:"قول عايزه يعمل إيه: «اكتب…»، «لخّص…»، «قارن…»."},
+      context:{full:"اديته معلومات مش هيعرف يخمّنها.",partial:"ضيف معلومة كمان: الرد رايح لمين، إيه اللي حصل، أو الأرقام المهمة.",missing:"ضيف اللي مش هيعرف يخمّنه: الرد رايح لمين، الموقف، والمعلومات المهمة."},
+      format:{full:"حدّدت شكل الإجابة.",partial:"حدّد أكتر: الطول، والشكل (نقط أو جدول)، والأسلوب.",missing:"حدّد شكل الإجابة: الطول، نقط أو جدول، الأسلوب."}},
     pts:(n)=>`${n}/25`,
-    seeT:"ما وجده المقيّم", legend:"الكلمات المسطّرة توضح أين وُجد كل جزء.",
-    notesT:"فحوصات إضافية",
-    noteShort:"الطلبات القصيرة جدًا تعطي إجابات عامة. اكتب جملتين أو ثلاثًا على الأقل.",
-    noteExample:"رائع: أضفت مثالًا. هذه من أفضل الطرق للحصول على الأسلوب الذي تريده.",
-    noteAsk:"رائع: طلبت منه أن يسألك أسئلة أولًا.",
-    noteBrackets:"ما زالت هناك أقواس [ ]. املأها قبل الإرسال.",
-    notePrivate:k=>`يبدو أن طلبك يحتوي على ${k}. استبدله برمز بديل مثل [العميل] قبل لصقه في أي أداة ذكاء اصطناعي.`,
-    privKinds:{email:"عنوان بريد إلكتروني",phone:"رقم هاتف",iban:"رقم حساب بنكي (IBAN)",card:"رقم بطاقة أو حساب"},
-    safeLink:"اقرأ: ما الذي لا تلصقه أبدًا",
-    upT:"الطلب المحسّن", upS:"احتفظنا بكلماتك وأضفنا الأجزاء الناقصة. املأ الأقواس [ ] ثم الصقه في أداة الذكاء الاصطناعي.",
-    upFull:"طلبك يحتوي على الأجزاء الأربعة. انسخه كما هو.",
-    copy:"انسخ الطلب", copied:"تم النسخ", share:"شارك درجتي",
-    shareText:n=>`حصلت على ${n}/100 في أداة تقييم الطلبات المجانية. هل تستطيع أن تتفوق عليّ؟`, linkCopied:"تم نسخ الرابط",
-    copiedToast:"تم النسخ. املأ الأقواس [ ] قبل الإرسال.",
-    how1t:"١. الدور", how1:"من يجب أن يكون الذكاء الاصطناعي. يحدد الخبرة والأسلوب.",
-    how2t:"٢. المهمة والسياق", how2:"ما تريده، مع الحقائق التي لا يستطيع تخمينها: لمن، وماذا حدث.",
-    how3t:"٣. الشكل", how3:"كيف تبدو الإجابة: الطول، نقاط أو جدول، والأسلوب.",
-    ctaTitle:"تعلّم الطلب ذا الأجزاء الأربعة في 5 دقائق", ctaText:"الدرس المجاني الذي بُنيت عليه هذه الأداة، مع أمثلة تنسخها.",
-    ctaBtn:"افتح الدرس المجاني", ctaLib:"تصفّح 30 طلبًا جاهزًا",
-    other:"English", theme:["الوضع الفاتح","الوضع الداكن"],
-    foot:"موقع مستقل غير تابع لأي شركة ذكاء اصطناعي مذكورة فيه. تفحص الأداة بنية طلبك بقواعد بسيطة، ولا ترسل نصك إلى أي مكان.",
-    up:{role:"أنت [الخبير الذي تحتاجه، مثل: محاسب خبير].",task:"المهمة: [قل ما تريده بالضبط، مثل: اكتب / لخّص / قارن].",context:"السياق: [لمن الرد، وماذا حدث، والحقائق المهمة].",format:"الشكل: [الطول، مثل: أقل من 120 كلمة]، [نقاط أو جدول]، [الأسلوب: رسمي أو ودود]."}}
+    seeT:"الأداة لقت إيه", legend:"الكلام اللي تحته خط بيوضح كل جزء اتلقى فين.",
+    notesT:"حاجات زيادة اتراجعت",
+    noteShort:"البرومبت القصير أوي بيطلّع إجابات عامة. اكتب جملتين أو 3 على الأقل.",
+    noteExample:"حلو: ضفت مثال. دي من أحسن الطرق عشان تاخد الأسلوب اللي إنت عايزه.",
+    noteAsk:"حلو: طلبت منه يسألك أسئلة الأول.",
+    noteBrackets:"لسه فيه أقواس [ ]. املاها قبل ما تبعت.",
+    notePrivate:k=>`شكل البرومبت بتاعك فيه ${k}. حط مكانه رمز زي [العميل] قبل ما تلزقه في أي أداة ذكاء اصطناعي.`,
+    privKinds:{email:"إيميل",phone:"رقم تليفون",iban:"رقم حساب بنكي (IBAN)",card:"رقم كارت أو حساب"},
+    safeLink:"اقرا: الحاجات اللي متلزقهاش أبدًا",
+    upT:"البرومبت بعد التحسين", upS:"سبنا كلامك زي ما هو وضفنا الأجزاء الناقصة. املا الأقواس [ ] وبعدين الزقه في أداة الذكاء الاصطناعي.",
+    upFull:"البرومبت بتاعك فيه الـ4 أجزاء. انسخه زي ما هو.",
+    copy:"انسخ البرومبت", copied:"اتنسخ", share:"شارك درجتي",
+    shareText:n=>`خدت ${n}/100 في أداة تقييم البرومبت المجانية. تقدر تغلبني؟`, linkCopied:"اللينك اتنسخ",
+    copiedToast:"اتنسخ. املا الأقواس [ ] قبل ما تبعت.",
+    how1t:"١. الدور", how1:"الذكاء الاصطناعي المفروض يبقى مين. ده بيحدد الخبرة والأسلوب.",
+    how2t:"٢. المهمة والسياق", how2:"إنت عايز إيه، مع المعلومات اللي مش هيعرف يخمّنها: لمين، وإيه اللي حصل.",
+    how3t:"٣. الشكل", how3:"الإجابة شكلها إيه: الطول، نقط أو جدول، والأسلوب.",
+    ctaTitle:"اتعلّم البرومبت اللي ليه 4 أجزاء في 5 دقايق", ctaText:"الدرس المجاني اللي الأداة دي معمولة عليه، مع أمثلة تنسخها.",
+    ctaBtn:"افتح الدرس المجاني", ctaLib:"اتفرّج على 30 برومبت جاهز",
+    other:"English", theme:["الوضع الفاتح","الوضع الغامق"],
+    foot:"موقع مستقل ومش تبع أي شركة ذكاء اصطناعي مذكورة فيه. الأداة بتراجع شكل البرومبت بقواعد بسيطة، ومش بتبعت كلامك لأي حتة.",
+    up:{role:"إنت [الخبير اللي محتاجه، زي: محاسب شاطر].",task:"المهمة: [قول إنت عايز إيه بالظبط، زي: اكتب / لخّص / قارن].",context:"السياق: [الرد رايح لمين، وإيه اللي حصل، والمعلومات المهمة].",format:"الشكل: [الطول، زي: أقل من 120 كلمة]، [نقط أو جدول]، [الأسلوب: رسمي أو لطيف]."}}
 };
 
 const EXAMPLES = {
   en: { weak:"write an email about the meeting",
     strong:"You are my office assistant.\nWrite a short email to my team saying Thursday's meeting moves to 2 pm.\nThere are 6 of us and some work remotely, so include the Teams link.\nKeep it under 80 words, friendly but professional, and end with a question." },
   ar: { weak:"اكتب إيميل عن الاجتماع",
-    strong:"أنت مساعدي في المكتب.\nاكتب إيميلًا قصيرًا لفريقي بأن اجتماع الخميس انتقل إلى الساعة 2 ظهرًا.\nنحن 6 أشخاص وبعضنا يعمل عن بُعد، لذلك أضف رابط Teams.\nاجعله أقل من 80 كلمة، بأسلوب ودود ومهني، واختمه بسؤال." }
+    strong:"إنت مساعدي في المكتب.\nاكتب إيميل قصير لفريقي إن اجتماع الخميس اتنقل الساعة 2 الضهر.\nإحنا 6 وفينا ناس شغالين من البيت، فضيف لينك Teams.\nخلّيه أقل من 80 كلمة، بأسلوب لطيف ومحترم، واختمه بسؤال." }
 };
 
 /* ---------- Grading rules ----------
@@ -287,21 +287,21 @@ const ar = (f, whole) => new RegExp(`(^|[^\\u0600-\\u06FF])((?:و|ف)?(?:${f}))$
 const RULES = {
   role: [
     en("you are(?: an?| my| the)?|you're(?: an?| my)?|act(?:ing)? as(?: an?| my)?|pretend(?: to be| you are)|imagine you are|take the role of|your role is|role:|as an? (?:expert|experienced|senior|professional|specialist)"),
-    ar("أنت|انت|أنتَ", true), ar("تصرّف ك|تصرف ك|بصفتك|كأنك|دورك|اعمل ك|الدور:")],
+    ar("أنت|انت|أنتَ|إنت", true), ar("تصرّف ك|تصرف ك|بصفتك|كأنك|دورك|اعمل ك|الدور:|اتعامل ك|اعتبر نفسك|تخيّل إنك|تخيل انك")],
   taskStrong: [
     en("write|draft|summari[sz]e|create|make|explain|list|translate|rewrite|re-write|review|check|compare|analy[sz]e|build|give me|suggest|plan|prepare|calculate|convert|extract|generate|fix|improve|find|design|edit|proofread|outline|turn|reply|respond|classify|sort|rank|recommend|brainstorm|reconcile|format|shorten|simplify|identify|answer"),
-    ar("اكتب|أكتب|لخّص|لخص|أنشئ|انشئ|اشرح|ترجم|راجع|قارن|حلّل|حلل|اقترح|جهّز|جهز|احسب|صحّح|صحح|حسّن|حسن|أعد صياغة|اعد صياغة|أعطني|اعطني|رتّب|رتب|استخرج|صمّم|صمم|اذكر|حوّل|حول|ردّ|رد على|صنّف|صنف|أجب|اجب"), ar("ضع", true)],
+    ar("اكتب|أكتب|لخّص|لخص|أنشئ|انشئ|اشرح|ترجم|راجع|قارن|حلّل|حلل|اقترح|جهّز|جهز|احسب|صحّح|صحح|حسّن|حسن|أعد صياغة|اعد صياغة|أعطني|اعطني|رتّب|رتب|استخرج|صمّم|صمم|اذكر|حوّل|حول|ردّ|رد على|صنّف|صنف|أجب|اجب|اعمل|اعملّي|اعملي|اديني|إديني|ادّيني|قولّي|قولي|طلّع|طلع|ظبّط|ظبط|صلّح|صلح|نضّف|نضف|جاوب"), ar("ضع", true)],
   taskVague: [
     en("help me(?: with)?|tell me about|something about|i need|can you|i want"),
-    ar("ساعدني|أخبرني عن|اخبرني عن|أريد|اريد|أحتاج|احتاج|هل يمكنك")],
+    ar("ساعدني|أخبرني عن|اخبرني عن|أريد|اريد|أحتاج|احتاج|هل يمكنك|عايز|عاوز|محتاج|ممكن تساعدني|تقدر تساعدني")],
   context: [
     en("because|so that|for my|for our|for the|my (?:team|manager|boss|client|customer|company|colleagues?|audience|students?)|our (?:team|company|clients?|customers?)|the (?:reader|audience|client|customer)|audience|background|context:|we are|we have|i am an?|i'm an?|i work|there are|currently|deadline|last (?:month|week|year|quarter)|this (?:month|week|year|quarter)|due to|after|before|who (?:is|are)|\\d+ (?:people|of us|employees|staff|clients|customers|items|rows|columns|invoices|accounts)"),
-    ar("لأن|لان|حتى|لفريقي|فريقي|مديري|عميل|العميل|عملاء|شركتنا|شركتي|الجمهور|القارئ|السياق|الخلفية|نحن|لدينا|عندنا|أنا|انا أعمل|أعمل|يوجد|هناك|حالي|الموعد|الشهر الماضي|هذا الشهر|بسبب|بعد|قبل|موجّه|موجه")],
+    ar("لأن|لان|حتى|لفريقي|فريقي|مديري|عميل|العميل|عملاء|شركتنا|شركتي|الجمهور|القارئ|السياق|الخلفية|نحن|لدينا|عندنا|أنا|انا أعمل|أعمل|يوجد|هناك|حالي|الموعد|الشهر الماضي|هذا الشهر|بسبب|بعد|قبل|موجّه|موجه|عشان|علشان|العملا|إحنا|احنا|عندي|معانا|شغال|بشتغل|الميعاد|الشهر اللي فات|الشهر ده|رايح|بتاعنا|بتاعي")],
   format: [
     en("\\d+ (?:words?|sentences?|bullets?|bullet points|points|lines?|paragraphs?|characters|items|slides|steps)|under \\d+|at most|no more than|max(?:imum)?|bullet(?:s| points?)?|a list|numbered|table|json|csv|markdown|headings?|subject line|step[- ]by[- ]step|in (?:english|arabic)|formal|friendly|polite|professional|casual|simple|plain (?:words|english|language)|tone|short|brief|concise|one page|end with|start with|format:"),
-    ar("\\d+ (?:كلمة|كلمات|جملة|جمل|نقطة|نقاط|سطر|أسطر|فقرة|فقرات|خطوات)|لا يزيد|لا تزيد|أقل من|اقل من|على الأكثر|نقاط|جدول|قائمة|مرقّمة|مرقمة|بأسلوب|اسلوب|أسلوب|رسمي|ودود|مهني|مختصر|باختصار|قصير|خطوة بخطوة|عنوان|بالعربية|بالإنجليزية|اختم|ابدأ ب|الشكل:")],
-  example: [en("for example|e\\.g\\.|such as|like this|example:|here is an example|sample:"), ar("مثال|مثلاً|مثلا|على سبيل المثال")],
-  askFirst: [en("ask me|questions? (?:first|before)|before you (?:start|answer|begin)"), ar("اسألني|اسالني|أسئلة قبل|اسئلة قبل|قبل أن تبدأ|قبل ان تبدأ")]
+    ar("\\d+ (?:كلمة|كلمات|جملة|جمل|نقطة|نقاط|نقط|سطر|أسطر|سطور|فقرة|فقرات|خطوات)|لا يزيد|لا تزيد|أقل من|اقل من|على الأكثر|بالكتير|مش أكتر من|نقاط|نقط|جدول|قائمة|قايمة|مرقّمة|مرقمة|بأرقام|بأسلوب|اسلوب|أسلوب|رسمي|ودود|لطيف|مهني|محترم|مختصر|باختصار|قصير|خطوة بخطوة|عنوان|بالعربية|بالإنجليزية|بالعربي|بالإنجليزي|اختم|ابدأ ب|الشكل:")],
+  example: [en("for example|e\\.g\\.|such as|like this|example:|here is an example|sample:"), ar("مثال|مثلاً|مثلا|على سبيل المثال|زي كده|زي ده")],
+  askFirst: [en("ask me|questions? (?:first|before)|before you (?:start|answer|begin)"), ar("اسألني|اسالني|أسئلة قبل|اسئلة قبل|قبل أن تبدأ|قبل ان تبدأ|قبل ما تبدأ|قبل ما تجاوب|اسأليني")]
 };
 const PRIVATE = {
   email: /[\w.+-]+@[\w-]+\.[\w.]+/,
@@ -456,7 +456,7 @@ function renderStatic() {
   const dark = state.theme === 'dark';
   $('#theme').textContent = dark ? '☀' : '☾';
   $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
-  document.title = state.lang === 'ar' ? 'مقيّم الطلبات | أحمد حسين · دروس الذكاء الاصطناعي' : 'Prompt Grader | Ahmed Hussein · AI Lessons';
+  document.title = state.lang === 'ar' ? 'مقيّم البرومبت | أحمد حسين · دروس الذكاء الاصطناعي' : 'Prompt Grader | Ahmed Hussein · AI Lessons';
 }
 
 async function copyText(s) {

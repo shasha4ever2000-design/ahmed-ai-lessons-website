@@ -54,7 +54,7 @@ window.AHL_SOCIALS = [
     sec.className = 'ahl-follow';
     sec.setAttribute('aria-label', ar ? 'تابعني' : 'Follow Ahmed');
     sec.innerHTML = '<div class="ahl-follow__in"><p class="ahl-follow__txt">' +
-      (ar ? 'تابعني لنصيحة عملية جديدة في الذكاء الاصطناعي كل أسبوع. <a href="/ar/lessons/">كل الدروس</a>'
+      (ar ? 'تابعني عشان توصلك نصيحة عملية جديدة في الذكاء الاصطناعي كل أسبوع. <a href="/ar/lessons/">كل الدروس</a>'
           : 'Follow along for a new practical AI tip every week. <a href="/lessons/">All lessons</a>') +
       '</p><div class="ahl-follow__list"></div></div>';
     document.body.appendChild(sec);

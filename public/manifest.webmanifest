@@ -14,7 +14,7 @@
   ],
   "shortcuts": [
     { "name": "All lessons", "url": "/lessons/" },
-    { "name": "الدروس بالعربية", "url": "/ar/lessons/" },
+    { "name": "الدروس بالعربي", "url": "/ar/lessons/" },
     { "name": "Prompt Library", "url": "/prompt-library" }
   ]
 }

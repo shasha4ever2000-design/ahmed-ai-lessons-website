@@ -35,7 +35,7 @@ document.addEventListener('pointerdown', e => (lastPressed = (e.target as Elemen
 on('learning:lesson-completed', ({ total }) => {
   burstFrom(lastPressed);
   const ar = root.lang === 'ar';
-  toast(ar ? `أحسنت. أنهيت ${total} من ${TOTAL_LESSONS} درسًا.` : `Lesson done. ${total} of ${TOTAL_LESSONS} finished.`);
+  toast(ar ? `برافو عليك. خلّصت ${total} من ${TOTAL_LESSONS} درس.` : `Lesson done. ${total} of ${TOTAL_LESSONS} finished.`);
 });
 
 // The header shows its edge only once there's content scrolled underneath it.
