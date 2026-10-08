@@ -8,7 +8,9 @@ const d = lesson.data;
 const t = T[lang];
 const H = heading;
 ---
-<article class="card lesson-card" data-slug={d.slug} data-topic={d.topic} data-tilt>
+<article class="card lesson-card" data-slug={d.slug} data-topic={d.topic} data-track={d.track} data-tilt>
+  <span class="card__pat" aria-hidden="true"></span>
+  <span class="card__num" aria-hidden="true">{String(d.number).padStart(2, '0')}</span>
   <span class="card__topic"><Icon name={topicIcon(d.topic)} />{d.topic}</span>
   <H><a href={`${pre(lang)}/lessons/${d.slug}/`}>{d.title}</a></H>
   <p>{d.summary}</p>

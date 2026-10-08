@@ -3,6 +3,9 @@ import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 import '../styles/motion.css';
 import '../styles/polish.css';
+import '../styles/tracks.css';
+import { tileDataUri } from '../domains/scenes/patterns';
+const patCss = `[data-track]{--pat:${tileDataUri('ai-for-work')}}[data-track=finance]{--pat:${tileDataUri('finance')}}[data-track=microsoft-365]{--pat:${tileDataUri('microsoft-365')}}`;
 import { T, SITE, otherPath, SOCIALS, type Lang } from '../i18n';
 import Search from '../components/Search.astro';
 import Shortcuts from '../components/Shortcuts.astro';
@@ -69,6 +72,7 @@ const current = Astro.url.pathname;
   {jsonld.map(j => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
   <script defer is:inline src="/_vercel/insights/script.js"></script>
   <slot name="head" />
+  <style is:inline set:html={patCss}></style>
 </head>
 <body>
   {intro && <div class="shutters" aria-hidden="true"><div class="shutters__panel shutters__panel--a"></div><div class="shutters__panel shutters__panel--b"></div></div>}

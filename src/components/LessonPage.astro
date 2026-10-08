@@ -51,10 +51,11 @@ const jsonld = [
 const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span class="done-toggle__label">${L.done}</span>`;
 ---
 <Base lang={lang} title={`${d.title} | ${t.siteName}`} description={d.description} path={path} ogImage={`/media/og/${lang}-${d.slug}.jpg`} ogType="article" jsonld={jsonld} readBar>
-  <article class="lesson wrap" aria-labelledby="lesson-title" data-slug={d.slug} data-read-scope>
+  <article class="lesson wrap" aria-labelledby="lesson-title" data-slug={d.slug} data-track={d.track} data-read-scope>
     <nav class="crumbs" aria-label="Breadcrumb" style="padding-top:24px">
       <ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{L.home}</a></li><li><a href={`${p}/lessons/`}>{L.all}</a></li><li aria-current="page">{fill(L.n, { n: d.number })}</li></ol>
     </nav>
+    <span class="lesson-pat" aria-hidden="true"></span>
     <header class="lesson-hero">
       <p class="topic-banner"><Icon name={topicIcon(d.topic)} /><span>{d.topic}</span><span aria-hidden="true">·</span><span>{fill(L.n, { n: d.number })}</span></p>
       <h1 id="lesson-title" class="lesson-title">{d.title}</h1>
