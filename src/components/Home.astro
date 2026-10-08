@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import LessonCard from './LessonCard.astro';
 import Newsletter from './Newsletter.astro';
+import ContinueCard from './ContinueCard.astro';
 import { T, TRACKS, START, FREE_TOOLS, SITE, SOCIALS, fill, pre, type Lang } from '../i18n';
 import data from '../data/site-data.json';
 
@@ -35,6 +36,7 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
         <p class="lede fade-up" style="--d:calc(var(--intro-d) + .55s)">{h.lead}</p>
         <div class="hero__cta fade-up" style="--d:calc(var(--intro-d) + .7s)"><a class="btn btn--accent" href="#builder">{h.cta1}</a><a class="btn btn--line" href="#start">{h.cta2}</a></div>
         <ul class="hero__stats fade-up" style="--d:calc(var(--intro-d) + .85s)" role="list">{h.stats.map(s => { const m = s.match(/^(\d+)(.*)$/); return <li>{m ? <span><span data-count={m[1]}>{m[1]}</span>{m[2]}</span> : s}</li>; })}</ul>
+        <div class="hero__continue"><ContinueCard lang={lang} /></div>
       </div>
       <div class="room fade-up" id="room" style="--d:calc(var(--intro-d) + .3s)">
         <img class="room__poster" src="/media/room-poster.webp" alt={h.scene} width="900" height="1000" fetchpriority="high" />
@@ -240,6 +242,8 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   .tool-list a:hover .tool-list__n{color:var(--accent-text)}
   @media (max-width:860px){.tools-grid{grid-template-columns:minmax(0,1fr)}}
 
+  .hero__continue{margin-top:22px}
+  .hero__continue:has(> [hidden]){display:none}
   /* about */
   .about{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center}
   .about img{width:100%;border-radius:180px 180px 14px 14px;border:1px solid var(--line-2);background:var(--surface-2)}
@@ -302,15 +306,23 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   let pendingLight = 1;
   function canRun() {
     if (!motion.allowed) return false;
+    // Phones that ask to save data, or have very little memory, keep the still picture.
+    const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+    if (nav.connection?.saveData || (nav.deviceMemory || 8) <= 2 || (nav.hardwareConcurrency || 8) <= 2) return false;
     try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
   }
   if (canRun()) {
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      import('../domains/scenes/lattice').then(({ createRoom }) => { room = createRoom(roomEl); room.setLight(pendingLight); requestAnimationFrame(() => roomEl.classList.add('is-live')); }).catch(() => { room = null; });
-    }, { rootMargin: '200px' });
-    io.observe(roomEl);
+    // Wait until the page has loaded and the browser is idle, so the 3D never delays reading or tapping.
+    const start = () => {
+      const io = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        import('../domains/scenes/lattice').then(({ createRoom }) => { room = createRoom(roomEl); room.setLight(pendingLight); requestAnimationFrame(() => roomEl.classList.add('is-live')); }).catch(() => { room = null; });
+      }, { rootMargin: '200px' });
+      io.observe(roomEl);
+    };
+    const idle = () => ('requestIdleCallback' in window ? (window as any).requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200));
+    if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
   }
   roomEl.querySelectorAll<HTMLButtonElement>('[data-time]').forEach(b => b.addEventListener('click', () => {
     roomEl.querySelectorAll('[data-time]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));

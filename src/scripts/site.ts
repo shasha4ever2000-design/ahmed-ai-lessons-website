@@ -1,6 +1,7 @@
 // Application layer for every page: boots the motion kernel and the shared effects, and
 // connects learning events to their celebrations. Pages add their own use cases on top.
 import { bootKernel, motion } from '../domains/motion/kernel';
+import { readFraction } from '../domains/learning/resume';
 import { bootReveal, bootCounters } from '../domains/motion/reveal';
 import { bootTilt, bootLantern } from '../domains/motion/pointer';
 import { on } from '../domains/shared/events';
@@ -41,9 +42,7 @@ const bar = document.querySelector<HTMLElement>('.read-bar');
 if (bar) {
   const set = () => {
     const a = document.querySelector<HTMLElement>('[data-read-scope]') || document.body;
-    const r = a.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
-    bar.style.setProperty('--read', p.toFixed(4));
+    bar.style.setProperty('--read', readFraction(a).toFixed(4));
   };
   set(); addEventListener('scroll', set, { passive: true }); addEventListener('resize', set, { passive: true });
 }
