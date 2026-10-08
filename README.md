@@ -34,6 +34,7 @@ npm run build    # static site in dist/
 | Listen: lesson read aloud by the device voice, with highlight, skip and speed | `src/domains/listen/reader.ts`, `src/components/Listen.astro` |
 | Keyboard shortcuts (`?` shows them) | `src/components/Shortcuts.astro` |
 | Page transitions (cross-fade; a lesson card's title travels into the lesson) | `src/styles/polish.css`, `src/scripts/site.ts` |
+| Track identity: a pattern and colour per track (cards, lesson pages, hub pages, home) | `src/domains/scenes/patterns.ts`, `src/components/TrackArt.astro`, `src/styles/tracks.css` |
 | Site search (button, `/` or Ctrl+K) | `src/components/Search.astro`; index built by `src/pages/search/[lang].json.ts` |
 | App icon and install details | `public/manifest.webmanifest`, `public/media/icon-*.png`, `public/favicon.svg` |
 | Standalone tools (Prompt Grader, quiz, time saved, certificate, prompt of the day, Prompt Library, links) | `public/*.html`, styled by `public/ahl-theme.css` |

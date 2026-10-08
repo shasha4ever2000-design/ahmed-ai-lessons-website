@@ -1,0 +1,69 @@
+---
+// A track's picture: an arched mashrabiya window lit from behind, and its light falling on the floor.
+// Drawn in SVG from the track's own pattern, so each track looks different and stays sharp at any size.
+// The scene is always at night (dark), in both themes, like a photo would be.
+import { TILES, type Track } from '../domains/scenes/patterns';
+interface Props { track: Track; class?: string; scale?: number }
+const { track, class: cls, scale = 1 } = Astro.props;
+const t = TILES[track];
+const id = `ta-${track}-${Math.random().toString(36).slice(2, 7)}`;
+const HUE: Record<Track, [string, string]> = {
+  'ai-for-work': ['#f2a33a', '#ffd79a'],
+  finance: ['#3fbfb0', '#b8f2e9'],
+  'microsoft-365': ['#6f9cf5', '#cfe0ff'],
+};
+const [c, hot] = HUE[track];
+const k = 0.78 * scale;
+---
+<svg class:list={['track-art', cls]} viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id={`${id}-p`} width={t.w} height={t.h} patternUnits="userSpaceOnUse" patternTransform={`translate(300 40) scale(${k})`}>
+      <g fill="#fff" set:html={t.shapes} />
+    </pattern>
+    <pattern id={`${id}-f`} width={t.w} height={t.h} patternUnits="userSpaceOnUse" patternTransform={`translate(300 330) scale(${1.5 * k} ${0.42 * k})`}>
+      <g fill="#fff" set:html={t.shapes} />
+    </pattern>
+    <mask id={`${id}-m`}><rect width="600" height="450" fill={`url(#${id}-p)`} /></mask>
+    <mask id={`${id}-fm`}><rect width="600" height="450" fill={`url(#${id}-f)`} /></mask>
+    <radialGradient id={`${id}-l`} cx="300" cy="150" r="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color={hot} />
+      <stop offset=".35" stop-color={c} />
+      <stop offset=".8" stop-color={c} stop-opacity=".35" />
+      <stop offset="1" stop-color={c} stop-opacity=".1" />
+    </radialGradient>
+    <radialGradient id={`${id}-fl`} cx="300" cy="330" r="290" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 330) scale(1 .45) translate(0 -330)">
+      <stop offset="0" stop-color={hot} stop-opacity=".95" />
+      <stop offset=".5" stop-color={c} stop-opacity=".7" />
+      <stop offset="1" stop-color={c} stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id={`${id}-w`} cx="300" cy="190" r="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color={c} stop-opacity=".22" />
+      <stop offset="1" stop-color={c} stop-opacity="0" />
+    </radialGradient>
+    <clipPath id={`${id}-a`}><path d="M175 330 V165 A125 125 0 0 1 425 165 V330 Z" /></clipPath>
+    <clipPath id={`${id}-fc`}><polygon points="175,330 425,330 600,450 0,450" /></clipPath>
+  </defs>
+  <rect width="600" height="450" fill="#100a07" />
+  <rect width="600" height="330" fill={`url(#${id}-w)`} />
+  <rect y="330" width="600" height="120" fill="#0b0705" />
+  <linearGradient id={`${id}-b`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color={c} stop-opacity=".16" /><stop offset="1" stop-color={c} stop-opacity="0" /></linearGradient>
+  <polygon class="track-art__beam" points="175,330 425,330 590,450 10,450" fill={`url(#${id}-b)`} />
+  <path d="M175 330 V165 A125 125 0 0 1 425 165 V330 Z" fill="#070403" />
+  <g clip-path={`url(#${id}-a)`}>
+    <rect class="track-art__lit" width="600" height="450" fill={`url(#${id}-l)`} mask={`url(#${id}-m)`} />
+  </g>
+  <g clip-path={`url(#${id}-fc)`}>
+    <rect class="track-art__floor" width="600" height="450" fill={`url(#${id}-fl)`} mask={`url(#${id}-fm)`} />
+  </g>
+  <path d="M175 330 V165 A125 125 0 0 1 425 165 V330" fill="none" stroke={c} stroke-opacity=".4" stroke-width="2" />
+  <rect class="track-art__bloom" width="600" height="450" fill={`url(#${id}-w)`} />
+</svg>
+
+<style is:global>
+  .track-art{display:block;width:100%;height:100%;background:#100a07}
+  .track-art__lit,.track-art__floor{transition:opacity .6s ease}
+  .track-art__floor{opacity:.75}
+  .track-art__bloom{opacity:0;transition:opacity .6s ease;mix-blend-mode:screen}
+  :is(a,article,.court):hover .track-art__bloom{opacity:1}
+  :is(a,article,.court):hover .track-art__floor{opacity:1}
+</style>

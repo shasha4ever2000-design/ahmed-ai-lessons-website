@@ -1,0 +1,43 @@
+/* Track identity: each track has its own colour of light and its own mashrabiya pattern.
+   The pattern image (--pat) is set per track in Base.astro, from src/domains/scenes/patterns.ts. */
+[data-track]{--tr:#f2a33a;--tr-text:var(--accent-text)}
+[data-track=finance]{--tr:#3fbfb0;--tr-text:#7fd3c9}
+[data-track=microsoft-365]{--tr:#6f9cf5;--tr-text:#a9c4ff}
+:root[data-theme=light] [data-track=finance]{--tr:#1f9a8c;--tr-text:#14625b}
+:root[data-theme=light] [data-track=microsoft-365]{--tr:#4a7be0;--tr-text:#2a55a8}
+
+/* Lesson cards: the topic in the track's colour, the pattern glowing in the top corner,
+   and the lesson number set large in the opposite corner, like a chapter mark. */
+.lesson-card{overflow:hidden;isolation:isolate}
+.lesson-card .card__topic{color:var(--tr-text)}
+.card__pat{position:absolute;z-index:-1;top:0;inset-inline-end:0;width:min(210px,62%);height:150px;pointer-events:none;
+  background:radial-gradient(closest-side at 100% 0,var(--tr),transparent);
+  -webkit-mask:var(--pat) 0 0/28px auto;mask:var(--pat) 0 0/28px auto;opacity:.34;transition:opacity .5s ease,transform .8s var(--ease-out,ease)}
+[dir=rtl] .card__pat{background:radial-gradient(closest-side at 0 0,var(--tr),transparent)}
+.lesson-card:hover .card__pat{opacity:.6}
+.motion .lesson-card:hover .card__pat{transform:translateY(-4px)}
+.card__num{position:absolute;z-index:-1;bottom:-.18em;inset-inline-end:10px;font:600 4.8rem/1 var(--display);font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--tr) 38%,transparent);pointer-events:none;letter-spacing:-.02em;transition:-webkit-text-stroke-color .4s}
+.lesson-card:hover .card__num{-webkit-text-stroke-color:color-mix(in srgb,var(--tr) 70%,transparent)}
+.lesson-card .card__meta{padding-inline-end:68px}
+.lesson-card::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,var(--tr),transparent 70%);opacity:.7}
+[dir=rtl] .lesson-card::before{background:linear-gradient(270deg,var(--tr),transparent 70%)}
+@media (forced-colors:active){.card__pat,.card__num{display:none}}
+@media print{.card__pat,.card__num{display:none}}
+
+/* Lesson pages: the track's pattern rises behind the title, fading out towards the text. */
+.lesson{position:relative;isolation:isolate}
+.lesson-hero .topic-banner{color:var(--tr-text)}
+.lesson-pat{position:absolute;z-index:-1;top:0;inset-inline-end:calc(var(--gutter) * -1);width:min(640px,52%);height:560px;pointer-events:none;
+  background:radial-gradient(farthest-side at 100% 0,var(--tr),transparent);
+  -webkit-mask:var(--pat) 0 0/34px auto,radial-gradient(farthest-side at 100% 0,#000 30%,transparent);-webkit-mask-composite:source-in;
+  mask:var(--pat) 0 0/34px auto,radial-gradient(farthest-side at 100% 0,#000 30%,transparent);mask-composite:intersect;opacity:.3}
+[dir=rtl] .lesson-pat{background:radial-gradient(farthest-side at 0 0,var(--tr),transparent);
+  -webkit-mask:var(--pat) 0 0/34px auto,radial-gradient(farthest-side at 0 0,#000 30%,transparent);-webkit-mask-composite:source-in;
+  mask:var(--pat) 0 0/34px auto,radial-gradient(farthest-side at 0 0,#000 30%,transparent);mask-composite:intersect}
+:root[data-theme=light] .lesson-pat{opacity:.4}
+.motion .lesson-pat{animation:pat-in 1.4s var(--ease-out,ease) both}
+@keyframes pat-in{from{opacity:0;transform:translateY(16px)}}
+@media (max-width:700px){.lesson-pat{inset-inline-end:0;width:85%;height:380px;opacity:.22}}
+@media (forced-colors:active),print{.lesson-pat{display:none}}
+:root[data-theme=light] .card__pat{opacity:.55}
+:root[data-theme=light] .lesson-card:hover .card__pat{opacity:.8}
