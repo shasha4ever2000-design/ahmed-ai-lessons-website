@@ -1,0 +1,86 @@
+---
+// Prompt cards in a lesson get two extras: blanks you can type into, and a Save button
+// that adds the prompt to "My prompts". The lesson HTML stays as written; this adds to it.
+import { T, pre, type Lang } from '../i18n';
+interface Props { lang: Lang; slug: string; title: string }
+const { lang, slug, title } = Astro.props;
+const P = T[lang].prompts;
+---
+<div id="prompt-tools" hidden data-lang={lang} data-slug={slug} data-title={title}
+  data-blank={P.blank} data-hint={P.fillHint} data-clear={P.clear} data-save={P.save} data-saved={P.saved} data-save-label={P.saveLabel}
+  data-saved-toast={P.savedToast} data-removed-toast={P.removedToast}></div>
+<a class="my-prompts-link" id="my-prompts-link" href={`${pre(lang)}/my-prompts/`} hidden data-t={P.linkN}>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z"/></svg><span></span>
+</a>
+
+<script>
+  import { enhanceBlanks, syncBlanks, clearBlanks } from '../domains/prompts/blanks';
+  import { isSaved, toggleSaved, savedPrompts } from '../domains/prompts/saved';
+  import { on } from '../domains/shared/events';
+  import { toast } from '../domains/scenes/toast';
+
+  const cfg = document.getElementById('prompt-tools')!.dataset;
+  const body = document.querySelector<HTMLElement>('.lesson-body')!;
+  const ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z"/></svg>';
+
+  body.querySelectorAll<HTMLElement>('.sheet, .compare__col--strong').forEach((box, i) => {
+    const text = box.querySelector<HTMLElement>('.sheet__text, .compare__text');
+    const head = box.querySelector<HTMLElement>('.sheet__head, .compare__head');
+    if (!text || !head) return;
+    const label = (box.querySelector('.sheet__label, .compare__label')?.textContent || '').trim();
+    const template = (text.textContent || '').trim();
+
+    // Blanks: "[topic]" becomes a box to type in. A short hint and a Clear button sit under the card's title.
+    if (enhanceBlanks([text], cfg.blank!)) {
+      box.classList.add('has-blanks');
+      const hint = document.createElement('p');
+      hint.className = 'blank-hint';
+      hint.innerHTML = `<span></span> <button type="button" class="blank-clear"></button>`;
+      hint.querySelector('span')!.textContent = cfg.hint!;
+      const clear = hint.querySelector('button')!;
+      clear.textContent = cfg.clear!;
+      clear.addEventListener('click', () => { clearBlanks(text); box.querySelector<HTMLElement>('.blank')?.focus(); });
+      head.after(hint);
+    }
+
+    // Save: kept as the original template, so it can be filled in again later.
+    const id = `${cfg.lang}:${cfg.slug}#${i}`;
+    const save = document.createElement('button');
+    save.type = 'button';
+    save.className = 'btn btn--quiet btn--sm save-btn';
+    save.setAttribute('aria-label', cfg.saveLabel!.replace('{l}', label));
+    save.innerHTML = ICON + '<span></span>';
+    const paint = () => { const s = isSaved(id); save.setAttribute('aria-pressed', String(s)); save.querySelector('span')!.textContent = s ? cfg.saved! : cfg.save!; };
+    paint();
+    save.addEventListener('click', () => {
+      const now = toggleSaved({ id, lang: cfg.lang!, slug: cfg.slug!, lesson: cfg.title!, label, text: template });
+      toast(now ? cfg.savedToast! : cfg.removedToast!);
+    });
+    on('prompts:saved-changed', e => { if (e.id === id) paint(); });
+    const copy = head.querySelector('.copy-btn');
+    copy ? copy.before(save) : head.append(save);
+  });
+  syncBlanks(body);
+
+  // "My saved prompts (n)" in the lesson sidebar, once there is something saved.
+  const link = document.getElementById('my-prompts-link')!;
+  document.querySelector('.lesson-aside')?.append(link);
+  const count = (n: number) => { link.hidden = !n; link.querySelector('span')!.textContent = link.dataset.t!.replace('{n}', String(n)); };
+  count(savedPrompts().length);
+  on('prompts:saved-changed', e => count(e.count));
+</script>
+
+<style is:global>
+  .sheet__head,.compare__head{gap:8px;flex-wrap:wrap}
+  .save-btn{margin-inline-start:auto}
+  .save-btn svg{width:16px;height:16px}
+  @media (max-width:480px){.save-btn span{display:none}.save-btn{padding:0 10px}}
+  .save-btn[aria-pressed=true]{border-color:var(--accent);color:var(--accent-text)}
+  .save-btn[aria-pressed=true] svg{fill:currentColor}
+  .compare__col--strong .blank-hint{padding-inline:0;border:0}
+  .my-prompts-link{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--radius-sm);border:1px dashed var(--line-2);color:var(--text);text-decoration:none;font-weight:600;font-size:.92rem}
+  .my-prompts-link[hidden]{display:none}
+  .my-prompts-link svg{width:18px;height:18px;color:var(--accent-text);fill:currentColor}
+  .my-prompts-link:hover{border-color:var(--accent)}
+  @media print{.save-btn,.blank-hint,.my-prompts-link{display:none!important}.blank{background:none;border:0;padding:0}.blank:empty::before{content:"[" attr(data-ph) "]";color:inherit}}
+</style>

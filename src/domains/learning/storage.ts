@@ -1,6 +1,6 @@
 // Infrastructure: browser storage for the learning context. Keys are unchanged from the old site,
 // so visitors keep their progress. Every read and write survives blocked or full storage.
-export const KEYS = { done: 'ahl:done', cert: 'ahl:cert', last: 'ahl:last' } as const;
+export const KEYS = { done: 'ahl:done', cert: 'ahl:cert', last: 'ahl:last', saved: 'ahl:saved', blanks: 'ahl:blanks' } as const;
 
 export function read<T>(key: string, fallback: T): T {
   try { const v = JSON.parse(localStorage.getItem(key) || 'null'); return (v ?? fallback) as T; } catch { return fallback; }

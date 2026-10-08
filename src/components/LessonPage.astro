@@ -2,6 +2,9 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Newsletter from './Newsletter.astro';
+import LessonPromptTools from './LessonPromptTools.astro';
+import TermPops from './TermPops.astro';
+import TocSheet from './TocSheet.astro';
 import { T, SITE, fill, pre, formatDate, type Lang } from '../i18n';
 
 interface Props { entry: any; lang: Lang }
@@ -79,6 +82,9 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   <button type="button" class="resume-pill" id="resume" hidden data-t={R.back}>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg><span></span>
   </button>
+  <LessonPromptTools lang={lang} slug={d.slug} title={d.title} />
+  <TermPops lang={lang} />
+  <TocSheet lang={lang} toc={d.toc} />
   <Newsletter lang={lang} compact />
 </Base>
 
@@ -86,6 +92,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   import { isDone, toggleLesson } from '../domains/learning/progress';
   import { on } from '../domains/shared/events';
   import { lastPlace, savePlace, readFraction, scrollForFraction } from '../domains/learning/resume';
+  import { textWithBlanks } from '../domains/prompts/blanks';
   const art = document.querySelector<HTMLElement>('article.lesson')!;
   const slug = art.dataset.slug!;
   const body = document.querySelector<HTMLElement>('.lesson-body')!;
@@ -135,7 +142,8 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
     if (!b) return;
     const box = b.closest('.sheet, .compare__col');
     const src = box?.querySelector('.sheet__text, .compare__text');
-    if (!src || !(await copy(src.textContent!.trim()))) return;
+    // Filled-in blanks are copied with what was typed; empty ones keep their [name].
+    if (!src || !(await copy(textWithBlanks(src)))) return;
     const label = [...b.childNodes].find(n => n.nodeType === 3 && n.textContent!.trim());
     if (label) { label.textContent = body.dataset.copied!; setTimeout(() => (label.textContent = body.dataset.copy!), 1600); }
     b.classList.add('is-copied'); setTimeout(() => b.classList.remove('is-copied'), 1600);
@@ -169,7 +177,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   .motion-ready .lesson-section:not(.is-in) .lesson-h2::before{transform:scaleX(0)}
   .done-toggle[aria-pressed=true] .done-toggle__box{animation:done-pop .55s var(--ease-spring)}
   .time-left{margin:0;padding:0 4px;font-size:.82rem;color:var(--text-2)}
-  .resume-pill{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);background:var(--surface);color:var(--text);font:inherit;font-weight:600;box-shadow:0 12px 40px rgb(0 0 0 / .35);cursor:pointer;transition:opacity .35s,transform .35s;max-width:calc(100vw - 120px)}
+  .resume-pill{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);background:var(--surface);color:var(--text);font:inherit;font-weight:600;box-shadow:0 12px 40px rgb(0 0 0 / .35);cursor:pointer;transition:opacity .35s,transform .35s;max-width:calc(100vw - 150px)}
   .resume-pill svg{width:18px;height:18px;color:var(--accent-text);flex:none}
   .resume-pill.is-gone{opacity:0;transform:translate(-50%,16px)}
   .motion .resume-pill:not([hidden]){animation:pill-in .5s var(--ease-spring) .6s both}

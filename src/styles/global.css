@@ -285,6 +285,15 @@ section.block{padding-block:clamp(56px,8vw,104px)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 
+/* Prompt blanks: "[topic]" in a prompt becomes a box to type in (lessons and My prompts). */
+.blank{display:inline-block;min-width:3.5em;padding:0 .35em;margin:0 .1em;border-radius:6px;background:var(--accent-soft);border-bottom:2px dashed var(--accent);color:var(--text);font-weight:600;line-height:1.5;outline:none;white-space:pre-wrap;cursor:text;transition:background .2s,border-color .2s}
+.blank:empty::before{content:attr(data-ph);color:var(--accent-text);font-weight:500;opacity:.9}
+.blank:not(:empty){border-bottom-style:solid}
+.blank:focus{background:color-mix(in srgb,var(--accent) 22%,var(--surface));box-shadow:0 0 0 2px var(--accent)}
+.blank-hint{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0;padding:8px 16px;font-size:.85rem;color:var(--text-2);border-bottom:1px dashed var(--line)}
+.blank-hint span::before{content:"✎ ";color:var(--accent-text)}
+.blank-clear{border:0;background:none;padding:0;color:var(--accent-text);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+
 /* Print / Save as PDF: just the lesson, in dark ink on white, with link addresses written out. */
 @media print{
   @page{margin:16mm 14mm}

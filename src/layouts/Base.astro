@@ -15,8 +15,9 @@ interface Props {
   noAlternate?: boolean;  // pages that exist in one language only
   intro?: boolean;        // opening shutters (homepage)
   readBar?: boolean;      // reading progress strip (lesson pages)
+  noindex?: boolean;      // personal pages search engines should skip
 }
-const { lang, title, description, path, ogImage = `/media/og/${lang}-home.jpg`, ogType = 'website', jsonld = [], noAlternate = false, intro = false, readBar = false } = Astro.props;
+const { lang, title, description, path, ogImage = `/media/og/${lang}-home.jpg`, ogType = 'website', jsonld = [], noAlternate = false, intro = false, readBar = false, noindex = false } = Astro.props;
 const t = T[lang];
 const url = SITE + path;
 // Pages with one language (like 404) switch to the other language's homepage.
@@ -36,7 +37,7 @@ const ICONS: Record<string, string> = {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <script is:inline>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'?'light':'dark'})()</script>
+  <script is:inline>(function(){var s=null;try{s=localStorage.getItem('ahl:theme')}catch(e){}document.documentElement.dataset.theme=s==='light'||s==='dark'?s:(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')})()</script>
   <script is:inline define:vars={{ intro }}>
     // Motion is on unless the visitor asked for less. The homepage shutters play once per visit.
     (function (r) {
@@ -54,6 +55,7 @@ const ICONS: Record<string, string> = {
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="canonical" href={url} />
+  {noindex && <meta name="robots" content="noindex" />}
   {!noAlternate && <link rel="alternate" hreflang="en" href={SITE + enPath} />}
   {!noAlternate && <link rel="alternate" hreflang="ar" href={SITE + arPath} />}
   {!noAlternate && <link rel="alternate" hreflang="x-default" href={SITE + enPath} />}

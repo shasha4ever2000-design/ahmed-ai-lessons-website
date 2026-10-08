@@ -8,6 +8,7 @@ export interface DomainEvents {
   'builder:score-changed': { score: number; parts: boolean[] };
   'builder:part-filled': { index: number; from: DOMRect | null };
   'theme:changed': { theme: 'light' | 'dark' };
+  'prompts:saved-changed': { count: number; id: string; saved: boolean };
 }
 type Name = keyof DomainEvents;
 

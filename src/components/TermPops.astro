@@ -1,0 +1,94 @@
+---
+// AI words inside a lesson open a small card with their meaning from the glossary.
+import { T, pre, type Lang } from '../i18n';
+import data from '../data/site-data.json';
+import { aliasesOf } from '../domains/glossary/terms';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const M = T[lang].terms;
+// "AI" is in every sentence, so it gets no pop-up. Other words link the first time they appear.
+const SKIP = new Set(['ai']);
+// Other ways the lessons write the same idea.
+const EXTRA: Record<Lang, Record<string, string[]>> = {
+  en: { template: ['template'], 'temporary-chat': ['temporary chat'], 'knowledge-cutoff': ['knowledge cutoff', 'cut-off date'], hallucination: ['hallucinate'], upload: ['upload'], llm: ['language model'], placeholder: ['placeholder'] },
+  ar: { 'temporary-chat': ['المحادثة المؤقتة'], template: ['القالب'], agent: ['الوكيل'], hallucination: ['يهلوس'], prompt: ['البرومبت', 'الطلب'] },
+};
+const strip = (s: string) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const terms = (data as any)[lang].glossary.terms
+  .filter((x: any) => !SKIP.has(x.id))
+  .map((x: any) => ({ id: x.id, name: x.name, other: x.other, def: strip(x.def), aliases: [...aliasesOf(x.name), ...(EXTRA[lang][x.id] || [])] }));
+---
+<script type="application/json" id="terms-data" set:html={JSON.stringify(terms)} />
+<div class="term-pop" id="term-pop" popover role="dialog" aria-labelledby="term-pop-name" data-label={M.label} data-lang={lang}>
+  <div class="term-pop__head">
+    <p class="term-pop__name" id="term-pop-name"></p>
+    <button type="button" class="term-pop__close" popovertarget="term-pop" popovertargetaction="hide" aria-label={M.close}>×</button>
+  </div>
+  <p class="term-pop__other"></p>
+  <p class="term-pop__def"></p>
+  <a class="term-pop__more" href={`${pre(lang)}/glossary/`}>{M.more} <span aria-hidden="true">→</span></a>
+</div>
+
+<script>
+  import { linkTerms, type Term } from '../domains/glossary/terms';
+  const pop = document.getElementById('term-pop') as HTMLElement & { showPopover?: () => void; hidePopover?: () => void };
+  // Needs the popover feature (all current browsers); without it the words simply stay plain text.
+  if (pop.showPopover) {
+    const terms = JSON.parse(document.getElementById('terms-data')!.textContent!) as Term[];
+    const byId = new Map(terms.map(t => [t.id, t]));
+    const blocks = [...document.querySelectorAll<HTMLElement>('.lesson-body .prose__intro, .lesson-body .lesson-section > p, .lesson-body .lesson-section li, .lesson-body .callout p:not(.callout__title)')];
+    linkTerms(blocks, terms, pop.dataset.lang!);
+    const more = pop.querySelector<HTMLAnchorElement>('.term-pop__more')!;
+    const base = more.getAttribute('href')!;
+    let from: HTMLElement | null = null;
+
+    function place() {
+      if (!from) return;
+      const r = from.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
+      const left = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), innerWidth - w - 12);
+      const below = r.bottom + 10 + h < innerHeight;
+      pop.style.left = left + 'px';
+      pop.style.top = (below ? r.bottom + 10 : Math.max(12, r.top - h - 10)) + 'px';
+    }
+    document.addEventListener('click', e => {
+      const b = (e.target as Element).closest<HTMLElement>('.term-ref');
+      if (!b) return;
+      const t = byId.get(b.dataset.term!);
+      if (!t) return;
+      if (from === b && pop.matches(':popover-open')) { pop.hidePopover!(); return; }
+      from?.setAttribute('aria-expanded', 'false');
+      from = b;
+      pop.querySelector('.term-pop__name')!.textContent = t.name;
+      pop.querySelector('.term-pop__other')!.textContent = t.other;
+      pop.querySelector('.term-pop__def')!.textContent = t.def;
+      more.href = `${base}#${t.id}`;
+      pop.showPopover!();
+      place();
+      b.setAttribute('aria-expanded', 'true');
+      pop.querySelector<HTMLElement>('.term-pop__close')!.focus({ preventScroll: true });
+    });
+    // Closing (Esc, a click elsewhere, the × button) puts focus back on the word.
+    pop.addEventListener('toggle', (e: any) => {
+      if (e.newState === 'closed' && from) { from.setAttribute('aria-expanded', 'false'); if (pop.contains(document.activeElement) || document.activeElement === document.body) from.focus({ preventScroll: true }); }
+    });
+    addEventListener('scroll', () => { if (pop.matches(':popover-open')) place(); }, { passive: true });
+    addEventListener('resize', () => { if (pop.matches(':popover-open')) place(); });
+  }
+</script>
+
+<style is:global>
+  .term-ref{all:unset;cursor:help;color:inherit;text-decoration:underline dotted;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px;border-radius:4px}
+  .term-ref:hover,.term-ref[aria-expanded=true]{background:var(--accent-soft)}
+  .term-ref:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .term-pop{position:fixed;inset:auto;margin:0;width:min(340px,calc(100vw - 24px));padding:16px 18px;border-radius:14px;border:1px solid var(--line-2);background:var(--surface);color:var(--text);box-shadow:0 20px 60px rgb(0 0 0 / .4)}
+  .term-pop__head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .term-pop__name{margin:0;font:600 1.15rem/1.3 var(--display)}
+  .term-pop__close{flex:none;width:30px;height:30px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--text-2);font-size:1.1rem;line-height:1;cursor:pointer}
+  .term-pop__close:hover{border-color:var(--accent);color:var(--text)}
+  .term-pop__other{margin:2px 0 8px;color:var(--accent-text);font-weight:600;font-size:.92rem}
+  .term-pop__def{margin:0 0 10px;color:var(--text-2);font-size:.95rem;line-height:1.6}
+  .term-pop__more{font-weight:600;font-size:.9rem;color:var(--accent-text)}
+  .motion .term-pop:popover-open{animation:term-in .22s var(--ease-out)}
+  @keyframes term-in{from{opacity:0;transform:translateY(6px) scale(.98)}}
+  @media print{.term-ref{text-decoration:none}}
+</style>
