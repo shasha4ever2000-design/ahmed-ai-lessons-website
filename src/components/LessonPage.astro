@@ -7,6 +7,7 @@ import Newsletter from './Newsletter.astro';
 import LessonPromptTools from './LessonPromptTools.astro';
 import TermPops from './TermPops.astro';
 import TocSheet from './TocSheet.astro';
+
 import { T, SITE, fill, pre, formatDate, type Lang } from '../i18n';
 
 interface Props { entry: any; lang: Lang }
@@ -19,6 +20,14 @@ const p = pre(lang);
 const all = (await getCollection('lessons', l => l.data.lang === lang)).sort((a, b) => a.data.number - b.data.number);
 const i = all.findIndex(l => l.data.slug === d.slug);
 const prev = all[i - 1]?.data, next = all[i + 1]?.data;
+// "Keep reading": up to three lessons from the same track (not the ones already in the pager),
+// closest by number first; topped up from other tracks if the track is small.
+const shown = new Set([d.slug, prev?.slug, next?.slug]);
+const byDistance = (a: any, b: any) => Math.abs(a.data.number - d.number) - Math.abs(b.data.number - d.number);
+const related = [
+  ...all.filter(l => !shown.has(l.data.slug) && l.data.track === d.track).sort(byDistance),
+  ...all.filter(l => !shown.has(l.data.slug) && l.data.track !== d.track).sort(byDistance),
+].slice(0, 3);
 const path = `${p}/lessons/${d.slug}/`;
 const url = SITE + path;
 const enc = encodeURIComponent;
@@ -56,6 +65,10 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
           <p id="toc-title" class="small-title">{L.toc}</p>
           <ol role="list">{d.toc.map((x: any) => <li><a href={`#${x.id}`}>{x.label}</a></li>)}</ol>
         </nav>
+        <div class="text-size" role="group" aria-label={L.textSize}>
+          <span class="text-size__label">{L.textSize}</span>
+          {L.sizes.map((s, k) => <button type="button" data-size={['s', 'm', 'l'][k]} aria-label={s} aria-pressed={k === 1 ? 'true' : 'false'}><span aria-hidden="true" style={`font-size:${[0.8, 1, 1.22][k]}rem`}>A</span></button>)}
+        </div>
         <p class="time-left mono" id="time-left" data-left={R.left} data-end={R.end} data-min={d.minutes}>{fill(R.left, { n: d.minutes })}</p>
         <button type="button" class="done-toggle" aria-pressed="false" data-done={L.done} data-is={L.isDone} set:html={doneBtn}></button>
       </aside>
@@ -77,6 +90,16 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
             {prev && <a class="pager__link pager__link--prev" href={`${p}/lessons/${prev.slug}/`} rel="prev"><span class="pager__dir">{L.prev}</span><span class="pager__title">{fill(L.n, { n: prev.number })}: {prev.title}</span></a>}
             {next && <a class="pager__link pager__link--next" href={`${p}/lessons/${next.slug}/`} rel="next"><span class="pager__dir">{L.next}</span><span class="pager__title">{fill(L.n, { n: next.number })}: {next.title}</span></a>}
           </nav>
+          <section class="related" aria-labelledby="related-h">
+            <h2 id="related-h" class="related__h">{L.related}</h2>
+            <ul class="related__list" role="list">{related.map(l => (
+              <li><a href={`${p}/lessons/${l.data.slug}/`}>
+                <span class="related__icon" aria-hidden="true"><Icon name={topicIcon(l.data.topic)} /></span>
+                <span class="related__t">{l.data.title}</span>
+                <span class="related__m">{fill(L.n, { n: l.data.number })} · {fill(L.read, { n: l.data.minutes })}</span>
+                <Icon name="arrow-right" class="related__go icon-flip" />
+              </a></li>))}</ul>
+          </section>
         </div>
       </div>
     </div>
@@ -134,6 +157,16 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   }
   onRead();
 
+  // Text size for reading: remembered on this device, applied before paint by the head script in Base.
+  const sizeBtns = [...document.querySelectorAll<HTMLButtonElement>('.text-size button')];
+  const paintSize = () => { const v = document.documentElement.dataset.text || 'm'; sizeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.size === v))); };
+  sizeBtns.forEach(b => b.addEventListener('click', () => {
+    document.documentElement.dataset.text = b.dataset.size!;
+    try { localStorage.setItem('ahl:text', b.dataset.size!); } catch (e) {}
+    paintSize();
+  }));
+  paintSize();
+
   // Copy buttons on prompt cards and "better prompt" boxes.
   async function copy(text: string) {
     try { await navigator.clipboard.writeText(text); return true; }
@@ -178,6 +211,20 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   .motion .is-in .lesson-h2::before,.lesson-h2::before{transform:scaleX(1)}
   .motion-ready .lesson-section:not(.is-in) .lesson-h2::before{transform:scaleX(0)}
   .done-toggle[aria-pressed=true] .done-toggle__box{animation:done-pop .55s var(--ease-spring)}
+  .text-size{display:flex;align-items:center;gap:4px;padding:0 4px}
+  .text-size__label{font-size:.82rem;color:var(--text-2);margin-inline-end:auto}
+  .text-size button{width:38px;height:34px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-family:var(--display);font-weight:600;line-height:1}
+  .text-size button[aria-pressed=true]{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}
+  .related{display:grid;gap:14px;margin-top:8px}
+  .related__h{font-size:1.5rem}
+  .related__list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .related__list a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"i t g" "i m g";column-gap:14px;row-gap:2px;align-items:center;padding:14px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--text);transition:border-color .2s,transform var(--spring-fast,.4s) var(--spring,ease)}
+  .related__list a:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .related__icon{grid-area:i;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-text)}
+  .related__icon svg{width:22px;height:22px}
+  .related__t{grid-area:t;font:600 1.08rem/1.35 var(--display)}
+  .related__m{grid-area:m;font-size:.85rem;color:var(--text-2)}
+  .related__go{grid-area:g;width:20px;height:20px;color:var(--accent-text)}
   .time-left{margin:0;padding:0 4px;font-size:.82rem;color:var(--text-2)}
   .resume-pill{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);color:var(--text);font:inherit;font-weight:600;cursor:pointer;transition:opacity .35s,transform var(--spring-t) var(--spring);max-width:calc(100vw - 150px)}
   .resume-pill svg{width:18px;height:18px;color:var(--accent-text);flex:none}

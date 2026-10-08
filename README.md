@@ -28,6 +28,7 @@ npm run build    # static site in dist/
 | Prompt blanks, Save button, "My prompts" page | `src/components/LessonPromptTools.astro`, `src/components/MyPrompts.astro`, `src/domains/prompts/` |
 | Glossary pop-ups inside lessons (which words, extra spellings) | `src/components/TermPops.astro` |
 | Phone "On this page" button | `src/components/TocSheet.astro` |
+| Offline reading (lessons you open are kept on the device; offline page lists them) | `public/sw.js`, `src/pages/offline.astro` |
 | Site search (button, `/` or Ctrl+K) | `src/components/Search.astro`; index built by `src/pages/search/[lang].json.ts` |
 | App icon and install details | `public/manifest.webmanifest`, `public/media/icon-*.png`, `public/favicon.svg` |
 | Standalone tools (Prompt Grader, quiz, time saved, certificate, prompt of the day, Prompt Library, links) | `public/*.html`, styled by `public/ahl-theme.css` |
@@ -40,7 +41,7 @@ npm run build    # static site in dist/
 2. Edit the details at the top (between the `---` lines): `slug` (same as the file name), `number`, `track` (`ai-for-work`, `finance` or `microsoft-365`), `topic`, `title`, `lede`, `summary`, `description`, `level`, `minutes`, `updated` (YYYY-MM-DD) and `toc` (the "On this page" list; each `id` must match a section `id` in the body).
 3. Write the lesson body below the second `---`. It is HTML and is inserted exactly as written; copy the building blocks (prompt cards, tips, compare boxes, steps, takeaway) from another lesson.
 4. Do the same in `src/content/lessons/ar/` with the same file name.
-5. Add an image for link previews at `public/media/og/en-<slug>.jpg` and `public/media/og/ar-<slug>.jpg` (1200 × 630).
+5. Make its link-preview images: build, start a local server on port 4321 (`npx astro preview`), then run `npm run og` (needs Playwright). It writes `public/media/og/en-<slug>.jpg` and `ar-<slug>.jpg` in the site's style, from the page itself.
 
 The lessons list, track pages, pager, sitemap, site search and Start Here progress update automatically.
 
@@ -49,5 +50,5 @@ The lessons list, track pages, pager, sitemap, site search and Start Here progre
 Progress lives in the visitor's browser under the same keys as before, so nobody loses their ticks:
 `ahl:done` (finished lessons), `ahl:cert` (step 1 and certificate details), `ahl:theme` (light or dark),
 `ahl:last` (the lesson you were reading and how far you got, for "Continue where you stopped"),
-`ahl:saved` (prompts saved to "My prompts") and `ahl:blanks` (what was typed into prompt blanks, by blank name).
+`ahl:text` (reading text size), `ahl:saved` (prompts saved to "My prompts") and `ahl:blanks` (what was typed into prompt blanks, by blank name).
 With no saved theme, the site follows the device's light or dark setting.

@@ -11,12 +11,16 @@ const P = T[lang].prompts;
 <div id="prompt-tools" hidden data-lang={lang} data-slug={slug} data-title={title}
   data-blank={P.blank} data-hint={P.fillHint} data-clear={P.clear} data-save={P.save} data-saved={P.saved} data-save-label={P.saveLabel}
   data-saved-toast={P.savedToast} data-removed-toast={P.removedToast}></div>
+<div class="prompt-download" id="prompt-download" hidden>
+  <button type="button" class="btn btn--line" id="prompt-download-btn"><Icon name="download-simple" class="icon" />{P.download}</button>
+  <p>{P.downloadNote}</p>
+</div>
 <a class="my-prompts-link" id="my-prompts-link" href={`${pre(lang)}/my-prompts/`} hidden data-t={P.linkN}>
   <Icon name="bookmark-simple" weight="fill" /><span></span>
 </a>
 
 <script>
-  import { enhanceBlanks, syncBlanks, clearBlanks } from '../domains/prompts/blanks';
+  import { enhanceBlanks, syncBlanks, clearBlanks, textWithBlanks } from '../domains/prompts/blanks';
   import { isSaved, toggleSaved, savedPrompts } from '../domains/prompts/saved';
   import { on } from '../domains/shared/events';
   import { toast } from '../domains/scenes/toast';
@@ -64,6 +68,25 @@ const P = T[lang].prompts;
   });
   syncBlanks(body);
 
+  // "Download all prompts": one text file with every prompt in the lesson, as it would be copied.
+  const prompts = [...body.querySelectorAll<HTMLElement>('.sheet, .compare__col--strong')]
+    .map(b => ({ label: (b.querySelector('.sheet__label, .compare__label')?.textContent || '').trim(), text: b.querySelector<HTMLElement>('.sheet__text, .compare__text') }))
+    .filter(p => p.text);
+  const dl = document.getElementById('prompt-download')!;
+  if (prompts.length) {
+    document.querySelector('.lesson-end .share')?.before(dl);
+    dl.hidden = false;
+    document.getElementById('prompt-download-btn')!.addEventListener('click', () => {
+      const head = `${cfg.title}\n${location.origin}${location.pathname}\n\n`;
+      const txt = head + prompts.map(p => `## ${p.label}\n${textWithBlanks(p.text!)}`).join('\n\n') + '\n';
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob(['\ufeff' + txt], { type: 'text/plain;charset=utf-8' }));
+      a.download = `${cfg.slug}-prompts${cfg.lang === 'ar' ? '-ar' : ''}.txt`;
+      document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    });
+  }
+
   // "My saved prompts (n)" in the lesson sidebar, once there is something saved.
   const link = document.getElementById('my-prompts-link')!;
   document.querySelector('.lesson-aside')?.append(link);
@@ -81,6 +104,9 @@ const P = T[lang].prompts;
   .save-btn .i-on,.save-btn[aria-pressed=true] .i-off{display:none}
   .save-btn[aria-pressed=true] .i-on{display:inline}
   .compare__col--strong .blank-hint{padding-inline:0;border:0}
+  .prompt-download{display:grid;gap:6px;justify-items:start}
+  .prompt-download[hidden]{display:none}
+  .prompt-download p{margin:0;font-size:.88rem;color:var(--text-2)}
   .my-prompts-link{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--radius-sm);border:1px dashed var(--line-2);color:var(--text);text-decoration:none;font-weight:600;font-size:.92rem}
   .my-prompts-link[hidden]{display:none}
   .my-prompts-link svg{width:18px;height:18px;color:var(--accent-text)}

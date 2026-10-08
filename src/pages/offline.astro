@@ -1,0 +1,61 @@
+---
+// Shown by the offline helper (public/sw.js) when there's no connection and the page wasn't saved.
+// Lists the lessons this device already has, in both languages.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base lang="en" title="You're offline | Ahmed Hussein · AI Lessons" description="This page isn't saved on this device yet." path="/offline/" noAlternate noindex>
+  <div class="wrap off">
+    <Icon name="wifi-slash" class="off__icon" />
+    <h1>You're offline.</h1>
+    <p class="lede">This page isn't saved on this device yet. Lessons you've opened before still work:</p>
+    <div lang="ar" dir="rtl" class="off__ar">
+      <h2>أنت غير متصل بالإنترنت.</h2>
+      <p>هذه الصفحة غير محفوظة على هذا الجهاز بعد. الدروس التي فتحتها من قبل ما زالت تعمل:</p>
+    </div>
+    <ul class="off__list" id="off-list" role="list"></ul>
+    <p class="off__none" id="off-none" hidden>Nothing saved yet. Open lessons while you're online and they'll be kept here. <span lang="ar" dir="rtl">لا توجد دروس محفوظة بعد. افتح الدروس وأنت متصل وستُحفظ هنا.</span></p>
+  </div>
+</Base>
+
+<script>
+  // Read the saved pages straight from the offline copy and list the lessons by their titles.
+  (async () => {
+    const list = document.getElementById('off-list')!;
+    let items: { url: string; title: string; ar: boolean }[] = [];
+    try {
+      const names = (await caches.keys()).filter(k => k.startsWith('ahl-pages-'));
+      for (const n of names) {
+        const cache = await caches.open(n);
+        for (const req of await cache.keys()) {
+          const path = new URL(req.url).pathname;
+          if (!/\/lessons\/[^/]+\/$/.test(path)) continue;
+          const html = await (await cache.match(req))!.text();
+          const title = (html.match(/<title>([^<|]+)/)?.[1] || path).trim();
+          items.push({ url: path, title, ar: path.startsWith('/ar/') });
+        }
+      }
+    } catch (e) { /* no offline copy available */ }
+    if (!items.length) { document.getElementById('off-none')!.hidden = false; return; }
+    for (const it of items) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = it.url; a.textContent = it.title;
+      if (it.ar) { a.lang = 'ar'; a.dir = 'rtl'; }
+      li.append(a); list.append(li);
+    }
+  })();
+</script>
+
+<style>
+  .off{padding-block:64px 96px;max-width:760px;display:grid;gap:14px;justify-items:start}
+  .off :global(.off__icon){width:56px;height:56px;color:var(--accent-text)}
+  .off h1{font-size:clamp(2.2rem,1.4rem + 2.4vw,3.2rem)}
+  .off__ar{display:grid;gap:6px;width:100%;padding-top:14px;border-top:1px solid var(--line);font-family:var(--body)}
+  .off__ar h2{font-size:1.6rem}
+  .off__ar p{color:var(--text-2)}
+  .off__list{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px;width:100%}
+  .off__list a{display:block;padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--surface);text-decoration:none;font-weight:600}
+  .off__list a:hover{border-color:var(--accent)}
+  .off__none{color:var(--text-2)}
+</style>
