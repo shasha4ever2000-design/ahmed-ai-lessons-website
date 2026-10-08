@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 // Prompt cards in a lesson get two extras: blanks you can type into, and a Save button
 // that adds the prompt to "My prompts". The lesson HTML stays as written; this adds to it.
 import { T, pre, type Lang } from '../i18n';
@@ -6,11 +7,12 @@ interface Props { lang: Lang; slug: string; title: string }
 const { lang, slug, title } = Astro.props;
 const P = T[lang].prompts;
 ---
+<template id="icon-save"><Icon name="bookmark-simple" class="i-off" /><Icon name="bookmark-simple" weight="fill" class="i-on" /></template>
 <div id="prompt-tools" hidden data-lang={lang} data-slug={slug} data-title={title}
   data-blank={P.blank} data-hint={P.fillHint} data-clear={P.clear} data-save={P.save} data-saved={P.saved} data-save-label={P.saveLabel}
   data-saved-toast={P.savedToast} data-removed-toast={P.removedToast}></div>
 <a class="my-prompts-link" id="my-prompts-link" href={`${pre(lang)}/my-prompts/`} hidden data-t={P.linkN}>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z"/></svg><span></span>
+  <Icon name="bookmark-simple" weight="fill" /><span></span>
 </a>
 
 <script>
@@ -21,7 +23,7 @@ const P = T[lang].prompts;
 
   const cfg = document.getElementById('prompt-tools')!.dataset;
   const body = document.querySelector<HTMLElement>('.lesson-body')!;
-  const ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z"/></svg>';
+  const ICON = (document.getElementById('icon-save') as HTMLTemplateElement).innerHTML;
 
   body.querySelectorAll<HTMLElement>('.sheet, .compare__col--strong').forEach((box, i) => {
     const text = box.querySelector<HTMLElement>('.sheet__text, .compare__text');
@@ -76,11 +78,12 @@ const P = T[lang].prompts;
   .save-btn svg{width:16px;height:16px}
   @media (max-width:480px){.save-btn span{display:none}.save-btn{padding:0 10px}}
   .save-btn[aria-pressed=true]{border-color:var(--accent);color:var(--accent-text)}
-  .save-btn[aria-pressed=true] svg{fill:currentColor}
+  .save-btn .i-on,.save-btn[aria-pressed=true] .i-off{display:none}
+  .save-btn[aria-pressed=true] .i-on{display:inline}
   .compare__col--strong .blank-hint{padding-inline:0;border:0}
   .my-prompts-link{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--radius-sm);border:1px dashed var(--line-2);color:var(--text);text-decoration:none;font-weight:600;font-size:.92rem}
   .my-prompts-link[hidden]{display:none}
-  .my-prompts-link svg{width:18px;height:18px;color:var(--accent-text);fill:currentColor}
+  .my-prompts-link svg{width:18px;height:18px;color:var(--accent-text)}
   .my-prompts-link:hover{border-color:var(--accent)}
   @media print{.save-btn,.blank-hint,.my-prompts-link{display:none!important}.blank{background:none;border:0;padding:0}.blank:empty::before{content:"[" attr(data-ph) "]";color:inherit}}
 </style>

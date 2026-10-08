@@ -239,7 +239,7 @@ async function draw() {
   ctx.fillStyle = muted; ctx.font = `400 30px ${sans}`;
   wrap(ctx, t.body, maxW).forEach((l, i) => ctx.fillText(l, x, 690 + i * 46));
   // Footer: date, issuer, ID, link.
-  const date = cert.date ? new Date(cert.date + 'T12:00:00').toLocaleDateString(ar ? 'ar-SA-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—';
+  const date = cert.date ? new Date(cert.date + 'T12:00:00').toLocaleDateString(ar ? 'ar-SA-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
   const fy = 930, x2 = ar ? x - 640 : x + 640;
   ctx.fillStyle = ink; ctx.fillRect(ar ? x - 520 : x, fy - 52, 520, 2); ctx.fillRect(ar ? x2 - 560 : x2, fy - 52, 560, 2);
   ctx.font = `600 30px ${sans}`; ctx.fillText(t.by + ' · ' + t.byRole, x, fy); ctx.fillText(t.issued + ': ' + date, x2, fy);

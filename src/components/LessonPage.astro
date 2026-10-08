@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+import { topicIcon } from '../topicIcons';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Newsletter from './Newsletter.astro';
@@ -43,7 +45,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
       <ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{L.home}</a></li><li><a href={`${p}/lessons/`}>{L.all}</a></li><li aria-current="page">{fill(L.n, { n: d.number })}</li></ol>
     </nav>
     <header class="lesson-hero">
-      <p class="topic-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={d.topicIcon} /><span>{d.topic}</span><span aria-hidden="true">·</span><span>{fill(L.n, { n: d.number })}</span></p>
+      <p class="topic-banner"><Icon name={topicIcon(d.topic)} /><span>{d.topic}</span><span aria-hidden="true">·</span><span>{fill(L.n, { n: d.number })}</span></p>
       <h1 id="lesson-title" class="lesson-title">{d.title}</h1>
       <p class="lede">{d.lede}</p>
       <ul class="lesson-meta" role="list"><li>{L.level}: {d.level}</li><li>{fill(L.read, { n: d.minutes })}</li><li>{L.updated}: <time datetime={d.updated}>{formatDate(d.updated, lang)}</time></li></ul>
@@ -80,7 +82,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
     </div>
   </article>
   <button type="button" class="resume-pill" id="resume" hidden data-t={R.back}>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg><span></span>
+    <Icon name="arrow-down" /><span></span>
   </button>
   <LessonPromptTools lang={lang} slug={d.slug} title={d.title} />
   <TermPops lang={lang} />

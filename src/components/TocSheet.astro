@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 // On phones the lesson's "On this page" list scrolls away with the top of the page.
 // This floating button brings it back as a sheet from the bottom of the screen.
 import { T, type Lang } from '../i18n';
@@ -7,7 +8,7 @@ const { lang, toc } = Astro.props;
 const label = T[lang].tocFab;
 ---
 <button type="button" class="toc-fab" id="toc-fab" popovertarget="toc-sheet" aria-label={label} hidden>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+  <Icon name="list-bullets" />
 </button>
 <nav class="toc toc--sheet" id="toc-sheet" popover aria-labelledby="toc-sheet-title">
   <div class="toc-sheet__head" id="toc-sheet-head">
