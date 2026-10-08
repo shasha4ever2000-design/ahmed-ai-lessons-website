@@ -10,12 +10,17 @@ const label = T[lang].tocFab;
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
 </button>
 <nav class="toc toc--sheet" id="toc-sheet" popover aria-labelledby="toc-sheet-title">
-  <p id="toc-sheet-title" class="small-title">{label}</p>
+  <div class="toc-sheet__head" id="toc-sheet-head">
+    <span class="toc-sheet__grab" aria-hidden="true"></span>
+    <p id="toc-sheet-title" class="small-title">{label}</p>
+  </div>
   <ol role="list">{toc.map(x => <li><a href={`#${x.id}`}>{x.label}</a></li>)}</ol>
   <p class="toc-sheet__left mono" aria-hidden="true"></p>
 </nav>
 
 <script>
+  import { springTo, project, rubberband, velocityOf } from '../domains/motion/spring';
+  import { motion } from '../domains/motion/kernel';
   const fab = document.getElementById('toc-fab') as HTMLButtonElement;
   const sheet = document.getElementById('toc-sheet') as HTMLElement & { hidePopover?: () => void };
   const asideToc = document.querySelector('.lesson-aside .toc');
@@ -28,22 +33,62 @@ const label = T[lang].tocFab;
     narrow.addEventListener('change', show);
     sheet.addEventListener('click', e => { if ((e.target as Element).closest('a')) sheet.hidePopover!(); });
     // Show the same "minutes left" line as the sidebar.
-    sheet.addEventListener('toggle', (e: any) => { if (e.newState === 'open') sheet.querySelector('.toc-sheet__left')!.textContent = document.getElementById('time-left')?.textContent || ''; });
+    sheet.addEventListener('toggle', (e: any) => {
+      if (e.newState === 'open') sheet.querySelector('.toc-sheet__left')!.textContent = document.getElementById('time-left')?.textContent || '';
+      else { anim?.stop(); anim = null; set(0); sheet.classList.remove('is-dragging'); }
+    });
+
+    // Drag the sheet by its top bar. It follows the finger 1:1 from where it was grabbed,
+    // resists being pulled up, and on release either closes (judged by where the flick would
+    // carry it, not where the finger stopped) or springs back, carrying the finger's speed.
+    const head = document.getElementById('toc-sheet-head')!;
+    let anim: { stop: () => { x: number; v: number } } | null = null;
+    let y0 = 0, base = 0, off = 0, dragging = false, samples: { y: number; t: number }[] = [];
+    const set = (y: number) => { off = y; sheet.style.setProperty('--drag', y + 'px'); };
+    head.addEventListener('pointerdown', e => {
+      // No text selection or native drag on the handle: either would cancel the gesture.
+      e.preventDefault();
+      // Grabbing a sheet that is still moving picks it up exactly where it is.
+      base = anim ? anim.stop().x : off; anim = null;
+      y0 = e.clientY; dragging = true; samples = [{ y: e.clientY, t: e.timeStamp }];
+      head.setPointerCapture(e.pointerId);
+      sheet.classList.add('is-dragging');
+    });
+    head.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      samples.push({ y: e.clientY, t: e.timeStamp }); if (samples.length > 12) samples.shift();
+      const d = base + e.clientY - y0;
+      set(d >= 0 ? d : rubberband(d, sheet.offsetHeight));
+    });
+    const release = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      // A finger that paused before lifting has no speed left: add the release moment as a sample.
+      samples.push({ y: e.clientY, t: e.timeStamp });
+      const v = samples.length > 1 ? velocityOf(samples) : 0, h = sheet.offsetHeight;
+      const close = off + project(v) > h * 0.4;
+      if (Math.abs(off) < 2 && !close) { sheet.classList.remove('is-dragging'); set(0); return; }
+      // With reduced motion the sheet simply closes or settles, without a spring.
+      if (!motion.allowed) { if (close) sheet.hidePopover!(); else { set(0); sheet.classList.remove('is-dragging'); } return; }
+      anim = close
+        ? springTo(off, h, { damping: 1, response: 0.3, velocity: Math.max(v, 0), onUpdate: set, onDone: () => { anim = null; sheet.hidePopover!(); } })
+        : springTo(off, 0, { damping: 0.8, response: 0.3, velocity: v, onUpdate: set, onDone: () => { anim = null; sheet.classList.remove('is-dragging'); } });
+    };
+    head.addEventListener('pointerup', release);
+    head.addEventListener('pointercancel', release);
   }
 </script>
 
 <style is:global>
-  .toc-fab{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));inset-inline-start:16px;width:52px;height:52px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--text);display:grid;place-items:center;box-shadow:0 10px 30px rgb(0 0 0 / .3);cursor:pointer}
+  .toc-fab{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));inset-inline-start:16px;width:52px;height:52px;border-radius:999px;border:1px solid var(--line-2);color:var(--text);display:grid;place-items:center;cursor:pointer}
   .toc-fab[hidden]{display:none}
   .toc-fab svg{width:22px;height:22px}
-  .motion .toc-fab:not([hidden]){animation:fab-in .4s var(--ease-spring)}
-  @keyframes fab-in{from{opacity:0;transform:scale(.6)}}
-  .toc--sheet{position:fixed;inset:auto 0 0 0;margin:0;width:100%;max-height:70dvh;overflow:auto;border-radius:20px 20px 0 0;border:1px solid var(--line-2);border-bottom:0;padding:20px 20px max(20px,env(safe-area-inset-bottom));background:var(--surface);color:var(--text);box-shadow:0 -20px 60px rgb(0 0 0 / .35)}
+  .toc--sheet{position:fixed;inset:auto 0 0 0;margin:0;width:100%;max-height:70dvh;overflow:auto;border-radius:20px 20px 0 0;border:1px solid var(--line-2);border-bottom:0;padding:20px 20px max(20px,env(safe-area-inset-bottom));color:var(--text)}
   .toc--sheet::backdrop{background:rgb(10 7 5 / .5)}
   .toc--sheet ol{margin-top:10px}
   .toc--sheet a{padding:10px 12px;font-size:1rem}
+  .toc-sheet__head{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;padding-top:6px;margin:-10px -20px 0;padding-inline:20px}
+  .toc-sheet__head:active{cursor:grabbing}
   .toc-sheet__left{margin:12px 4px 0;font-size:.85rem;color:var(--text-2)}
-  .motion .toc--sheet:popover-open{animation:sheet-up .3s var(--ease-out)}
-  @keyframes sheet-up{from{transform:translateY(40%);opacity:0}}
   @media print{.toc-fab,.toc--sheet{display:none!important}}
 </style>

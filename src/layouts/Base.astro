@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/motion.css';
+import '../styles/polish.css';
 import { T, SITE, otherPath, SOCIALS, type Lang } from '../i18n';
 import Search from '../components/Search.astro';
 
@@ -136,6 +137,9 @@ const ICONS: Record<string, string> = {
     const label = () => tb.setAttribute('aria-label', root.dataset.theme === 'dark' ? tb.dataset.l! : tb.dataset.d!);
     label();
     tb.addEventListener('click', () => {
+      // A short cross-fade, so the whole page doesn't jump from dark to light in one frame.
+      root.classList.add('theme-fading');
+      setTimeout(() => root.classList.remove('theme-fading'), 400);
       root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem('ahl:theme', root.dataset.theme); } catch (e) {}
       label();
