@@ -145,7 +145,7 @@ const S = T[lang].search;
 
   .search{padding:0;border:0;background:transparent;width:min(680px,calc(100vw - 24px));max-height:none;margin:min(12vh,96px) auto auto;color:var(--text);overflow:visible}
   .search::backdrop{background:rgb(10 7 5 / .62);backdrop-filter:blur(3px)}
-  .search__box{background:var(--surface);border:1px solid var(--line-2);border-radius:18px;box-shadow:0 30px 80px rgb(0 0 0 / .45);overflow:hidden;display:flex;flex-direction:column;max-height:min(72vh,640px)}
+  .search__box{border:1px solid var(--line-2);border-radius:18px;box-shadow:0 30px 80px rgb(0 0 0 / .45);overflow:hidden;display:flex;flex-direction:column;max-height:min(72vh,640px)}
   .search__field{display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--line)}
   .search__field svg{width:20px;height:20px;color:var(--accent-text);flex:none}
   .search__field input{flex:1;min-width:0;height:60px;border:0;background:transparent;color:var(--text);font:inherit;font-size:1.1rem;outline:none}
@@ -171,8 +171,4 @@ const S = T[lang].search;
   .search__status:not(.is-empty){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .search__keys{margin:0;padding:10px 16px;border-top:1px solid var(--line);font:500 .75rem var(--mono);color:var(--text-2)}
   @media (max-width:600px){.search{margin-top:10px}.search__keys{display:none}.search__box{max-height:calc(100dvh - 24px)}}
-  .motion .search[open] .search__box{animation:search-in .28s var(--ease-out)}
-  .motion .search[open]::backdrop{animation:fade-in .2s ease-out}
-  @keyframes search-in{from{opacity:0;transform:translateY(-10px) scale(.98)}}
-  @keyframes fade-in{from{opacity:0}}
 </style>

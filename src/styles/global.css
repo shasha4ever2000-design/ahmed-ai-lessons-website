@@ -283,7 +283,8 @@ section.block{padding-block:clamp(56px,8vw,104px)}
 .chat__status:empty{display:none}
 .chat--away{display:none}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+/* Reduced motion keeps gentle feedback: things fade instead of moving, slide or bounce. */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-property:opacity,color,background-color,border-color!important;transition-duration:.2s!important;transition-delay:0s!important;scroll-behavior:auto!important}}
 
 /* Prompt blanks: "[topic]" in a prompt becomes a box to type in (lessons and My prompts). */
 .blank{display:inline-block;min-width:3.5em;padding:0 .35em;margin:0 .1em;border-radius:6px;background:var(--accent-soft);border-bottom:2px dashed var(--accent);color:var(--text);font-weight:600;line-height:1.5;outline:none;white-space:pre-wrap;cursor:text;transition:background .2s,border-color .2s}

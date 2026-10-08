@@ -177,7 +177,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   .motion-ready .lesson-section:not(.is-in) .lesson-h2::before{transform:scaleX(0)}
   .done-toggle[aria-pressed=true] .done-toggle__box{animation:done-pop .55s var(--ease-spring)}
   .time-left{margin:0;padding:0 4px;font-size:.82rem;color:var(--text-2)}
-  .resume-pill{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);background:var(--surface);color:var(--text);font:inherit;font-weight:600;box-shadow:0 12px 40px rgb(0 0 0 / .35);cursor:pointer;transition:opacity .35s,transform .35s;max-width:calc(100vw - 150px)}
+  .resume-pill{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);color:var(--text);font:inherit;font-weight:600;cursor:pointer;transition:opacity .35s,transform var(--spring-t) var(--spring);max-width:calc(100vw - 150px)}
   .resume-pill svg{width:18px;height:18px;color:var(--accent-text);flex:none}
   .resume-pill.is-gone{opacity:0;transform:translate(-50%,16px)}
   .motion .resume-pill:not([hidden]){animation:pill-in .5s var(--ease-spring) .6s both}

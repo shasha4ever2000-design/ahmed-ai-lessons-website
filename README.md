@@ -19,6 +19,7 @@ npm run build    # static site in dist/
 | Interface text in both languages (menus, homepage, buttons) | `src/i18n.ts` |
 | Glossary, AI tool library, FAQ, Finance and Microsoft 365 pages | `src/data/site-data.json` |
 | Colours, fonts, lesson styles | `src/styles/global.css` |
+| Press feedback, springs, frosted panels, type spacing, accessibility settings | `src/styles/polish.css`; gesture springs in `src/domains/motion/spring.ts` |
 | Homepage, lesson page, lists | `src/components/` |
 | 3D lattice room (adapts to the device; slow devices keep a still frame) | `src/domains/scenes/lattice.ts` |
 | Animation, saved progress, search logic | `src/domains/` (motion, learning, search, scenes) |
