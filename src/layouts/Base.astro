@@ -5,6 +5,7 @@ import '../styles/motion.css';
 import '../styles/polish.css';
 import { T, SITE, otherPath, SOCIALS, type Lang } from '../i18n';
 import Search from '../components/Search.astro';
+import Shortcuts from '../components/Shortcuts.astro';
 
 interface Props {
   lang: Lang;
@@ -119,9 +120,10 @@ const current = Astro.url.pathname;
         <div><h2>{t.foot.learn}</h2><ul role="list">{t.foot.links.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul></div>
         <div><h2>{t.foot.site}</h2><ul role="list">{t.foot.links2.map(([l, h]) => <li><a href={h}>{l}</a></li>)}<li><a href={other} lang={lang === 'en' ? 'ar' : 'en'}>{t.langSwitch}</a></li></ul></div>
       </div>
-      <div class="foot-legal"><span>{t.foot.legal}</span><span>© 2026 {t.name} · <a href="#main">{t.foot.top}</a></span></div>
+      <div class="foot-legal"><span>{t.foot.legal}</span><span><span class="keys-hint"><button type="button" class="link-btn" data-keys-open>{t.keys.hint}</button> · </span>© 2026 {t.name} · <a href="#main">{t.foot.top}</a></span></div>
     </div>
   </footer>
+  <Shortcuts lang={lang} />
 
   <script>
     import '../scripts/site.ts';

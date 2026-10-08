@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+// Select a few words in a lesson and a small bar appears next to them: ask ChatGPT or Claude
+// to explain that part in simple words (the lesson's name goes along for context), or copy it.
+import { T, fill, type Lang } from '../i18n';
+import { ASSISTANTS } from '../domains/prompts/handoff';
+interface Props { lang: Lang; title: string }
+const { lang, title } = Astro.props;
+const A = T[lang].ai;
+---
+<div class="ask-sel" id="ask-sel" role="toolbar" aria-label={A.bar} hidden data-prompt={A.explainPrompt} data-title={title} data-copied={A.copiedSel}>
+  <span class="ask-sel__lead"><Icon name="sparkle" weight="fill" />{A.explain}</span>
+  {ASSISTANTS.map(x => <a class="ask-sel__btn" data-ai={x.id} href={x.url('')} target="_blank" rel="noopener noreferrer" aria-label={fill(A.explainIn, { a: x.name })}>{x.name}</a>)}
+  <span class="ask-sel__sep" aria-hidden="true"></span>
+  <button type="button" class="ask-sel__btn" id="ask-sel-copy"><Icon name="copy" /><span>{A.copySel}</span></button>
+  <span class="visually-hidden" role="status" id="ask-sel-status"></span>
+</div>
+
+<script>
+  import { handoffUrl, type AssistantId } from '../domains/prompts/handoff';
+  const bar = document.getElementById('ask-sel')!;
+  const body = document.querySelector<HTMLElement>('.lesson-body');
+  if (body) {
+    const copyBtn = document.getElementById('ask-sel-copy')!;
+    const copyLabel = copyBtn.querySelector('span')!;
+    const status = document.getElementById('ask-sel-status')!;
+    let text = '', range: Range | null = null, touch = false, t = 0;
+
+    // Keep the selection while the bar is pressed: a press would otherwise clear it before the click lands.
+    bar.addEventListener('pointerdown', e => e.preventDefault());
+    addEventListener('pointerdown', e => { touch = e.pointerType === 'touch'; }, { capture: true });
+
+    const hide = () => { if (!bar.hidden) { bar.classList.remove('is-on'); bar.hidden = true; } range = null; };
+    function place() {
+      if (!range) return;
+      const r = range.getBoundingClientRect();
+      if (!r.width && !r.height) return hide();
+      const w = bar.offsetWidth, h = bar.offsetHeight, m = 8;
+      const head = (document.querySelector<HTMLElement>('.site-head')?.offsetHeight || 64) + m;
+      // Scrolled out of sight: step aside until the words come back.
+      bar.classList.toggle('is-away', r.bottom < head || r.top > innerHeight);
+      // Above the words with a mouse; below them on touch, where the phone's own menu sits on top.
+      const below = touch || r.top - h - 12 < head;
+      const top = Math.min(Math.max(below ? r.bottom + 12 : r.top - h - 12, head), innerHeight - h - m);
+      const left = Math.min(Math.max(r.left + r.width / 2 - w / 2, m), innerWidth - w - m);
+      bar.style.top = `${Math.round(top)}px`;
+      bar.style.left = `${Math.round(left)}px`;
+      bar.style.setProperty('--ox', `${Math.round(r.left + r.width / 2 - left)}px`);
+      bar.dataset.side = below ? 'below' : 'above';
+    }
+    function check() {
+      const sel = getSelection();
+      if (!sel || sel.isCollapsed || !sel.rangeCount) return hide();
+      const r = sel.getRangeAt(0);
+      const node = r.commonAncestorContainer instanceof Element ? r.commonAncestorContainer : r.commonAncestorContainer.parentElement;
+      // Only lesson text: not the blanks you type into, and not the buttons and lists at the end.
+      if (!node || !body!.contains(node) || node.closest('[contenteditable], .lesson-end, button')) return hide();
+      const s = sel.toString().replace(/\s+/g, ' ').trim();
+      if (s.length < 3 || s.length > 1500) return hide();
+      text = s; range = r.cloneRange();
+      const wasHidden = bar.hidden;
+      bar.hidden = false;
+      place();
+      if (wasHidden) requestAnimationFrame(() => bar.classList.add('is-on'));
+    }
+    // With a mouse, wait until the button is released; on touch, wait until the handles stop moving.
+    document.addEventListener('selectionchange', () => { clearTimeout(t); t = window.setTimeout(() => { if (touch || bar.hidden === false) check(); }, touch ? 450 : 120); });
+    document.addEventListener('pointerup', () => { if (!touch) setTimeout(check, 10); });
+    document.addEventListener('keyup', e => { if (e.shiftKey || e.key === 'Shift') check(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !bar.hidden) hide(); });
+    addEventListener('scroll', place, { passive: true });
+    addEventListener('resize', place, { passive: true });
+
+    bar.querySelectorAll<HTMLAnchorElement>('a[data-ai]').forEach(a => {
+      const fresh = () => { a.href = handoffUrl(a.dataset.ai as AssistantId, bar.dataset.prompt!.replace('{t}', () => bar.dataset.title!).replace('{s}', () => text)); };
+      ['pointerdown', 'focus', 'click'].forEach(ev => a.addEventListener(ev, fresh));
+    });
+    copyBtn.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(text); } catch (e) { return; }
+      const was = copyLabel.textContent;
+      copyLabel.textContent = status.textContent = bar.dataset.copied!;
+      setTimeout(() => { copyLabel.textContent = was; status.textContent = ''; }, 1400);
+    });
+  }
+</script>
+
+<style is:global>
+  .ask-sel{position:fixed;z-index:60;top:0;left:0;display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;border:1px solid var(--line-2);background:var(--material-thick,var(--surface));backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);box-shadow:var(--material-edge,none),0 18px 40px -12px rgb(24 14 6 / .5);font-size:.86rem;white-space:nowrap}
+  .ask-sel[hidden]{display:none}
+  .ask-sel.is-away{opacity:0;pointer-events:none}
+  .ask-sel__lead{display:inline-flex;align-items:center;gap:5px;padding:0 6px 0 8px;font-weight:600;color:var(--accent-text)}
+  .ask-sel__lead svg{width:15px;height:15px}
+  .ask-sel__btn{display:inline-flex;align-items:center;gap:5px;min-height:34px;padding:0 12px;border-radius:999px;border:0;background:transparent;color:var(--text);font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+  .ask-sel__btn:hover,.ask-sel__btn:focus-visible{background:var(--accent-soft)}
+  .ask-sel__btn svg{width:15px;height:15px}
+  .ask-sel__sep{width:1px;height:20px;background:var(--line-2);margin:0 2px}
+  .motion .ask-sel{transform-origin:var(--ox,50%) 100%;transition:opacity .16s ease,transform var(--spring-fast,.4s) var(--spring,ease)}
+  .motion .ask-sel[data-side=below]{transform-origin:var(--ox,50%) 0}
+  .motion .ask-sel:not(.is-on){opacity:0;transform:scale(.88)}
+  @media (prefers-reduced-transparency:reduce),(prefers-contrast:more){.ask-sel{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}}
+  @media print{.ask-sel{display:none!important}}
+</style>

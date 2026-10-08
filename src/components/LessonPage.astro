@@ -7,6 +7,8 @@ import Newsletter from './Newsletter.astro';
 import LessonPromptTools from './LessonPromptTools.astro';
 import TermPops from './TermPops.astro';
 import TocSheet from './TocSheet.astro';
+import Listen from './Listen.astro';
+import AskSelection from './AskSelection.astro';
 
 import { T, SITE, fill, pre, formatDate, type Lang } from '../i18n';
 
@@ -110,6 +112,8 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   <LessonPromptTools lang={lang} slug={d.slug} title={d.title} />
   <TermPops lang={lang} />
   <TocSheet lang={lang} toc={d.toc} />
+  <Listen lang={lang} />
+  <AskSelection lang={lang} title={d.title} />
   <Newsletter lang={lang} compact />
 </Base>
 

@@ -1,0 +1,130 @@
+---
+import Icon from './Icon.astro';
+// "Listen": the lesson read aloud by the device's own voice. A button in the sidebar starts it
+// from where you are on the page; a small player floats at the bottom while it reads.
+// It only appears when the device has a voice for the page language.
+import { T, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const S = T[lang].listen;
+---
+<button type="button" class="listen-btn" id="listen-btn" hidden aria-label={S.btnLabel} aria-pressed="false">
+  <Icon name="headphones" /><span>{S.btn}</span>
+</button>
+<div class="listen" id="listen" role="region" aria-label={S.player} hidden data-lang={lang} data-now={S.now} data-play={S.play} data-pause={S.pause} data-speed={S.speed}>
+  <div class="listen__bar" aria-hidden="true"><span></span></div>
+  <button type="button" class="listen__b" id="listen-back" aria-label={S.back}><Icon name="skip-back" weight="fill" /></button>
+  <button type="button" class="listen__b listen__b--main" id="listen-toggle" aria-label={S.pause}><Icon name="pause" weight="fill" class="i-pause" /><Icon name="play" weight="fill" class="i-play" /></button>
+  <button type="button" class="listen__b" id="listen-fwd" aria-label={S.fwd}><Icon name="skip-forward" weight="fill" /></button>
+  <button type="button" class="listen__rate mono" id="listen-rate" aria-label={S.speed.replace('{s}', '1×')}>1×</button>
+  <span class="listen__now mono" id="listen-now" aria-hidden="true"></span>
+  <button type="button" class="listen__b" id="listen-stop" aria-label={S.stop}><Icon name="x" /></button>
+  <p class="visually-hidden" role="status" id="listen-status"></p>
+</div>
+
+<script>
+  import { Reader, loadVoices, pickVoice, readableParts } from '../domains/listen/reader';
+  import { motion } from '../domains/motion/kernel';
+  const btn = document.getElementById('listen-btn') as HTMLButtonElement;
+  const box = document.getElementById('listen')!;
+  const cfg = box.dataset;
+  const body = document.querySelector<HTMLElement>('.lesson-body');
+
+  (async () => {
+    if (!body || !('speechSynthesis' in window)) return;
+    const voice = pickVoice(await loadVoices(), cfg.lang as 'en' | 'ar');
+    if (!voice) return;
+    // Sit under the text-size buttons in the sidebar.
+    document.querySelector('.lesson-aside .text-size')?.after(btn);
+    btn.hidden = false;
+
+    let reader: Reader | null = null;
+    let lastUserScroll = 0, autoScroll = false;
+    addEventListener('scroll', () => { if (!autoScroll) lastUserScroll = Date.now(); }, { passive: true });
+    const $ = (id: string) => document.getElementById(id)!;
+    const toggle = $('listen-toggle'), rate = $('listen-rate'), now = $('listen-now'), status = $('listen-status');
+    const fill = box.querySelector<HTMLElement>('.listen__bar span')!;
+    let lit: HTMLElement | undefined;
+
+    // Start from the first part that's on screen, so it picks up where you are reading.
+    const firstVisible = (parts: HTMLElement[]) => Math.max(0, parts.findIndex(p => p.getBoundingClientRect().bottom > 90));
+
+    function start() {
+      if (!reader) {
+        reader = new Reader(readableParts(body!), voice!);
+        reader.subscribe(s => {
+          box.classList.toggle('is-playing', s.playing);
+          toggle.setAttribute('aria-label', s.playing ? cfg.pause! : cfg.play!);
+          btn.setAttribute('aria-pressed', String(!box.hidden));
+          now.textContent = `${s.index + 1}/${s.total}`;
+          fill.style.transform = `scaleX(${(s.index + 1) / s.total})`;
+          rate.textContent = `${s.rate}×`;
+          rate.setAttribute('aria-label', cfg.speed!.replace('{s}', `${s.rate}×`));
+          const el = reader!.part(s.index);
+          if (el !== lit) { lit?.classList.remove('is-speaking'); lit = el; }
+          el.classList.toggle('is-speaking', !box.hidden);
+          // Keep the part being read on screen, unless the reader has just scrolled somewhere on purpose.
+          const r = el.getBoundingClientRect();
+          if (s.playing && Date.now() - lastUserScroll > 4000 && (r.top < 80 || r.bottom > innerHeight - 110)) {
+            autoScroll = true;
+            el.scrollIntoView({ block: 'center', behavior: motion.allowed ? 'smooth' : 'auto' });
+            setTimeout(() => (autoScroll = false), 900);
+          }
+        });
+      }
+      box.hidden = false;
+      document.getElementById('resume')?.setAttribute('hidden', '');
+      requestAnimationFrame(() => box.classList.add('is-on'));
+      reader.play(reader.state.index || firstVisible(readableParts(body!)));
+      status.textContent = cfg.now!.replace('{i}', String(reader.state.index + 1)).replace('{n}', String(reader.state.total));
+    }
+    function stop() {
+      reader?.stop();
+      lit?.classList.remove('is-speaking');
+      box.classList.remove('is-on');
+      setTimeout(() => (box.hidden = true), motion.allowed ? 250 : 0);
+      btn.setAttribute('aria-pressed', 'false');
+      btn.focus();
+    }
+    btn.addEventListener('click', () => (box.hidden ? start() : reader?.toggle()));
+    toggle.addEventListener('click', () => reader?.toggle());
+    $('listen-back').addEventListener('click', () => reader?.step(-1));
+    $('listen-fwd').addEventListener('click', () => reader?.step(1));
+    rate.addEventListener('click', () => reader?.cycleRate());
+    $('listen-stop').addEventListener('click', stop);
+    // Never keep talking after leaving the page.
+    addEventListener('pagehide', () => speechSynthesis.cancel());
+  })();
+</script>
+
+<style is:global>
+  .listen-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--line);background:transparent;color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+  .listen-btn[hidden]{display:none}
+  .listen-btn svg{width:18px;height:18px;color:var(--accent-text)}
+  .listen-btn:hover,.listen-btn[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+  .listen{position:fixed;z-index:45;bottom:max(18px,env(safe-area-inset-bottom));left:50%;display:flex;align-items:center;gap:2px;padding:6px 8px;border-radius:999px;border:1px solid var(--line-2);background:var(--material-thick,var(--surface));backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);box-shadow:var(--material-edge,none),0 24px 60px -12px rgb(24 14 6 / .55);transform:translateX(-50%);overflow:hidden}
+  .listen[hidden]{display:none}
+  /* Playback controls keep their usual order in Arabic too, like any media player. */
+  .listen{direction:ltr}
+  .listen__bar{position:absolute;inset:auto 18px 0;height:2px;background:var(--line)}
+  .listen__bar span{display:block;height:100%;background:var(--accent);transform-origin:var(--start,left) center;transform:scaleX(0);transition:transform .4s var(--ease-out,ease)}
+  [dir=rtl] .listen__bar span{transform-origin:right center}
+  .listen__b{width:44px;height:44px;border-radius:999px;border:0;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer}
+  .listen__b:hover,.listen__b:focus-visible{background:var(--accent-soft)}
+  .listen__b svg{width:20px;height:20px}
+  .listen__b--main{width:48px;height:48px;background:var(--accent);color:#1b1006}
+  .listen__b--main:hover,.listen__b--main:focus-visible{background:var(--accent);filter:brightness(1.08)}
+  .listen__b--main svg{width:22px;height:22px}
+  .listen .i-play,.listen.is-playing .i-pause{display:block}
+  .listen .i-pause,.listen.is-playing .i-play{display:none}
+  .listen__rate{min-width:48px;height:36px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:.85rem;cursor:pointer;margin:0 4px}
+  .listen__now{font-size:.78rem;color:var(--text-2);min-width:42px;text-align:center}
+  .is-speaking{background:color-mix(in srgb,var(--accent) 16%,transparent);border-radius:6px;box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 16%,transparent);transition:background .3s,box-shadow .3s}
+  .motion .listen{transition:opacity .2s,transform var(--spring-t,.5s) var(--spring,ease)}
+  .motion .listen:not(.is-on){opacity:0;transform:translate(-50%,24px)}
+  /* On phones the round chat and contents buttons sit in the bottom corners: float above them. */
+  @media (max-width:600px){.listen{bottom:max(84px,calc(env(safe-area-inset-bottom) + 66px))}}
+  @media (max-width:420px){.listen__now{display:none}.listen{gap:0;padding:5px 6px}}
+  @media (prefers-reduced-transparency:reduce),(prefers-contrast:more){.listen{background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}}
+  @media print{.listen,.listen-btn{display:none!important}.is-speaking{background:none;box-shadow:none}}
+</style>

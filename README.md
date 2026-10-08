@@ -29,6 +29,11 @@ npm run build    # static site in dist/
 | Glossary pop-ups inside lessons (which words, extra spellings) | `src/components/TermPops.astro` |
 | Phone "On this page" button | `src/components/TocSheet.astro` |
 | Offline reading (lessons you open are kept on the device; offline page lists them) | `public/sw.js`, `src/pages/offline.astro` |
+| "Try it in ChatGPT / Claude" on prompt cards (prompt, with filled blanks, sent in the link) | `src/domains/prompts/handoff.ts`, `src/components/LessonPromptTools.astro` |
+| Select text in a lesson to ask AI to explain it, or copy it | `src/components/AskSelection.astro` |
+| Listen: lesson read aloud by the device voice, with highlight, skip and speed | `src/domains/listen/reader.ts`, `src/components/Listen.astro` |
+| Keyboard shortcuts (`?` shows them) | `src/components/Shortcuts.astro` |
+| Page transitions (cross-fade; a lesson card's title travels into the lesson) | `src/styles/polish.css`, `src/scripts/site.ts` |
 | Site search (button, `/` or Ctrl+K) | `src/components/Search.astro`; index built by `src/pages/search/[lang].json.ts` |
 | App icon and install details | `public/manifest.webmanifest`, `public/media/icon-*.png`, `public/favicon.svg` |
 | Standalone tools (Prompt Grader, quiz, time saved, certificate, prompt of the day, Prompt Library, links) | `public/*.html`, styled by `public/ahl-theme.css` |

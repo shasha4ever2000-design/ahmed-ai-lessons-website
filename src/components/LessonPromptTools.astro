@@ -2,15 +2,18 @@
 import Icon from './Icon.astro';
 // Prompt cards in a lesson get two extras: blanks you can type into, and a Save button
 // that adds the prompt to "My prompts". The lesson HTML stays as written; this adds to it.
-import { T, pre, type Lang } from '../i18n';
+import { T, pre, fill, type Lang } from '../i18n';
+import { ASSISTANTS } from '../domains/prompts/handoff';
 interface Props { lang: Lang; slug: string; title: string }
 const { lang, slug, title } = Astro.props;
 const P = T[lang].prompts;
+const A = T[lang].ai;
 ---
 <template id="icon-save"><Icon name="bookmark-simple" class="i-off" /><Icon name="bookmark-simple" weight="fill" class="i-on" /></template>
 <div id="prompt-tools" hidden data-lang={lang} data-slug={slug} data-title={title}
   data-blank={P.blank} data-hint={P.fillHint} data-clear={P.clear} data-save={P.save} data-saved={P.saved} data-save-label={P.saveLabel}
   data-saved-toast={P.savedToast} data-removed-toast={P.removedToast}></div>
+<div id="try-in" hidden><p class="try-in"><span class="try-in__lead">{A.tryIn}</span>{ASSISTANTS.map(x => <a class="try-in__a" data-ai={x.id} href={x.url('')} target="_blank" rel="noopener noreferrer" aria-label={fill(A.openIn, { a: x.name })}>{x.name}<Icon name="arrow-square-out" /></a>)}</p></div>
 <div class="prompt-download" id="prompt-download" hidden>
   <button type="button" class="btn btn--line" id="prompt-download-btn"><Icon name="download-simple" class="icon" />{P.download}</button>
   <p>{P.downloadNote}</p>
@@ -24,6 +27,7 @@ const P = T[lang].prompts;
   import { isSaved, toggleSaved, savedPrompts } from '../domains/prompts/saved';
   import { on } from '../domains/shared/events';
   import { toast } from '../domains/scenes/toast';
+  import { handoffUrl, type AssistantId } from '../domains/prompts/handoff';
 
   const cfg = document.getElementById('prompt-tools')!.dataset;
   const body = document.querySelector<HTMLElement>('.lesson-body')!;
@@ -65,6 +69,16 @@ const P = T[lang].prompts;
     on('prompts:saved-changed', e => { if (e.id === id) paint(); });
     const copy = head.querySelector('.copy-btn');
     copy ? copy.before(save) : head.append(save);
+
+    // "Try it in ChatGPT / Claude": opens a new chat with the prompt as it would be copied,
+    // so whatever was typed into the blanks goes along. The address is built when it's used.
+    const tryIn = document.querySelector('#try-in .try-in')!.cloneNode(true) as HTMLElement;
+    tryIn.querySelectorAll<HTMLAnchorElement>('a').forEach(a => {
+      const fresh = () => { a.href = handoffUrl(a.dataset.ai as AssistantId, textWithBlanks(text)); };
+      ['pointerdown', 'focus', 'click'].forEach(ev => a.addEventListener(ev, fresh));
+      fresh();
+    });
+    text.after(tryIn);
   });
   syncBlanks(body);
 
@@ -104,6 +118,13 @@ const P = T[lang].prompts;
   .save-btn .i-on,.save-btn[aria-pressed=true] .i-off{display:none}
   .save-btn[aria-pressed=true] .i-on{display:inline}
   .compare__col--strong .blank-hint{padding-inline:0;border:0}
+  .try-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:0;padding:10px 18px 14px;font-size:.85rem;color:var(--text-2)}
+  .compare__col--strong .try-in{padding-inline:0;padding-bottom:0}
+  .try-in__lead{margin-inline-end:2px}
+  .try-in__a{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);color:var(--text);text-decoration:none;font-weight:600;transition:border-color .2s,background .2s}
+  .try-in__a:hover,.try-in__a:focus-visible{border-color:var(--accent);background:var(--accent-soft)}
+  .try-in__a svg{width:14px;height:14px;color:var(--accent-text)}
+  [dir=rtl] .try-in__a svg{transform:scaleX(-1)}
   .prompt-download{display:grid;gap:6px;justify-items:start}
   .prompt-download[hidden]{display:none}
   .prompt-download p{margin:0;font-size:.88rem;color:var(--text-2)}
@@ -111,5 +132,5 @@ const P = T[lang].prompts;
   .my-prompts-link[hidden]{display:none}
   .my-prompts-link svg{width:18px;height:18px;color:var(--accent-text)}
   .my-prompts-link:hover{border-color:var(--accent)}
-  @media print{.save-btn,.blank-hint,.my-prompts-link{display:none!important}.blank{background:none;border:0;padding:0}.blank:empty::before{content:"[" attr(data-ph) "]";color:inherit}}
+  @media print{.save-btn,.blank-hint,.my-prompts-link,.try-in{display:none!important}.blank{background:none;border:0;padding:0}.blank:empty::before{content:"[" attr(data-ph) "]";color:inherit}}
 </style>

@@ -1,0 +1,62 @@
+---
+// Keyboard shortcuts for people on a computer. "?" shows the list. Keys are read by their
+// position on the keyboard, so they work the same with an Arabic layout.
+import { T, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const K = T[lang].keys;
+---
+<dialog class="keys" id="keys" aria-labelledby="keys-h">
+  <div class="keys__head">
+    <h2 id="keys-h">{K.title}</h2>
+    <button type="button" class="icon-btn keys__x" aria-label={K.close} data-close>×</button>
+  </div>
+  <dl class="keys__list">{K.list.map(([k, v]) => <div><dt><kbd>{k}</kbd></dt><dd>{v}</dd></div>)}</dl>
+</dialog>
+
+<script>
+  const dlg = document.getElementById('keys') as HTMLDialogElement;
+  dlg.querySelector('[data-close]')!.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  document.querySelectorAll('[data-keys-open]').forEach(b => b.addEventListener('click', () => dlg.showModal()));
+  const click = (sel: string) => { const el = document.querySelector<HTMLElement>(sel); if (el && !el.closest('[hidden]') && !(el as HTMLButtonElement).hidden) { el.click(); return true; } return false; };
+  document.addEventListener('keydown', e => {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    const t = e.target as HTMLElement;
+    if (t.closest('input, textarea, select, [contenteditable]:not([contenteditable=false])')) return;
+    if (document.querySelector('dialog[open]:not(#keys), :popover-open')) return;
+    if (e.key === '?' || e.key === '؟') { e.preventDefault(); dlg.open ? dlg.close() : dlg.showModal(); return; }
+    if (e.shiftKey) return;
+    const done = ({
+      KeyN: () => click('a[rel=next]'),
+      KeyP: () => click('a[rel=prev]'),
+      KeyD: () => click('.lesson-aside .done-toggle'),
+      KeyL: () => click('#listen-btn'),
+      KeyT: () => click('#theme-btn'),
+    } as Record<string, () => boolean>)[e.code]?.();
+    if (done) { e.preventDefault(); if (dlg.open) dlg.close(); }
+  });
+</script>
+
+<style is:global>
+  .keys{width:min(420px,calc(100vw - 32px));padding:22px 24px 24px;border-radius:20px;border:1px solid var(--line-2);background:var(--material-thick,var(--surface));backdrop-filter:blur(30px) saturate(170%);-webkit-backdrop-filter:blur(30px) saturate(170%);color:var(--text);box-shadow:var(--material-edge,none),0 30px 80px -20px rgb(24 14 6 / .6)}
+  .keys::backdrop{background:rgb(10 7 5 / .5)}
+  .keys__head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .keys__head h2{font-size:1.3rem;margin:0}
+  .keys__x{font-size:1.4rem;line-height:1}
+  .keys__list{display:grid;gap:4px;margin:0}
+  .keys__list div{display:flex;align-items:center;gap:14px;padding:8px 4px;border-bottom:1px solid var(--line)}
+  .keys__list div:last-child{border-bottom:0}
+  .keys__list dt{min-width:40px}
+  .keys__list dd{margin:0;color:var(--text-2)}
+  kbd{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 8px;border-radius:8px;border:1px solid var(--line-2);border-bottom-width:2px;background:var(--surface-2);font:600 .85rem/1 var(--mono,monospace);color:var(--text)}
+  .motion .keys{transition:opacity .2s ease,transform var(--spring-fast,.4s) var(--spring,ease),display .3s allow-discrete,overlay .3s allow-discrete}
+  .motion .keys:not([open]){opacity:0;transform:scale(.96)}
+  @starting-style{.motion .keys[open]{opacity:0;transform:scale(.96)}}
+  .motion .keys::backdrop{transition:opacity .25s ease,display .3s allow-discrete,overlay .3s allow-discrete}
+  .motion .keys:not([open])::backdrop{opacity:0}
+  @starting-style{.motion .keys[open]::backdrop{opacity:0}}
+  .keys-hint{display:none}
+  .link-btn{border:0;background:none;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  @media (hover:hover) and (pointer:fine){.keys-hint{display:inline}}
+</style>
