@@ -11,5 +11,5 @@ const H = heading;
   <H><a href={`${pre(lang)}/lessons/${d.slug}/`}>{d.title}</a></H>
   <p>{d.summary}</p>
   <p class="card__meta"><span>{fill(t.lesson.n, { n: d.number })}</span><span>{fill(t.lesson.read, { n: d.minutes })}</span><span>{d.level}</span></p>
-  <span class="card__done" hidden aria-label={t.lesson.isDone}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+  <span class="card__done" hidden role="img" aria-label={t.lesson.isDone}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
 </article>

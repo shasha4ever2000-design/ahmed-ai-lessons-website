@@ -12,9 +12,18 @@ const TIMES = [
   { c: 0xff7a6a, sky: 0xe58a6e, p: [6, 3.5, -9], i: 2.4 },  // dusk
 ];
 
+// Quality tier from what the device tells us. Small or modest devices get fewer pixels and softer shadows.
+function tier() {
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const small = Math.min(innerWidth, innerHeight) < 600;
+  const modest = (nav.hardwareConcurrency || 8) <= 4 || (nav.deviceMemory || 8) <= 4;
+  return small || modest ? { dpr: 1.25, shadow: 1024, aa: false } : { dpr: 1.75, shadow: 1536, aa: true };
+}
+
 export function createRoom(host: HTMLElement): Room {
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'low-power' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+  const q = tier();
+  const renderer = new THREE.WebGLRenderer({ antialias: q.aa, alpha: false, powerPreference: 'low-power' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, q.dpr));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setClearColor(0x16100c);
@@ -71,7 +80,7 @@ export function createRoom(host: HTMLElement): Room {
   sky.position.set(0, 4, -6); scene.add(sky);
   scene.add(new THREE.AmbientLight(0x6a4a33, 1.3));
   const sun = new THREE.SpotLight(0xfff0d0, SUN * 3.4, 40, 0.55, 0.35, 1.2);
-  sun.castShadow = true; sun.shadow.mapSize.set(1536, 1536); sun.shadow.bias = -0.0006; sun.shadow.camera.near = 1; sun.shadow.camera.far = 40;
+  sun.castShadow = true; sun.shadow.mapSize.set(q.shadow, q.shadow); sun.shadow.bias = -0.0006; sun.shadow.camera.near = 1; sun.shadow.camera.far = 40;
   sun.position.set(-1, 10, -8); sun.target.position.set(0.6, -1.6, 5); scene.add(sun, sun.target);
 
   // Dust in the beam
@@ -81,10 +90,14 @@ export function createRoom(host: HTMLElement): Room {
   const dust = new THREE.Points(dg, new THREE.PointsMaterial({ color: 0xffd9a0, size: 0.035, transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending }));
   scene.add(dust);
 
-  let want = TIMES[1], sx = 0, sy = 0, light = 1, running = false, last = performance.now();
+  let want = TIMES[1], sx = 0, sy = 0, light = 1, running = false, last = performance.now(), drawn = 0;
+  // Frame pacing: about 30 frames a second is plenty for drifting dust and a moving sun,
+  // and it halves the work. If the device still can't keep up, stop and keep the still frame.
+  const FRAME = 1000 / 30;
+  let slow = 0, frames = 0, gaveUp = false, lastInput = performance.now(), prevTick = 0;
   const tc = new THREE.Color();
   const skyBase = new THREE.Color();
-  host.addEventListener('pointermove', e => { const b = host.getBoundingClientRect(); sx = ((e.clientX - b.left) / b.width - 0.5) * 4; sy = ((e.clientY - b.top) / b.height - 0.5) * -2; });
+  host.addEventListener('pointermove', e => { lastInput = performance.now(); const b = host.getBoundingClientRect(); sx = ((e.clientX - b.left) / b.width - 0.5) * 4; sy = ((e.clientY - b.top) / b.height - 0.5) * -2; });
 
   function size() {
     const w = host.clientWidth, h = host.clientHeight;
@@ -108,25 +121,35 @@ export function createRoom(host: HTMLElement): Room {
     dust.material.opacity = 0.08 + 0.55 * light;
   }
   function frame(now: number) {
-    if (!running) return;
-    const dt = Math.min((now - last) / 1000, 0.05); last = now;
+    if (!running || gaveUp) return;
+    // Watch the first dozen frames: if the browser can't even call us 15 times a second
+    // (the GPU work lands between calls), this device keeps the last frame as a still picture.
+    if (frames < 12) {
+      if (prevTick && frames++ && now - prevTick > 66) slow++;
+      prevTick = now;
+      if (frames === 12 && slow >= 5) { gaveUp = true; running = false; host.dataset.still = "slow"; return; }
+    }
+    requestAnimationFrame(frame);
+    // After a quiet spell with nothing to move toward, slow down to save battery.
+    const idle = now - lastInput > 12000;
+    if (now - drawn < (idle ? FRAME * 2 : FRAME) - 2) return;
+    const dt = Math.min((now - last) / 1000, 0.07); last = now; drawn = now;
     step(Math.min(1, dt * 2.2));
     const a = dg.attributes.position.array as Float32Array;
     for (let i = 0; i < N; i++) { a[i * 3 + 1] += dt * 0.05 * Math.sin(now / 1700 + i); a[i * 3] += dt * 0.03 * Math.cos(now / 2300 + i * 1.3); if (a[i * 3 + 1] > 4.6) a[i * 3 + 1] = -1.4; }
     dg.attributes.position.needsUpdate = true;
     cam.position.x += (3.2 + sx * 0.25 - cam.position.x) * 0.03; cam.lookAt(0, 0.9, 0);
     renderer.render(scene, cam);
-    requestAnimationFrame(frame);
   }
   // Only animate while the room is on screen.
   new IntersectionObserver(([e]) => {
-    if (e.isIntersecting && !running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
+    if (e.isIntersecting && !running && !gaveUp) { running = true; last = performance.now(); prevTick = 0; requestAnimationFrame(frame); }
     else if (!e.isIntersecting) running = false;
   }).observe(host);
   step(1); renderer.render(scene, cam);
 
   return {
-    setTime(i) { want = TIMES[i] || TIMES[1]; if (!running) { step(1); renderer.render(scene, cam); } },
-    setLight(f) { light = Math.max(0, Math.min(1, f)); if (!running) { step(1); renderer.render(scene, cam); } },
+    setTime(i) { lastInput = performance.now(); want = TIMES[i] || TIMES[1]; if (!running) { step(1); renderer.render(scene, cam); } },
+    setLight(f) { lastInput = performance.now(); light = Math.max(0, Math.min(1, f)); if (!running) { step(1); renderer.render(scene, cam); } },
   };
 }

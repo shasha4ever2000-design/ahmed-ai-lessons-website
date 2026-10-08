@@ -9,6 +9,7 @@ const { entry, lang } = Astro.props;
 const d = entry.data;
 const t = T[lang];
 const L = t.lesson;
+const R = t.resume;
 const p = pre(lang);
 const all = (await getCollection('lessons', l => l.data.lang === lang)).sort((a, b) => a.data.number - b.data.number);
 const i = all.findIndex(l => l.data.slug === d.slug);
@@ -50,6 +51,7 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
           <p id="toc-title" class="small-title">{L.toc}</p>
           <ol role="list">{d.toc.map((x: any) => <li><a href={`#${x.id}`}>{x.label}</a></li>)}</ol>
         </nav>
+        <p class="time-left mono" id="time-left" data-left={R.left} data-end={R.end} data-min={d.minutes}>{fill(R.left, { n: d.minutes })}</p>
         <button type="button" class="done-toggle" aria-pressed="false" data-done={L.done} data-is={L.isDone} set:html={doneBtn}></button>
       </aside>
       <div class="lesson-body" data-copy={L.copy} data-copied={L.copiedBtn} data-copied-sr={L.copiedSr}>
@@ -74,12 +76,16 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
       </div>
     </div>
   </article>
+  <button type="button" class="resume-pill" id="resume" hidden data-t={R.back}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg><span></span>
+  </button>
   <Newsletter lang={lang} compact />
 </Base>
 
 <script>
   import { isDone, toggleLesson } from '../domains/learning/progress';
   import { on } from '../domains/shared/events';
+  import { lastPlace, savePlace, readFraction, scrollForFraction } from '../domains/learning/resume';
   const art = document.querySelector<HTMLElement>('article.lesson')!;
   const slug = art.dataset.slug!;
   const body = document.querySelector<HTMLElement>('.lesson-body')!;
@@ -91,6 +97,33 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   btns.forEach(b => b.addEventListener('click', () => toggleLesson(slug)));
   on('learning:progress-changed', paint);
   paint();
+
+  // Remember how far you read. Coming back later offers a jump to the same spot.
+  const tl = document.getElementById('time-left')!;
+  const mins = +tl.dataset.min!;
+  const before = lastPlace();
+  let saveT = 0;
+  function onRead() {
+    const f = readFraction(art);
+    const left = Math.ceil(mins * (1 - f));
+    tl.textContent = f > 0.97 ? tl.dataset.end! : tl.dataset.left!.replace('{n}', String(Math.max(1, left)));
+    clearTimeout(saveT);
+    // Only once someone has really started reading, so a quick look doesn't replace their real place.
+    saveT = window.setTimeout(() => { if (f > 0.04 || before?.slug === slug) savePlace(slug, f); }, 400);
+  }
+  addEventListener('scroll', onRead, { passive: true });
+  const pill = document.getElementById('resume') as HTMLButtonElement;
+  if (before && before.slug === slug && before.pct > 0.08 && before.pct < 0.95 && !location.hash) {
+    pill.querySelector('span')!.textContent = pill.dataset.t!.replace('{p}', String(Math.round(before.pct * 100)));
+    pill.hidden = false;
+    const hide = () => { pill.classList.add('is-gone'); setTimeout(() => (pill.hidden = true), 400); removeEventListener('scroll', far); };
+    // Hide the offer once the reader scrolls a good way on their own, or after 12 seconds.
+    const far = () => { if (scrollY > innerHeight * 1.5) hide(); };
+    addEventListener('scroll', far, { passive: true });
+    setTimeout(hide, 12000);
+    pill.addEventListener('click', () => { scrollTo({ top: scrollForFraction(art, before.pct), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); hide(); });
+  }
+  onRead();
 
   // Copy buttons on prompt cards and "better prompt" boxes.
   async function copy(text: string) {
@@ -135,5 +168,11 @@ const doneBtn = `<span class="done-toggle__box" aria-hidden="true"></span><span 
   .motion .is-in .lesson-h2::before,.lesson-h2::before{transform:scaleX(1)}
   .motion-ready .lesson-section:not(.is-in) .lesson-h2::before{transform:scaleX(0)}
   .done-toggle[aria-pressed=true] .done-toggle__box{animation:done-pop .55s var(--ease-spring)}
+  .time-left{margin:0;padding:0 4px;font-size:.82rem;color:var(--text-2)}
+  .resume-pill{position:fixed;z-index:40;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);background:var(--surface);color:var(--text);font:inherit;font-weight:600;box-shadow:0 12px 40px rgb(0 0 0 / .35);cursor:pointer;transition:opacity .35s,transform .35s;max-width:calc(100vw - 120px)}
+  .resume-pill svg{width:18px;height:18px;color:var(--accent-text);flex:none}
+  .resume-pill.is-gone{opacity:0;transform:translate(-50%,16px)}
+  .motion .resume-pill:not([hidden]){animation:pill-in .5s var(--ease-spring) .6s both}
+  @keyframes pill-in{from{opacity:0;transform:translate(-50%,24px)}}
   @keyframes done-pop{0%{transform:scale(.5)}60%{transform:scale(1.25)}100%{transform:none}}
 </style>

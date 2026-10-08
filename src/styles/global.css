@@ -90,7 +90,7 @@ section.block{padding-block:clamp(56px,8vw,104px)}
 .brand__name{font:600 1.08rem/1.1 var(--display);display:block}
 .brand__tag{font-size:.78rem;color:var(--muted);display:block;line-height:1.2}
 .nav-links{display:flex;gap:20px;list-style:none;margin:0;padding:0;font-size:.95rem}
-.nav-links a{text-decoration:none;color:var(--text-2)}
+.nav-links a{text-decoration:none;color:var(--text-2);white-space:nowrap}
 .nav-links a:hover,.nav-links a[aria-current=page]{color:var(--text);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
 .head-end{display:flex;align-items:center;gap:8px}
 .icon-btn{display:grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid var(--line-2);background:transparent;cursor:pointer;color:var(--text)}
@@ -284,3 +284,19 @@ section.block{padding-block:clamp(56px,8vw,104px)}
 .chat--away{display:none}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Print / Save as PDF: just the lesson, in dark ink on white, with link addresses written out. */
+@media print{
+  @page{margin:16mm 14mm}
+  :root,[data-theme]{--bg:#fff;--surface:#fff;--surface-2:#f3f0eb;--text:#111;--text-2:#333;--line:#ccc;--line-2:#999;--accent-text:#7a4300;--accent-soft:#fff}
+  body{background:#fff!important;color:#111;font-size:11.5pt}
+  body::before,body::after,.site-head,.site-foot,.newsletter,.lesson-aside,.lesson-end .done-toggle,.share,.pager,.read-bar,.lantern,.resume-pill,.toast,.starburst,.skip,.copy-btn,aside.chat{display:none!important}
+  .lesson-layout{display:block}
+  main{padding:0}
+  .wrap{max-width:none;padding:0}
+  [data-reveal],.lesson-body>section,.lesson-body>figure{opacity:1!important;transform:none!important}
+  .lesson-body a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;color:#555;word-break:break-all}
+  .sheet,.compare__col,.callout,figure{break-inside:avoid}
+  h1,h2,h3{break-after:avoid;color:#111}
+  .sheet,.compare__col,.callout{border:1px solid #bbb!important;background:#fff!important;box-shadow:none!important}
+}

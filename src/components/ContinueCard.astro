@@ -1,0 +1,59 @@
+---
+// "Continue where you stopped": shows the lesson you were reading, how far you got and a link back.
+// Hidden until the script finds an unfinished lesson in this browser's saved place.
+import { getCollection } from 'astro:content';
+import { T, fill, pre, type Lang } from '../i18n';
+interface Props { lang: Lang; compact?: boolean }
+const { lang, compact = false } = Astro.props;
+const t = T[lang], R = t.resume;
+const lessons = await getCollection('lessons', l => l.data.lang === lang);
+const map = Object.fromEntries(lessons.map(l => [l.data.slug, [fill(t.lesson.n, { n: l.data.number }), l.data.title, l.data.minutes]]));
+---
+<a class:list={['continue', { 'continue--compact': compact }]} hidden data-continue data-map={JSON.stringify(map)} data-base={`${pre(lang)}/lessons/`} data-read={R.read} data-left={R.left}>
+  <span class="continue__ring" aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.5" /><circle class="continue__arc" cx="18" cy="18" r="15.5" pathLength="100" /></svg></span>
+  <span class="continue__text">
+    <span class="continue__kicker">{R.h}</span>
+    <span class="continue__title"></span>
+    <span class="continue__meta mono"></span>
+  </span>
+  <span class="continue__go" aria-hidden="true">{R.go} <span class="continue__arrow">→</span></span>
+</a>
+
+<script>
+  import { toContinue } from '../domains/learning/resume';
+  document.querySelectorAll<HTMLAnchorElement>('[data-continue]').forEach(el => {
+    const c = toContinue();
+    const m = c && (JSON.parse(el.dataset.map!) as Record<string, [string, string, number]>)[c.slug];
+    if (!c || !m) return;
+    const [n, title, mins] = m;
+    el.href = el.dataset.base + c.slug + '/';
+    el.querySelector('.continue__title')!.textContent = `${n}: ${title}`;
+    el.querySelector('.continue__meta')!.textContent = `${el.dataset.read!.replace('{p}', String(Math.round(c.pct * 100)))} · ${el.dataset.left!.replace('{n}', String(Math.max(1, Math.ceil(mins * (1 - c.pct)))))}`;
+    el.style.setProperty('--pct', String(Math.max(4, Math.round(c.pct * 100))));
+    el.hidden = false;
+  });
+</script>
+
+<style>
+  .continue{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:var(--radius);border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));background:linear-gradient(100deg,var(--accent-soft),var(--surface) 70%);color:var(--text);text-decoration:none;max-width:560px;transition:border-color .2s,transform .3s var(--ease-out,ease)}
+  .continue[hidden]{display:none}
+  .continue:hover{border-color:var(--accent)}
+  .continue:hover .continue__arrow{transform:translateX(4px)}
+  :global([dir=rtl]) .continue__arrow{display:inline-block;transform:scaleX(-1)}
+  :global([dir=rtl]) .continue:hover .continue__arrow{transform:scaleX(-1) translateX(4px)}
+  .continue__arrow{display:inline-block;transition:transform .3s}
+  .continue__ring{flex:none;width:46px;height:46px}
+  .continue__ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .continue__ring circle{fill:none;stroke:var(--line-2);stroke-width:3.5}
+  .continue__ring .continue__arc{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:var(--pct,0) 100;transition:stroke-dasharray 1s var(--ease-out,ease)}
+  .continue__text{display:grid;gap:2px;min-width:0;flex:1}
+  .continue__kicker{font-size:.8rem;font-weight:600;color:var(--accent-text);text-transform:uppercase;letter-spacing:.05em}
+  :global([dir=rtl]) .continue__kicker{letter-spacing:0}
+  .continue__title{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .continue__meta{font-size:.82rem;color:var(--text-2)}
+  .continue__go{flex:none;font-weight:600;font-size:.92rem;color:var(--accent-text)}
+  .continue--compact{max-width:none}
+  @media (max-width:520px){.continue__go{display:none}.continue__title{white-space:normal}}
+  :global(.motion) .continue:not([hidden]){animation:continue-in .7s var(--ease-out,ease) both}
+  @keyframes continue-in{from{opacity:0;transform:translateY(12px)}}
+</style>

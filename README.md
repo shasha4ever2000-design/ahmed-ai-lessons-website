@@ -20,7 +20,10 @@ npm run build    # static site in dist/
 | Glossary, AI tool library, FAQ, Finance and Microsoft 365 pages | `src/data/site-data.json` |
 | Colours, fonts, lesson styles | `src/styles/global.css` |
 | Homepage, lesson page, lists | `src/components/` |
-| 3D lattice room | `src/scripts/lattice.ts` |
+| 3D lattice room (adapts to the device; slow devices keep a still frame) | `src/domains/scenes/lattice.ts` |
+| Animation, saved progress, search logic | `src/domains/` (motion, learning, search, scenes) |
+| Site search (button, `/` or Ctrl+K) | `src/components/Search.astro`; index built by `src/pages/search/[lang].json.ts` |
+| App icon and install details | `public/manifest.webmanifest`, `public/media/icon-*.png`, `public/favicon.svg` |
 | Standalone tools (Prompt Grader, quiz, time saved, certificate, prompt of the day, Prompt Library, links) | `public/*.html`, styled by `public/ahl-theme.css` |
 | Social links | `src/i18n.ts` (`SOCIALS`) and `public/ahl-links.js` |
 | Chat button settings (tawk.to, WhatsApp) | `public/chat-config.json` |
@@ -33,9 +36,10 @@ npm run build    # static site in dist/
 4. Do the same in `src/content/lessons/ar/` with the same file name.
 5. Add an image for link previews at `public/media/og/en-<slug>.jpg` and `public/media/og/ar-<slug>.jpg` (1200 × 630).
 
-The lessons list, track pages, pager, sitemap and Start Here progress update automatically.
+The lessons list, track pages, pager, sitemap, site search and Start Here progress update automatically.
 
 ## Saved progress
 
 Progress lives in the visitor's browser under the same keys as before, so nobody loses their ticks:
-`ahl:done` (finished lessons), `ahl:cert` (step 1 and certificate details), `ahl:theme` (light or dark).
+`ahl:done` (finished lessons), `ahl:cert` (step 1 and certificate details), `ahl:theme` (light or dark),
+`ahl:last` (the lesson you were reading and how far you got, for "Continue where you stopped").
