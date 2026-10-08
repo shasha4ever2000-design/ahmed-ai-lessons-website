@@ -90,21 +90,21 @@ const T = {
     moreTitle:"Want all 30 prompts now?",moreText:"Browse the full library, or get one lesson a week by email.",
     library:"Open the Prompt Library",newsletter:"Weekly lesson by email",
     error:"Couldn’t load today’s prompt. Check your connection and refresh the page.",
-    other:"العربية",theme:["Light mode","Dark mode"],
+    other:"العربي",theme:["Light mode","Dark mode"],
     foot:"Independent site. Not affiliated with any AI company mentioned here. Examples use made-up data. Follow your company’s AI policy.",
     img:{head:"Prompt of the day",foot:"Ahmed Hussein · AI Lessons",url:"ahmed-ai-lessons-website.vercel.app/today"}},
-  ar:{brand:"أحمد حسين",brandTag:"دروس الذكاء الاصطناعي",kicker:"طلب اليوم",use:"استخدمه عندما:",check:"مراجعتك:",
-    copy:"انسخ الطلب",copied:"تم النسخ",copiedToast:"تم النسخ. املأ الأقواس [ ] قبل الإرسال.",
-    image:"شاركه كصورة",imageDone:"تم حفظ الصورة",shareLink:"شارك الرابط",linkCopied:"تم نسخ الرابط",
-    shareText:t=>`طلب اليوم للعمل بالذكاء الاصطناعي: ${t}`,
-    next:"طلب جديد كل يوم عند منتصف الليل بتوقيت الرياض.",
-    week:"طلبات هذا الأسبوع",today:"اليوم",
-    moreTitle:"تريد الطلبات الثلاثين الآن؟",moreText:"تصفّح المكتبة كاملة، أو احصل على درس أسبوعي بالإيميل.",
-    library:"افتح مكتبة الطلبات",newsletter:"الدرس الأسبوعي بالإيميل",
-    error:"تعذّر تحميل طلب اليوم. تحقق من اتصالك وأعد تحميل الصفحة.",
-    other:"English",theme:["الوضع الفاتح","الوضع الداكن"],
-    foot:"موقع مستقل غير تابع لأي شركة ذكاء اصطناعي مذكورة فيه. الأمثلة ببيانات مختلَقة. اتبع سياسة شركتك.",
-    img:{head:"طلب اليوم",foot:"أحمد حسين · دروس الذكاء الاصطناعي",url:"ahmed-ai-lessons-website.vercel.app/today"}}
+  ar:{brand:"أحمد حسين",brandTag:"دروس الذكاء الاصطناعي",kicker:"برومبت النهارده",use:"استخدمه لما:",check:"مراجعتك:",
+    copy:"انسخ البرومبت",copied:"اتنسخ",copiedToast:"اتنسخ. املا الأقواس [ ] قبل ما تبعت.",
+    image:"شاركه كصورة",imageDone:"الصورة اتحفظت",shareLink:"شارك اللينك",linkCopied:"اللينك اتنسخ",
+    shareText:t=>`برومبت النهارده للشغل بالذكاء الاصطناعي: ${t}`,
+    next:"برومبت جديد كل يوم الساعة 12 بالليل بتوقيت الرياض.",
+    week:"برومبتات الأسبوع ده",today:"النهارده",
+    moreTitle:"عايز الـ30 برومبت دلوقتي؟",moreText:"اتفرّج على المكتبة كلها، أو خلّي درس يوصلك كل أسبوع على الإيميل.",
+    library:"افتح مكتبة البرومبتات",newsletter:"الدرس الأسبوعي على الإيميل",
+    error:"معرفناش نحمّل برومبت النهارده. اتأكد من النت واعمل ريفريش للصفحة.",
+    other:"English",theme:["الوضع الفاتح","الوضع الغامق"],
+    foot:"موقع مستقل ومش تبع أي شركة ذكاء اصطناعي مذكورة فيه. الأمثلة ببيانات مش حقيقية. امشي على سياسة شركتك.",
+    img:{head:"برومبت النهارده",foot:"أحمد حسين · دروس الذكاء الاصطناعي",url:"ahmed-ai-lessons-website.vercel.app/today"}}
 };
 const DAY = 86400000, RIYADH = 3 * 3600000;   // Riyadh is UTC+3 all year (no daylight saving)
 
@@ -168,7 +168,7 @@ function renderStatic() {
   $('#lang').textContent = t.other; $('#lang').lang = state.lang === 'ar' ? 'en' : 'ar';
   const dark = state.theme === 'dark';
   $('#theme').textContent = dark ? '☀' : '☾'; $('#theme').setAttribute('aria-label', t.theme[dark ? 0 : 1]);
-  if (state.data) document.title = (state.lang === 'ar' ? 'طلب اليوم: ' : 'Prompt of the day: ') + field(promptFor(state.day), 'title');
+  if (state.data) document.title = (state.lang === 'ar' ? 'برومبت النهارده: ' : 'Prompt of the day: ') + field(promptFor(state.day), 'title');
 }
 
 /* ---------- Share image: 1080×1350, the ledger page ---------- */

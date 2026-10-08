@@ -11,7 +11,7 @@ const SKIP = new Set(['ai']);
 // Other ways the lessons write the same idea.
 const EXTRA: Record<Lang, Record<string, string[]>> = {
   en: { template: ['template'], 'temporary-chat': ['temporary chat'], 'knowledge-cutoff': ['knowledge cutoff', 'cut-off date'], hallucination: ['hallucinate'], upload: ['upload'], llm: ['language model'], placeholder: ['placeholder'] },
-  ar: { 'temporary-chat': ['المحادثة المؤقتة'], template: ['القالب'], agent: ['الوكيل'], hallucination: ['يهلوس'], prompt: ['البرومبت', 'الطلب'] },
+  ar: { 'temporary-chat': ['الشات المؤقت', 'المحادثة المؤقتة'], template: ['القالب'], agent: ['الإيجنت', 'الوكيل'], hallucination: ['بيألّف', 'يهلوس'], prompt: ['البرومبت'] },
 };
 const strip = (s: string) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const terms = (data as any)[lang].glossary.terms

@@ -65,11 +65,11 @@ for (const tg of targets) {
   const min = tg.lesson ? await page.$eval('#time-left', e => e.dataset.min) : '';
   const kicker = tg.lesson
     ? `${info.kick[0]}  ·  ${info.kick[1]}`
-    : (tg.lang === 'ar' ? 'دروس مجانية بالعربية والإنجليزية' : 'Free lessons in English and Arabic');
+    : (tg.lang === 'ar' ? 'دروس ببلاش بالعربي والإنجليزي' : 'Free lessons in English and Arabic');
   const lede = tg.lesson ? '' : (info.lede.length > 130 ? info.lede.slice(0, info.lede.lastIndexOf(' ', 125)) + '…' : info.lede);
   // Leave the page first (a blank file on the same site), so none of its scripts touch the card.
   await page.goto(BASE + '/robots.txt');
-  await page.setContent(card({ lang: tg.lang, kicker, title: info.h1, lede: tg.lesson ? `${min} ${tg.lang === 'ar' ? 'دقائق قراءة' : 'min read'}` : lede }), { waitUntil: 'networkidle' });
+  await page.setContent(card({ lang: tg.lang, kicker, title: info.h1, lede: tg.lesson ? `${min} ${tg.lang === 'ar' ? 'دقايق قراية' : 'min read'}` : lede }), { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   // Shrink long titles until they fit three lines' worth of space.
   // Pages with an intro line keep the title to about two lines; lessons may use three.
