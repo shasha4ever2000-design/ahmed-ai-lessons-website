@@ -195,6 +195,10 @@
       "destination": "/glossary/index.html"
     },
     {
+      "source": "/my-prompts",
+      "destination": "/my-prompts/index.html"
+    },
+    {
       "source": "/lessons/:slug",
       "destination": "/lessons/:slug/index.html"
     },
@@ -217,6 +221,10 @@
     {
       "source": "/ar/glossary",
       "destination": "/ar/glossary/index.html"
+    },
+    {
+      "source": "/ar/my-prompts",
+      "destination": "/ar/my-prompts/index.html"
     },
     {
       "source": "/ar/lessons/:slug",

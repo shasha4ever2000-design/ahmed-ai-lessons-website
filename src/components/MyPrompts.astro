@@ -1,0 +1,104 @@
+---
+// "My prompts": the prompts a visitor saved from lessons. Everything lives in their browser,
+// so the page is built on their device; search engines are asked to skip it.
+import Base from '../layouts/Base.astro';
+import { T, pre, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang], P = t.prompts;
+const path = `${pre(lang)}/my-prompts/`;
+---
+<Base lang={lang} title={`${P.title} | ${t.siteName}`} description={P.lede} path={path} noindex>
+  <div class="wrap mp">
+    <header class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={lang === 'ar' ? '/ar/' : '/'}>{t.lesson.home}</a></li><li aria-current="page">{P.title}</li></ol></nav>
+      <h1>{P.title}</h1>
+      <p class="lede">{P.lede}</p>
+    </header>
+    <div class="mp__bar" id="mp-bar" hidden>
+      <p class="mono mp__count" id="mp-count" data-t={P.count}></p>
+      <button type="button" class="btn btn--line btn--sm" id="mp-all">{P.copyAll}</button>
+    </div>
+    <p class="visually-hidden" role="status" id="mp-status"></p>
+    <div class="mp__empty" id="mp-empty" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z"/></svg>
+      <p>{P.empty}</p>
+      <a class="btn btn--accent" href={`${pre(lang)}/lessons/`}>{P.browse}</a>
+    </div>
+    <ul class="mp__list" id="mp-list" role="list"
+      data-copy={P.copy} data-copied={P.copied} data-remove={P.remove} data-from={P.from} data-blank={P.blank} data-hint={P.fillHint}
+      data-copied-all={P.copiedAll} data-removed={P.removedToast}></ul>
+  </div>
+</Base>
+
+<script>
+  import { savedPrompts, removeSaved, type SavedPrompt } from '../domains/prompts/saved';
+  import { enhanceBlanks, syncBlanks, textWithBlanks } from '../domains/prompts/blanks';
+  import { toast } from '../domains/scenes/toast';
+
+  const list = document.getElementById('mp-list')!;
+  const S = list.dataset;
+  const status = document.getElementById('mp-status')!;
+  const esc = (s: string) => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+  async function copy(text: string) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.append(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch {} ta.remove(); return ok; }
+  }
+
+  function render() {
+    const items = savedPrompts();
+    document.getElementById('mp-empty')!.hidden = !!items.length;
+    document.getElementById('mp-bar')!.hidden = !items.length;
+    const c = document.getElementById('mp-count')!; c.textContent = c.dataset.t!.replace('{n}', String(items.length));
+    list.innerHTML = items.map((p: SavedPrompt) => `<li data-id="${esc(p.id)}">
+      <figure class="sheet mp__item" dir="${p.lang === 'ar' ? 'rtl' : 'ltr'}" lang="${esc(p.lang)}">
+        <div class="sheet__head"><figcaption class="sheet__label">${esc(p.label)}</figcaption>
+          <span class="mp__btns"><button type="button" class="btn btn--quiet btn--sm mp__remove">${esc(S.remove!)}</button>
+          <button type="button" class="btn btn--accent btn--sm mp__copy">${esc(S.copy!)}</button></span></div>
+        <p class="sheet__text" dir="auto">${esc(p.text)}</p>
+        <p class="mp__from">${esc(S.from!)} <a href="${p.lang === 'ar' ? '/ar' : ''}/lessons/${encodeURIComponent(p.slug)}/">${esc(p.lesson)}</a></p>
+      </figure></li>`).join('');
+    enhanceBlanks(list.querySelectorAll<HTMLElement>('.sheet__text'), S.blank!);
+  }
+  render();
+  syncBlanks(list);
+
+  list.addEventListener('click', async e => {
+    const el = e.target as Element, li = el.closest<HTMLElement>('li');
+    if (!li) return;
+    if (el.closest('.mp__copy')) {
+      const b = el.closest<HTMLButtonElement>('.mp__copy')!;
+      if (!(await copy(textWithBlanks(li.querySelector('.sheet__text')!)))) return;
+      b.textContent = S.copied!; status.textContent = S.copied!;
+      setTimeout(() => (b.textContent = S.copy!), 1600);
+    } else if (el.closest('.mp__remove')) {
+      // After the card goes, focus the card that took its place (or the empty-state link).
+      const at = [...list.children].indexOf(li);
+      removeSaved(li.dataset.id!);
+      render();
+      const copies = list.querySelectorAll<HTMLElement>('.mp__copy');
+      (copies[Math.min(at, copies.length - 1)] || document.querySelector<HTMLElement>('#mp-empty a'))?.focus();
+      toast(S.removed!);
+    }
+  });
+  document.getElementById('mp-all')!.addEventListener('click', async () => {
+    const text = [...list.querySelectorAll('li')].map(li => `${li.querySelector('.sheet__label')!.textContent}\n${textWithBlanks(li.querySelector('.sheet__text')!)}`).join('\n\n---\n\n');
+    if (await copy(text)) { toast(S.copiedAll!); status.textContent = S.copiedAll!; }
+  });
+  // Another tab saved or removed something: show the same list here.
+  addEventListener('storage', e => { if (e.key === 'ahl:saved') render(); });
+</script>
+
+<style>
+  .mp{padding-bottom:80px}
+  .mp__bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px}
+  .mp__bar[hidden],.mp__empty[hidden]{display:none}
+  .mp__count{margin:0;color:var(--text-2)}
+  .mp__list{list-style:none;margin:0;padding:0;display:grid;gap:18px;max-width:860px}
+  .mp__list :global(.mp__btns){display:flex;gap:8px;flex-wrap:wrap}
+  .mp__list :global(.mp__from){margin:0;padding:10px 16px 14px;font-size:.88rem;color:var(--text-2);border-top:1px dashed var(--line)}
+  .mp__empty{display:grid;justify-items:start;gap:14px;max-width:560px;padding:28px;border:1px dashed var(--line-2);border-radius:var(--radius);background:var(--surface)}
+  .mp__empty svg{width:40px;height:40px;color:var(--accent-text)}
+  .mp__empty p{margin:0;color:var(--text-2)}
+</style>

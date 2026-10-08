@@ -22,6 +22,9 @@ npm run build    # static site in dist/
 | Homepage, lesson page, lists | `src/components/` |
 | 3D lattice room (adapts to the device; slow devices keep a still frame) | `src/domains/scenes/lattice.ts` |
 | Animation, saved progress, search logic | `src/domains/` (motion, learning, search, scenes) |
+| Prompt blanks, Save button, "My prompts" page | `src/components/LessonPromptTools.astro`, `src/components/MyPrompts.astro`, `src/domains/prompts/` |
+| Glossary pop-ups inside lessons (which words, extra spellings) | `src/components/TermPops.astro` |
+| Phone "On this page" button | `src/components/TocSheet.astro` |
 | Site search (button, `/` or Ctrl+K) | `src/components/Search.astro`; index built by `src/pages/search/[lang].json.ts` |
 | App icon and install details | `public/manifest.webmanifest`, `public/media/icon-*.png`, `public/favicon.svg` |
 | Standalone tools (Prompt Grader, quiz, time saved, certificate, prompt of the day, Prompt Library, links) | `public/*.html`, styled by `public/ahl-theme.css` |
@@ -42,4 +45,6 @@ The lessons list, track pages, pager, sitemap, site search and Start Here progre
 
 Progress lives in the visitor's browser under the same keys as before, so nobody loses their ticks:
 `ahl:done` (finished lessons), `ahl:cert` (step 1 and certificate details), `ahl:theme` (light or dark),
-`ahl:last` (the lesson you were reading and how far you got, for "Continue where you stopped").
+`ahl:last` (the lesson you were reading and how far you got, for "Continue where you stopped"),
+`ahl:saved` (prompts saved to "My prompts") and `ahl:blanks` (what was typed into prompt blanks, by blank name).
+With no saved theme, the site follows the device's light or dark setting.

@@ -44,6 +44,7 @@ export async function GET({ params }: { params: { lang: Lang } }) {
     { k: 'page', t: d.glossary.title, s: d.glossary.lede, u: `${p}/glossary/` },
     { k: 'page', t: t.home.startH, s: t.home.startP, u: `${home}#start` },
     { k: 'page', t: t.home.bH, s: t.home.bP, u: `${home}#builder` },
+    { k: 'page', t: t.prompts.title, s: t.prompts.lede, u: `${p}/my-prompts/` },
   );
   return new Response(JSON.stringify(out), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
 }
