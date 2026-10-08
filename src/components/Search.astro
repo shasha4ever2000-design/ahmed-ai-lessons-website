@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 // Site search: a header button and a dialog. Opens with the button, "/" or Ctrl/Cmd+K.
 // The index (built by src/pages/search/[lang].json.ts) loads the first time search opens.
 import { T, type Lang } from '../i18n';
@@ -7,7 +8,7 @@ const { lang } = Astro.props;
 const S = T[lang].search;
 ---
 <button class="search-btn" type="button" id="search-open" aria-haspopup="dialog" aria-label={S.label} hidden>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  <Icon name="magnifying-glass" />
   <span class="search-btn__label">{S.open}</span><kbd class="search-btn__key" aria-hidden="true">/</kbd>
 </button>
 <dialog class="search" id="search" aria-labelledby="search-title" data-lang={lang}
@@ -15,7 +16,7 @@ const S = T[lang].search;
   <div class="search__box">
     <h2 id="search-title" class="visually-hidden">{S.label}</h2>
     <div class="search__field">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <Icon name="magnifying-glass" />
       <input id="search-q" type="search" role="combobox" aria-expanded="false" aria-controls="search-list" aria-autocomplete="list"
         placeholder={S.placeholder} aria-label={S.label} autocomplete="off" spellcheck="false" enterkeyhint="go" />
       <button class="search__close" type="button" id="search-close" aria-label={T[lang].close}>Esc</button>
@@ -145,7 +146,7 @@ const S = T[lang].search;
 
   .search{padding:0;border:0;background:transparent;width:min(680px,calc(100vw - 24px));max-height:none;margin:min(12vh,96px) auto auto;color:var(--text);overflow:visible}
   .search::backdrop{background:rgb(10 7 5 / .62);backdrop-filter:blur(3px)}
-  .search__box{border:1px solid var(--line-2);border-radius:18px;box-shadow:0 30px 80px rgb(0 0 0 / .45);overflow:hidden;display:flex;flex-direction:column;max-height:min(72vh,640px)}
+  .search__box{border:1px solid var(--line-2);border-radius:18px;box-shadow:0 30px 80px rgb(24 14 6 / .45);overflow:hidden;display:flex;flex-direction:column;max-height:min(72vh,640px)}
   .search__field{display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--line)}
   .search__field svg{width:20px;height:20px;color:var(--accent-text);flex:none}
   .search__field input{flex:1;min-width:0;height:60px;border:0;background:transparent;color:var(--text);font:inherit;font-size:1.1rem;outline:none}

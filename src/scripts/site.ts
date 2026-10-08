@@ -39,8 +39,12 @@ on('learning:lesson-completed', ({ total }) => {
 });
 
 // The header shows its edge only once there's content scrolled underneath it.
-const edge = () => document.documentElement.classList.toggle('is-scrolled', scrollY > 4);
-edge(); addEventListener('scroll', edge, { passive: true });
+// A 1px marker at the top of the page tells us, without listening to every scroll.
+const marker = document.createElement('div');
+marker.setAttribute('aria-hidden', 'true');
+marker.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:4px;pointer-events:none';
+document.body.prepend(marker);
+new IntersectionObserver(([e]) => document.documentElement.classList.toggle('is-scrolled', !e.isIntersecting)).observe(marker);
 
 // A light vibration for the moments that matter (Android), on the same frame as the visual.
 on('learning:lesson-completed', () => haptic('success'));

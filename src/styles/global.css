@@ -64,7 +64,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .skip:focus{top:12px}
 section.block{padding-block:clamp(56px,8vw,104px)}
 .head{display:grid;gap:12px;max-width:44rem;margin-bottom:36px}
-.head h2{font-size:clamp(2rem,1.3rem + 2.4vw,3.2rem)}
+.head h2{font-size:clamp(1.9rem,1.2rem + 1.8vw,2.75rem)}
 .head p{color:var(--muted)}
 .head--row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;max-width:none}
 .head--row>div{display:grid;gap:12px;max-width:44rem}

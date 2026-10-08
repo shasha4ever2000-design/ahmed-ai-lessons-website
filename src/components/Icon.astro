@@ -1,0 +1,13 @@
+---
+// One icon family for the whole site: Phosphor (MIT). The SVG is read at build time and
+// inlined, so there is no icon font or extra request. Usage: <Icon name="magnifying-glass" />
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+interface Props { name: string; weight?: 'regular' | 'fill' | 'bold'; class?: string; size?: number; [attr: string]: unknown }
+// Other attributes (including the parent's style-scope attribute) pass through to the <svg>.
+const { name, weight = 'regular', class: cls, size, ...rest } = Astro.props;
+const require = createRequire(import.meta.url);
+const raw = readFileSync(require.resolve(`@phosphor-icons/core/assets/${weight}/${name}${weight === 'regular' ? '' : '-' + weight}.svg`), 'utf8');
+const inner = raw.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+---
+<svg class:list={['ph', cls]} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false" width={size} height={size} {...rest} set:html={inner} />

@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import LessonCard from './LessonCard.astro';
@@ -17,6 +18,7 @@ const bySlug = Object.fromEntries(lessons.map(l => [l.data.slug, l]));
 const FEATURED = ['set-up-chatgpt-for-work', 'claude-projects', 'prompt-patterns', 'summarize-documents-and-meetings', 'excel-formulas-and-cleanup', 'month-end-close-with-ai'];
 const counts = Object.fromEntries(Object.keys(TRACKS).map(k => [k, lessons.filter(l => l.data.track === k).length]));
 const faq = (data as any)[lang].faq;
+const TOOL_ICON: Record<string, string> = { '/prompt-of-the-day': 'calendar-check', '/prompt-grader': 'gauge', '/ai-tool-quiz': 'compass', '/time-saved': 'hourglass-medium', '/prompt-library': 'books' };
 const path = lang === 'ar' ? '/ar/' : '/';
 const jsonld = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: t.siteName, url: SITE + path, inLanguage: lang, description: h.description },
@@ -35,7 +37,6 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
         <h1 id="hero-h" class="rise" style="--d:calc(var(--intro-d) + .1s)">{h.h1.split(' ').map((w, i) => <><span class="w" style={`--i:${i}`}>{w}</span>{' '}</>)}</h1>
         <p class="lede fade-up" style="--d:calc(var(--intro-d) + .55s)">{h.lead}</p>
         <div class="hero__cta fade-up" style="--d:calc(var(--intro-d) + .7s)"><a class="btn btn--accent" href="#builder">{h.cta1}</a><a class="btn btn--line" href="#start">{h.cta2}</a></div>
-        <ul class="hero__stats fade-up" style="--d:calc(var(--intro-d) + .85s)" role="list">{h.stats.map(s => { const m = s.match(/^(\d+)(.*)$/); return <li>{m ? <span><span data-count={m[1]}>{m[1]}</span>{m[2]}</span> : s}</li>; })}</ul>
         <div class="hero__continue"><ContinueCard lang={lang} /></div>
       </div>
       <div class="room fade-up" id="room" style="--d:calc(var(--intro-d) + .3s)">
@@ -81,7 +82,7 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
       <ol class="arches" role="list" data-reveal-stagger>
         {startSteps.map((s, i) => (
           <li class="arch" data-step={i} data-slug={s.slug}>
-            <span class="arch__n" aria-hidden="true"><span class="arch__num">{i + 1}</span><svg class="arch__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <span class="arch__n" aria-hidden="true"><span class="arch__num">{i + 1}</span><Icon name="check" weight="bold" class="arch__tick" /></span>
             <h3><a href={s.href}>{s[lang][0]}</a></h3>
             <p>{s[lang][1]}</p>
             <span class="arch__min mono">{fill(t.lesson.read, { n: s.minutes ?? 7 })}</span>
@@ -100,10 +101,14 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
       <div class="courts" data-reveal-stagger>
         {Object.entries(TRACKS).map(([k, tr]) => (
           <article class="court" data-tilt>
+            {/* Each track is the same room at a different hour: noon, dawn, dusk. */}
+            <img class="court__img" src={`/media/court-${({ 'ai-for-work': 'noon', finance: 'dawn', 'microsoft-365': 'dusk' } as Record<string, string>)[k]}.webp`} alt="" width="960" height="720" loading="lazy" decoding="async" />
+            <div class="court__body">
             <span class="mono court__n">{fill(t.list.count, { n: counts[k] })}</span>
             <h3><a href={p + tr.href}>{tr[lang]}</a></h3>
             <p>{(h.trackText as any)[k]}</p>
-            <span class="court__go" aria-hidden="true">{h.open} <svg class="icon icon-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="court__go" aria-hidden="true">{h.open} <Icon name="arrow-right" class="icon icon-flip" /></span>
+            </div>
           </article>
         ))}
       </div>
@@ -121,7 +126,7 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
     <div class="wrap tools-grid">
       <div class="head" data-reveal><h2 id="tools-h">{h.toolsH}</h2><p>{h.toolsP}</p></div>
       <ul class="tool-list" role="list" data-reveal-stagger>
-        {FREE_TOOLS.map(ft => { const [n, d] = lang === 'ar' ? ft.arT : ft.en; return <li><a href={lang === 'ar' ? ft.ar : ft.href}><span class="tool-list__n">{n}</span><span class="tool-list__d">{d}</span></a></li>; })}
+        {FREE_TOOLS.map(ft => { const [n, d] = lang === 'ar' ? ft.arT : ft.en; return <li><a href={lang === 'ar' ? ft.ar : ft.href}><Icon name={TOOL_ICON[ft.href] || 'wrench'} class="tool-list__i" /><span class="tool-list__n">{n}</span><span class="tool-list__d">{d}</span></a></li>; })}
       </ul>
     </div>
   </section>
@@ -150,13 +155,11 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
 <style>
   /* hero */
   .hero{padding-block:clamp(24px,4vw,48px) clamp(48px,7vw,88px)}
-  .hero__grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center}
-  .hero h1{font-size:clamp(2.5rem,1.4rem + 3.6vw,4.5rem);margin-block:12px 18px}
+  .hero__grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);gap:clamp(24px,4vw,56px);align-items:center}
+  .hero h1{font-size:clamp(2.5rem,1.2rem + 3vw,4rem);margin-block:12px 20px}
+  .hero .lede{max-width:34rem}
   .hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-  .hero__stats{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;color:var(--muted);font-size:.92rem}
-  .hero__stats li{display:flex;align-items:center;gap:8px}
-  .hero__stats li::before{content:"";width:7px;height:7px;transform:rotate(45deg);background:var(--accent)}
-  .room{position:relative;aspect-ratio:.9;border-radius:220px 220px 18px 18px;overflow:hidden;border:1px solid var(--line-2);background:#16100c;max-width:100%}
+  .room{position:relative;aspect-ratio:.8;border-radius:220px 220px 18px 18px;overflow:hidden;border:1px solid var(--line-2);background:#16100c;max-width:100%}
   .room :global(canvas),.room__poster{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover}
   .room__poster{transition:opacity .6s}
   .room.is-live .room__poster{opacity:0}
@@ -217,10 +220,17 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   @media (max-width:560px){.arches{grid-template-columns:repeat(2,minmax(0,1fr))}.arch{padding-top:22px}}
 
   /* courtyards */
-  .courts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-  .court{position:relative;border-radius:var(--radius);padding:26px 22px 22px;display:grid;gap:10px;align-content:start;background:var(--surface);border:1px solid var(--line);overflow:hidden}
-  .court::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:repeating-linear-gradient(90deg,var(--tile) 0 14px,transparent 14px 20px)}
+  /* Bento: the main track is a tall tile; the other two stack beside it with their picture at the side. */
+  .courts{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:auto auto;gap:16px}
+  .court{position:relative;border-radius:var(--radius);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);background:var(--surface);border:1px solid var(--line);overflow:hidden}
+  .court:first-child{grid-row:span 2;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+  .court__img{width:100%;height:100%;min-height:180px;object-fit:cover;display:block;transition:transform var(--spring-t,.5s) var(--spring,ease)}
+  .court:first-child .court__img{aspect-ratio:4/3;height:auto}
+  .court:hover .court__img{transform:scale(1.04)}
+  .court__body{padding:22px;display:grid;gap:10px;align-content:center}
+  .court:first-child .court__body{padding:24px 26px 26px}
   .court h3{font-size:1.6rem}
+  .court:first-child h3{font-size:clamp(1.8rem,1.3rem + 1vw,2.3rem)}
   .court h3 a{text-decoration:none}
   .court h3 a::after{content:"";position:absolute;inset:0}
   .court:has(a:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
@@ -230,17 +240,21 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   .court__n{color:var(--tile-text);font-size:.85rem}
   .court__go{display:inline-flex;align-items:center;gap:6px;color:var(--accent-text);font-weight:600}
   .court__go .icon{width:18px;height:18px}
-  @media (max-width:860px){.courts{grid-template-columns:minmax(0,1fr)}}
+  @media (max-width:860px){.courts{grid-template-columns:minmax(0,1fr)}.court,.court:first-child{grid-row:auto;grid-template-columns:minmax(0,1fr)}.court__img{aspect-ratio:16/9;height:auto;min-height:0}}
 
   /* tools */
   .tools-sec{background:var(--surface);border-block:1px solid var(--line)}
-  .tools-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 48px;align-items:start}
-  .tool-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-2)}
-  .tool-list a{display:grid;gap:2px;padding:16px 4px;border-bottom:1px solid var(--line-2);text-decoration:none}
-  .tool-list__n{font:600 1.2rem var(--display)}
-  .tool-list__d{color:var(--muted);font-size:.95rem}
+  /* Five tools in one row of tiles; on smaller screens the row scrolls sideways and snaps. */
+  .tools-grid{display:grid;gap:28px}
+  .tool-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  .tool-list a{display:grid;align-content:start;gap:6px;height:100%;padding:20px 18px 22px;border-radius:var(--radius);border:1px solid var(--line);background:var(--bg);text-decoration:none;transition:border-color .25s,transform var(--spring-fast,.4s) var(--spring,ease)}
+  .tool-list a:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .tool-list__i{width:30px;height:30px;color:var(--accent-text);margin-bottom:6px}
+  .tool-list__n{font:600 1.15rem/1.3 var(--display)}
+  .tool-list__d{color:var(--text-2);font-size:.92rem}
   .tool-list a:hover .tool-list__n{color:var(--accent-text)}
-  @media (max-width:860px){.tools-grid{grid-template-columns:minmax(0,1fr)}}
+  @media (max-width:1100px){.tool-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(230px,42%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:thin}.tool-list li{scroll-snap-align:start}}
+  @media (max-width:560px){.tool-list{grid-auto-columns:78%}}
 
   .hero__continue{margin-top:22px}
   .hero__continue:has(> [hidden]){display:none}
@@ -253,7 +267,8 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   @media (max-width:760px){.about{grid-template-columns:minmax(0,1fr)}.about figure{max-width:260px}}
 
   /* faq */
-  .faq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:32px}
+  /* Stacked: question list under its heading, in a readable column. */
+  .faq{display:grid;gap:24px;max-width:820px}
   .faq h2{font-size:clamp(2rem,1.3rem + 2vw,3rem)}
   .faq__list{border-top:1px solid var(--line)}
   .faq details{border-bottom:1px solid var(--line)}
@@ -262,7 +277,6 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   .faq summary::after{content:"+";color:var(--accent-text);font-size:1.3rem;line-height:1}
   .faq details[open] summary::after{content:"−"}
   .faq details div{padding:0 4px 18px;color:var(--text-2)}
-  @media (max-width:760px){.faq{grid-template-columns:minmax(0,1fr)}}
 
   /* motion hooks */
   .hero{--intro-d:.15s}
@@ -280,15 +294,8 @@ const startSteps = START.map((s, i) => ({ ...s, href: i === 0 ? '#builder' : `${
   :global(.motion) .arch.is-next{animation:arch-glow 2.6s ease-in-out infinite}
   @keyframes arch-glow{0%,100%{box-shadow:0 0 0 0 rgb(242 163 58 / 0)}50%{box-shadow:0 0 34px -4px rgb(242 163 58 / .45)}}
   .arch.is-done .arch__n{animation:pop .6s var(--ease-spring)}
-  .court::before{transition:background-position .8s var(--ease-out)}
-  .court:hover::before{background-position:40px 0}
-  .tool-list a{transition:padding .35s var(--ease-out),background .35s}
-  .tool-list a:hover{padding-inline-start:14px;background:linear-gradient(90deg,var(--accent-soft),transparent)}
-  :global([dir=rtl]) .tool-list a:hover{background:linear-gradient(270deg,var(--accent-soft),transparent)}
   .hero{position:relative;overflow:clip}
   .hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:140%;pointer-events:none;z-index:-1;background:repeating-linear-gradient(115deg,transparent 0 60px,rgb(242 163 58 / .05) 60px 90px);-webkit-mask:radial-gradient(60% 60% at 70% 40%,#000,transparent);mask:radial-gradient(60% 60% at 70% 40%,#000,transparent)}
-  :global(.motion) .hero::before{animation:rays 18s linear infinite}
-  @keyframes rays{from{background-position:0 0}to{background-position:300px 0}}
 </style>
 
 <script>

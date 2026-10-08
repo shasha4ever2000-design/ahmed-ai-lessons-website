@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from './Newsletter.astro';
 import { T, SITE, fill, pre, type Lang } from '../i18n';
@@ -20,7 +21,7 @@ const path = `${p}/tools/`;
       <p class="note">{lib.note}</p>
     </header>
     <div class="bar">
-      <label class="search"><span class="visually-hidden">{tt.search}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="tq" type="search" placeholder={tt.placeholder} autocomplete="off" /></label>
+      <label class="search"><span class="visually-hidden">{tt.search}</span><Icon name="magnifying-glass" /><input id="tq" type="search" placeholder={tt.placeholder} autocomplete="off" /></label>
       <div class="chips" role="group" aria-label={tt.search}><button class="chip" type="button" data-cat="" aria-pressed="true">{tt.all}</button>{cats.map(c => <button class="chip" type="button" data-cat={c} aria-pressed="false">{c}</button>)}</div>
     </div>
     <p class="count mono" id="tcount" aria-live="polite" data-t={tt.count} data-none={tt.none}>{fill(tt.count, { n: lib.tools.length })}</p>

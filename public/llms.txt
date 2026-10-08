@@ -5,7 +5,7 @@
 Audience: office workers, finance and accounting teams, CMA students and beginners, especially in Saudi Arabia and the Gulf. Every page has an Arabic version under /ar/ (for example https://ahmed-ai-lessons-website.vercel.app/ar/lessons/prompt-patterns/). Independent site, not affiliated with OpenAI, Anthropic, Google or Microsoft.
 
 ## Start here
-- [Ahmed Hussein — AI lessons in plain words](https://ahmed-ai-lessons-website.vercel.app/): Free, short lessons that show you how to get real work done with Claude and ChatGPT. No tech background needed. In English and Arabic.
+- [Ahmed Hussein: AI lessons in plain words](https://ahmed-ai-lessons-website.vercel.app/): Free, short lessons that show you how to get real work done with Claude and ChatGPT. No tech background needed. In English and Arabic.
 - [The 4-part prompt (free lesson)](https://ahmed-ai-lessons-website.vercel.app/#free-lesson): Role, task, context and format, the structure behind every lesson on the site.
 - [Your Start Here certificate](https://ahmed-ai-lessons-website.vercel.app/certificate): Finish the six Start Here lessons and get a free certificate of completion you can download and add to LinkedIn. English and Arabic.
 
