@@ -62,5 +62,25 @@ if (bar) {
   set(); addEventListener('scroll', set, { passive: true }); addEventListener('resize', set, { passive: true });
 }
 
+// Moving into a lesson: the card you pressed lends its title to the page transition, so the title
+// travels into place. Going back, the same card receives it. Only one element may carry the name at a time.
+const VT = 'lesson-title';
+const clearVT = () => document.querySelectorAll<HTMLElement>('.lesson-card h2, .lesson-card h3').forEach(h => (h.style.viewTransitionName = ''));
+document.addEventListener('click', e => {
+  const a = (e.target as Element).closest<HTMLAnchorElement>('.lesson-card a');
+  if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+  clearVT();
+  (a.closest('h2, h3') as HTMLElement).style.viewTransitionName = VT;
+});
+addEventListener('pageshow', clearVT);
+addEventListener('pagereveal', (e: any) => {
+  const from: string | undefined = (window as any).navigation?.activation?.from?.url;
+  const slug = from && new URL(from).pathname.match(/\/lessons\/([^/]+)\/$/)?.[1];
+  const h = slug && document.querySelector<HTMLElement>(`.lesson-card[data-slug="${slug}"] h2, .lesson-card[data-slug="${slug}"] h3`);
+  if (!e.viewTransition || !h || document.querySelector('.lesson-title')) return;
+  h.style.viewTransitionName = VT;
+  e.viewTransition.finished.finally(clearVT);
+});
+
 // Expose for quick checks in the browser console (no effect on visitors).
 (window as any).__ahlMotion = motion;

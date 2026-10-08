@@ -83,3 +83,18 @@ html.theme-fading,html.theme-fading *{transition:background-color .35s ease,colo
   .site-head{border-width:0 0 2px}
   .blank{border-bottom-style:solid}
 }
+
+/* ---- Moving between pages: a soft cross-fade, and a lesson's title travels from its card into the page ----
+   (Browsers without cross-page view transitions simply load the page as before.) */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+}
+.site-head{view-transition-name:site-head}
+.lesson-title{view-transition-name:lesson-title}
+::view-transition-old(root){animation:vt-out .2s ease both}
+::view-transition-new(root){animation:vt-in .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0;transform:translateY(10px)}}
+::view-transition-group(lesson-title){animation-duration:.5s;animation-timing-function:var(--spring)}
+::view-transition-old(lesson-title),::view-transition-new(lesson-title){height:100%;object-fit:none;object-position:var(--vt-pos,left) top}
+[dir=rtl]{--vt-pos:right}
