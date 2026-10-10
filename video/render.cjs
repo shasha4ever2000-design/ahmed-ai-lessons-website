@@ -30,7 +30,7 @@ const OUT = path.join(__dirname, 'out'); fs.mkdirSync(OUT, { recursive: true });
       console.log(r.status === 0 ? 'wrote ' + out : 'sheet failed');
     } else {
       const from = +(a.from || 0), to = Math.min(+(a.to || info.duration), info.duration), out = a.out || path.join(OUT, `promo-${lang}.mp4`);
-      const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], { stdio: ['pipe', 'ignore', 'inherit'] });
+      const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], { stdio: ['pipe', 'ignore', 'inherit'] });
       const n = Math.round((to - from) * fps), t0 = Date.now();
       for (let i = 0; i < n; i++) {
         const buf = await shoot(from + i / fps);
